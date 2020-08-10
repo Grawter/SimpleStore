@@ -16,11 +16,10 @@ namespace SimpleStore.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
+        public IActionResult Register() => View();
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -90,6 +89,7 @@ namespace SimpleStore.Controllers
             }
             return View(model);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()

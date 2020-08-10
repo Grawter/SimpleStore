@@ -1,0 +1,55 @@
+﻿@model SimpleStore.ViewModels.CreateUserViewModel
+@{
+    ViewBag.Title = "Добавление пользователя";
+}
+<form asp-action="Create" asp-controller="Admin">
+    <div>
+        <label asp-for="Name"></label><br />
+        <input asp-for="Name" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div>
+        <label asp-for="SurName"></label><br />
+        <input asp-for="SurName" />
+        <span asp-validation-for="SurName"></span>
+    </div>
+    <div>
+        <label asp-for="Address"></label><br />
+        <textarea asp-for="Address"></textarea>
+        <span asp-validation-for="Address"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNumber"></label><br />
+        <input asp-for="PhoneNumber" />
+        <span asp-validation-for="PhoneNumber"></span>
+    </div>
+    <div>
+        <label asp-for="Day"></label><br />
+        <input asp-for="Day" />
+        <span asp-validation-for="Day"></span>
+    </div>
+    <div>
+        <label asp-for="Mount"></label><br />
+        <input asp-for="Mount" />
+        <span asp-validation-for="Mount"></span>
+    </div>
+    <div>
+        <label asp-for="Year"></label><br />
+        <input asp-for="Year" />
+        <span asp-validation-for="Year"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label><br />
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label><br />
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+    </div>
+</form>
