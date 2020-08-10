@@ -46,5 +46,15 @@ namespace SimpleStore.Controllers
             }
             return View(model);
         }
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> CheckEmail(string Email)
+        {
+            var res = await _userManager.FindByEmailAsync(Email);
+
+            if (res != null) // если найдено совпадение емайлов
+                return Json(false);
+           
+            return Json(true);
+        }
     }
 }
