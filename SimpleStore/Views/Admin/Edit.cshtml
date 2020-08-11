@@ -1,4 +1,5 @@
 ﻿@model SimpleStore.ViewModels.EditUserViewModel
+
 @{
     ViewBag.Title = "Редактирование пользователя";
 }
@@ -50,5 +51,8 @@
     </div>
     <div class="form-group">
         <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+    </div>
+    <div>
+        <a asp-action="Index">Назад</a>
     </div>
 </form>

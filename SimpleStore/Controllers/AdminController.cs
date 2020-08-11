@@ -9,7 +9,7 @@ namespace SimpleStore.Controllers
 {
     public class AdminController : Controller
     {
-        UserManager<User> _userManager;
+        private readonly UserManager<User> _userManager;
 
         public AdminController(UserManager<User> userManager)
         {
@@ -18,6 +18,7 @@ namespace SimpleStore.Controllers
 
         public IActionResult Index() => View(_userManager.Users.ToList());
 
+        [HttpGet]
         public IActionResult Create() => View();
 
         [HttpPost]
@@ -43,6 +44,7 @@ namespace SimpleStore.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
@@ -97,7 +99,7 @@ namespace SimpleStore.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                IdentityResult result = await _userManager.DeleteAsync(user);
+                await _userManager.DeleteAsync(user);
             }
             return RedirectToAction("Index");
         }
