@@ -7,21 +7,23 @@
 <a asp-action="Create" asp-controller="Admin">Добавить пользователя</a>
 
 <table class="table">
-    <tr><th>Email</th><th>Имя</th><th>Фамилия</th><th></th></tr>
+    <tr><th>Email</th><th>Номер телефона</th><th>Имя</th><th>Фамилия</th><th></th></tr>
     @foreach (var user in Model)
-    {
+     {
 <tr>
     <td>@user.Email</td>
+    <td>@user.PhoneNumber</td>
     <td>@user.Name</td>
     <td>@user.Surname</td>
     <td>
         <form method="post" asp-action="Delete" asp-route-id="@user.Id">
             <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
+            <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
             <button type="submit" class="btn btn-sm btn-danger">
                 Удалить
             </button>
         </form>
     </td>
 </tr>
-    }
+     }
 </table>
