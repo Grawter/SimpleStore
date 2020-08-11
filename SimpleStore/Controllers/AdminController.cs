@@ -101,12 +101,12 @@ namespace SimpleStore.Controllers
             {
                 return NotFound();
             }
-            ChangePasswordViewModel model = new ChangePasswordViewModel { Id = user.Id, Email = user.Email };
+            AdmChangePassViewModel model = new AdmChangePassViewModel { Id = user.Id, Email = user.Email };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePassword(AdmChangePassViewModel model)
         {
             if (ModelState.IsValid)
             {
