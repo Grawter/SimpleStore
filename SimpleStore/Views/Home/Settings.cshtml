@@ -1,0 +1,20 @@
+﻿@model IEnumerable<SimpleStore.Models.User>
+
+@{
+    ViewData["Title"] = "Settings Page";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
+
+    <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="Index" asp-route-id="@aUser.Id">Назад</a>
+    <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="EditData" asp-route-id="@aUser.Id">Изменить данные пользователя</a>
+    <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="ChangeEmail" asp-route-id="@aUser.Id">Изменить электронный адрес</a>
+    <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="ChangePassword" asp-route-id="@aUser.Id">Изменить пароль</a>
+}
+else
+{
+    <a asp-controller="Account" asp-action="Login">Вход</a>
+    <a asp-controller="Account" asp-action="Register">Регистрация</a>
+}

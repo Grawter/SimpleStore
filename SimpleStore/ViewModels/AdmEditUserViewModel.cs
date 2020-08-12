@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SimpleStore.ViewModels
 {
-    public class EditUserViewModel
+    public class AdmEditUserViewModel
     {
         public string Id { get; set; }
 

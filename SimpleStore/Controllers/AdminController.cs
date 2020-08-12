@@ -22,7 +22,7 @@ namespace SimpleStore.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserViewModel model)
+        public async Task<IActionResult> Create(AdmCreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -52,14 +52,14 @@ namespace SimpleStore.Controllers
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel { Id = user.Id, Name = user.Name, SurName = user.Surname, 
+            AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, Name = user.Name, SurName = user.Surname, 
                 Address = user.Address, PhoneNumber = user.PhoneNumber, Day = user.Day, Mount = user.Mount, Year = user.Year,
                 Email = user.Email };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserViewModel model)
+        public async Task<IActionResult> Edit(AdmEditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +88,10 @@ namespace SimpleStore.Controllers
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
                     }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
                 }
             }
             return View(model);

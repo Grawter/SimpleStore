@@ -22,17 +22,18 @@ namespace SimpleStore.Controllers
 
         public IActionResult Index() => View(_userManager.Users.ToList());
 
-        public IActionResult Privacy() => View();
+        [HttpGet]
+        public IActionResult Settings() => View(_userManager.Users.ToList());
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> EditData(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            EditUserViewModel model = new EditUserViewModel
+            UserEditDataViewModel model = new UserEditDataViewModel
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -42,13 +43,12 @@ namespace SimpleStore.Controllers
                 Day = user.Day,
                 Mount = user.Mount,
                 Year = user.Year,
-                Email = user.Email
             };
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditUserViewModel model)
+        public async Task<IActionResult> EditData(UserEditDataViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +62,45 @@ namespace SimpleStore.Controllers
                     user.Day = model.Day;
                     user.Mount = model.Mount;
                     user.Year = model.Year;
+
+                    var result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeEmail(string id)
+        {
+            User user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            UserChangeEmailViewModel model = new UserChangeEmailViewModel { Id = user.Id, Name = user.Name, SurName = user.Surname, Email = user.Email };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeEmail(UserChangeEmailViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.FindByIdAsync(model.Id);
+                
+                if (user != null)
+                {
                     user.Email = model.Email;
                     user.UserName = model.Email;
 
@@ -77,6 +116,10 @@ namespace SimpleStore.Controllers
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
                     }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
                 }
             }
             return View(model);
@@ -105,7 +148,7 @@ namespace SimpleStore.Controllers
                     IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index");
+                        return RedirectToAction("Login", "Account");
                     }
                     else
                     {

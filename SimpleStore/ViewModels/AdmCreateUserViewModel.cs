@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SimpleStore.ViewModels
 {
-    public class CreateUserViewModel
+    public class AdmCreateUserViewModel
     {
         [Required(ErrorMessage = "Не указано имя")]
         [Display(Name = "Имя")]
