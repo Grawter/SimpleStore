@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimpleStore.ViewModels
+namespace SimpleStore.ViewModels.Admin
 {
     public class AdmChangePassViewModel
     {

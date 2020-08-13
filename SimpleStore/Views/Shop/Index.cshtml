@@ -1,0 +1,24 @@
+﻿@model IEnumerable<SimpleStore.Models.Shop.Phone>
+
+@{
+    ViewBag.Title = "Все пользователи";
+}
+
+<a asp-action="Create">Добавить товар</a>
+<table class="table">
+    <tr>
+        <td>Название</td>
+        <td>Компания</td>
+        <td>Цена</td>
+        <td>Наличие</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>@item.Name</td>
+    <td>@item.Price Руб</td>
+    <td>@item.Company</td>
+    <td>@item.Availability</td>
+</tr>
+    }
+</table>

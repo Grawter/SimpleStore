@@ -1,0 +1,34 @@
+﻿@model SimpleStore.Models.Shop.Phone
+
+@{
+    ViewBag.Title = "Добавление пользователя";
+}
+
+<form asp-action="Create" asp-controller="Shop">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label><br />
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Company" class="control-label"></label><br />
+        <input asp-for="Company" class="form-control" />
+        <span asp-validation-for="Company"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label><br />
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Availability" class="control-label"></label><br />
+        <input asp-for="Availability" class="form-control" />
+        <span asp-validation-for="Availability"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Добавить" class="btn btn-outline-secondary"/>
+    </div>
+    <div>
+        <a asp-action="Index">Назад</a>
+    </div>
+</form>

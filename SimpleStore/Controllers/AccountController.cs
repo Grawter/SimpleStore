@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SimpleStore.ViewModels;
-using SimpleStore.Models;
 using Microsoft.AspNetCore.Identity;
+using SimpleStore.Models;
+using SimpleStore.ViewModels.Authentication;
+
 
 namespace SimpleStore.Controllers
 {

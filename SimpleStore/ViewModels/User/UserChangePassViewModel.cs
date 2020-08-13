@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SimpleStore.ViewModels
+namespace SimpleStore.ViewModels.User
 {
     public class UserChangePassViewModel
     {

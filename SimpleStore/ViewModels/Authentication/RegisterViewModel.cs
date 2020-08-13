@@ -1,21 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimpleStore.ViewModels
+namespace SimpleStore.ViewModels.Authentication
 {
     public class RegisterViewModel
     {
         [Required(ErrorMessage = "Не указано имя")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина имени должна быть от 1 до 50 символов")]
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
         
         [Required(ErrorMessage = "Не указана фамилия")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина фамилии должна быть от 1 до 50 символов")]
         [Display(Name = "Фамилия")]
         public string SurName { get; set; }
 
         
         [Required(ErrorMessage = "Не указан адрес")]
+        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 1 до 150 символов")]
         [Display(Name = "Адрес")]
         public string Address { get; set; }
 
@@ -45,6 +48,7 @@ namespace SimpleStore.ViewModels
 
 
         [Required(ErrorMessage = "Не указан Email")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина эл. адреса должна быть от 3 до 50 символов")]
         [EmailAddress(ErrorMessage = "Некорректный Email")]
         [Remote(action: "CheckEmail", controller: "Account", ErrorMessage = "Email уже используется")]
         [Display(Name = "Email")]

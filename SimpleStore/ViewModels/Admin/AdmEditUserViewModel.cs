@@ -2,10 +2,13 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimpleStore.ViewModels
+namespace SimpleStore.ViewModels.Admin
 {
-    public class AdmCreateUserViewModel
+    public class AdmEditUserViewModel
     {
+        public string Id { get; set; }
+
+
         [Required(ErrorMessage = "Не указано имя")]
         [Display(Name = "Имя")]
         public string Name { get; set; }
@@ -50,13 +53,5 @@ namespace SimpleStore.ViewModels
         [Remote(action: "CheckEmail", controller: "Account", ErrorMessage = "Email уже используется")]
         [Display(Name = "Email")]
         public string Email { get; set; }
-
-
-        [Required(ErrorMessage = "Не указан пароль")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{1,20}$", ErrorMessage = "Пароль должен состоять минимум из 6 символов и " +
-            "иметь хотя бы 1 букву из [a-z], 1 букву из [A-Z], одну цифру из [0-9] и один знак")]
-        [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
-        public string Password { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
-using SimpleStore.ViewModels;
+using SimpleStore.ViewModels.Admin;
 
 namespace SimpleStore.Controllers
 {

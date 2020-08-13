@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimpleStore.ViewModels
+namespace SimpleStore.ViewModels.User
 {
     public class UserEditDataViewModel
     {
@@ -9,16 +9,19 @@ namespace SimpleStore.ViewModels
 
 
         [Required(ErrorMessage = "Не указано имя")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина имени должна быть от 1 до 50 символов")]
         [Display(Name = "Имя")]
         public string Name { get; set; }
 
 
         [Required(ErrorMessage = "Не указана фамилия")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина фамилии должна быть от 1 до 50 символов")]
         [Display(Name = "Фамилия")]
         public string SurName { get; set; }
 
 
         [Required(ErrorMessage = "Не указан адрес")]
+        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 1 до 150 символов")]
         [Display(Name = "Адрес")]
         public string Address { get; set; }
 
