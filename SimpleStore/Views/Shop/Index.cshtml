@@ -19,6 +19,11 @@
     <td>@item.Price Руб</td>
     <td>@item.Company</td>
     <td>@item.Availability</td>
+    <td>@if (item.Image != null)
+    {
+        <img style='width:80px; height:60px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
+    }
+    </td>
 </tr>
     }
 </table>

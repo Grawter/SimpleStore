@@ -7,7 +7,13 @@
 <a asp-action="Create" asp-controller="Admin">Добавить пользователя</a>
 
 <table class="table">
-    <tr><th>Email</th><th>Номер телефона</th><th>Имя</th><th>Фамилия</th><th></th></tr>
+    <tr>
+    <th>Email</th>
+    <th>Номер телефона</th>
+    <th>Имя</th>
+    <th>Фамилия</th>
+    <th></th>
+    </tr>
     @foreach (var user in Model)
      {
 <tr>

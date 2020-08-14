@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace SimpleStore.Models.Shop
 {
@@ -25,6 +28,12 @@ namespace SimpleStore.Models.Shop
         [Required(ErrorMessage = "Не указано наличие товара")]
         [Display(Name = "Наличие товара")]
         public string Availability { get; set; }
+
+        [NotMapped]
+        [Display(Name = "Изображение")]
+        public IFormFile File { get; set; }
+
+        public byte[] Image { get; set; }
 
     }
 }

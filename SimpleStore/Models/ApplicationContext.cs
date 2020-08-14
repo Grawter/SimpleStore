@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SimpleStore.Controllers;
 using SimpleStore.Models.Shop;
 
 namespace SimpleStore.Models
@@ -14,7 +13,7 @@ namespace SimpleStore.Models
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
-
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
     }
