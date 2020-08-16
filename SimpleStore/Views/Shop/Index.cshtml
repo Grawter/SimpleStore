@@ -1,116 +1,22 @@
-﻿@using SimpleStore.ViewModels.Supporting_tools
-
-@model IndexViewModel
-
+﻿
 @{
-    ViewBag.Title = "Все пользователи";
+    ViewBag.Title = "Все товары";
 }
-
-<style>
-    @@font-face {
-        font-family: 'FontAwesome';
-        src: url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/fonts/fontawesome-webfont.woff') format('woff'), url('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/fonts/fontawesome-webfont.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal
-    }
-
-    .glyphicon {
-        display: inline-block;
-        font: normal normal normal 14px/1 FontAwesome;
-        font-size: inherit;
-        text-rendering: auto;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale
-    }
-
-    .glyphicon-chevron-right:before {
-        content: "\f054";
-    }
-
-    .glyphicon-chevron-left:before {
-        content: "\f053";
-    }
-</style>
 
 <a asp-action="Create">Добавить товар</a>
 
-<form method="get">
-    <div class="form-inline form-group">
-        <label class="control-label">Название: </label>
-        <input name="name" class="form-control" />
+<div>
+    <a asp-action="Phone">
 
-        <label name="aviability"></label><br />
-        <select name="aviability">
-            <option value="Все">Все</option>
-            <option value="В наличии">В наличии</option>
-            <option value="Скоро будет в продаже">Скоро будет в продаже</option>
-            <option value="Нет в наличии">Нет в наличии</option>
-        </select>
-
-        <input type="submit" value="Фильтр" class="btn btn-default" />
-    </div>
-</form>
-
-<table class="table">
-    <tr>
-        <td>
-            <a asp-action="Index"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"> Название</a>
-        </td>
-        <td>
-            <a asp-action="Index"
-               asp-route-sortOrder="@(Model.SortViewModel.PriceSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)">Цена</a>
-        </td>
-        <td>
-            <a asp-action="Index"
-               asp-route-sortOrder="@(Model.SortViewModel.CompanySort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)">Компания</a>
-        </td>
-        <td>Наличие</td>
-    </tr>
-    @foreach (var item in Model.Phones)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Price Руб</td>
-            <td>@item.Company</td>
-            <td>@item.Availability</td>
-            <td>
-                @if (item.Image != null)
-                {
-                    <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
-                }
-            </td>
-        </tr>
-    }
-</table>
-
-@if (Model.PageViewModel.HasPreviousPage)
-{
-<a asp-action="Index"
-   asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
-   asp-route-name="@(Model.FilterViewModel.SelectedName)"
-   asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-   asp-route-sortOrder="@(Model.SortViewModel.Current)"
-   class="btn  btn-outline-dark">
-    <i class="glyphicon glyphicon-chevron-left"></i>
-    Назад
-</a>
-}
-@if (Model.PageViewModel.HasNextPage)
-{
-    <a asp-action="Index"
-       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
-       asp-route-name="@(Model.FilterViewModel.SelectedName)"
-       asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-       asp-route-sortOrder="@(Model.SortViewModel.Current)"
-       class="btn btn-outline-dark">
-        Вперед
-        <i class="glyphicon glyphicon-chevron-right"></i>
+        <img style='width:100px; height:100px;' src="~/img/Phone.jpg" /><br />
+        Телефоны
     </a>
-}
+</div>
+
+<div>
+    <a asp-action="Case">
+
+        <img style='width:100px; height:100px;' src="~/img/Case.jpg" /><br />
+        Чехлы для телефонов
+    </a>
+</div>

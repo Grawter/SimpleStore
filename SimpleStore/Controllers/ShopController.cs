@@ -19,10 +19,69 @@ namespace SimpleStore.Controllers
         {
             db = context;
         }
-        public async Task<IActionResult> Index(string name, string aviability, int page = 1,
-             SortState sortOrder = SortState.NameAsc)
+
+        public async Task<IActionResult> Index()
         {
-            int pageSize = 4;
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Case(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
+        {
+            int pageSize = 5;
+
+            //фильтрация
+            IQueryable<Case> Casess = db.Cases;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                Casess = Casess.Where(p => p.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
+            {
+                Casess = Casess.Where(p => p.Availability == aviability);
+            }
+
+            // сортировка
+            switch (sortOrder)
+            {
+                case SortState.NameDesc:
+                    Casess = Casess.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.PriceAsc:
+                    Casess = Casess.OrderBy(s => s.Price);
+                    break;
+                case SortState.PriceDesc:
+                    Casess = Casess.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    Casess = Casess.OrderBy(s => s.Name);
+                    break;
+            }
+
+            // пагинация
+            var count = await Casess.CountAsync();
+            var items = await Casess.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // формируем модель представления
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                FilterViewModel = new FilterViewModel(name, aviability),
+                Cases = items
+            };
+            return View(viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Headphone() => View(await db.Headphones.ToListAsync());
+
+        [HttpGet]
+        public async Task<IActionResult> Phone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
+        {
+            int pageSize = 5;
 
             //фильтрация
             IQueryable<Phone> Phones = db.Phones;
@@ -32,7 +91,7 @@ namespace SimpleStore.Controllers
                 Phones = Phones.Where(p => p.Name.Contains(name));
             }
 
-            if(!string.IsNullOrEmpty(aviability) && aviability !="Все")
+            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
             {
                 Phones = Phones.Where(p => p.Availability == aviability);
             }
@@ -74,15 +133,6 @@ namespace SimpleStore.Controllers
             };
             return View(viewModel);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Case() => View(await db.Cases.ToListAsync());
-
-        [HttpGet]
-        public async Task<IActionResult> Headphone() => View(await db.Headphones.ToListAsync());
-
-        [HttpGet]
-        public async Task<IActionResult> Phone() => View(await db.Phones.ToListAsync());
 
         [HttpGet]
         public async Task<IActionResult> Powerbank() => View(await db.Powerbanks.ToListAsync());
