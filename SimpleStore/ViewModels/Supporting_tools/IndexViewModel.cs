@@ -11,7 +11,7 @@ namespace SimpleStore.ViewModels.Supporting_tools
 
         public IEnumerable<Phone> Phones { get; set; }
 
-        public IEnumerable<Powerbank> Powerbankss { get; set; }
+        public IEnumerable<Powerbank> Powerbanks { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
         public FilterViewModel FilterViewModel { get; set; }

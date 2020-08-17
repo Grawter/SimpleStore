@@ -1,13 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleStore.Models;
 using SimpleStore.Models.Shop;
-using SimpleStore.ViewModels;
 using SimpleStore.ViewModels.Supporting_tools;
 
 namespace SimpleStore.Controllers
@@ -20,10 +17,7 @@ namespace SimpleStore.Controllers
             db = context;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View();
-        }
+        public async Task<IActionResult> Index() => View();
 
         [HttpGet]
         public async Task<IActionResult> Case(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
@@ -31,38 +25,38 @@ namespace SimpleStore.Controllers
             int pageSize = 5;
 
             //фильтрация
-            IQueryable<Case> Casess = db.Cases;
+            IQueryable<Case> Cases = db.Cases;
 
             if (!string.IsNullOrEmpty(name))
             {
-                Casess = Casess.Where(p => p.Name.Contains(name));
+                Cases = Cases.Where(p => p.Name.Contains(name));
             }
 
             if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
             {
-                Casess = Casess.Where(p => p.Availability == aviability);
+                Cases = Cases.Where(p => p.Availability == aviability);
             }
 
             // сортировка
             switch (sortOrder)
             {
                 case SortState.NameDesc:
-                    Casess = Casess.OrderByDescending(s => s.Name);
+                    Cases = Cases.OrderByDescending(s => s.Name);
                     break;
                 case SortState.PriceAsc:
-                    Casess = Casess.OrderBy(s => s.Price);
+                    Cases = Cases.OrderBy(s => s.Price);
                     break;
                 case SortState.PriceDesc:
-                    Casess = Casess.OrderByDescending(s => s.Price);
+                    Cases = Cases.OrderByDescending(s => s.Price);
                     break;
                 default:
-                    Casess = Casess.OrderBy(s => s.Name);
+                    Cases = Cases.OrderBy(s => s.Name);
                     break;
             }
 
             // пагинация
-            var count = await Casess.CountAsync();
-            var items = await Casess.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await Cases.CountAsync();
+            var items = await Cases.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             // формируем модель представления
             IndexViewModel viewModel = new IndexViewModel
@@ -76,7 +70,54 @@ namespace SimpleStore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Headphone() => View(await db.Headphones.ToListAsync());
+        public async Task<IActionResult> Headphone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc) 
+        {
+            int pageSize = 5;
+
+            //фильтрация
+            IQueryable<Headphone> Headphones = db.Headphones;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                Headphones = Headphones.Where(p => p.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
+            {
+                Headphones = Headphones.Where(p => p.Availability == aviability);
+            }
+
+            // сортировка
+            switch (sortOrder)
+            {
+                case SortState.NameDesc:
+                    Headphones = Headphones.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.PriceAsc:
+                    Headphones = Headphones.OrderBy(s => s.Price);
+                    break;
+                case SortState.PriceDesc:
+                    Headphones = Headphones.OrderByDescending(s => s.Price);
+                    break;
+                default:
+                    Headphones = Headphones.OrderBy(s => s.Name);
+                    break;
+            }
+
+            // пагинация
+            var count = await Headphones.CountAsync();
+            var items = await Headphones.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // формируем модель представления
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                FilterViewModel = new FilterViewModel(name, aviability),
+                Headphones = items
+            };
+            return View(viewModel);
+        }
 
         [HttpGet]
         public async Task<IActionResult> Phone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
@@ -135,8 +176,60 @@ namespace SimpleStore.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Powerbank() => View(await db.Powerbanks.ToListAsync());
+        public async Task<IActionResult> Powerbank(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
+        {
+            int pageSize = 5;
 
+            //фильтрация
+            IQueryable<Powerbank> Powerbanks = db.Powerbanks;
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                Powerbanks = Powerbanks.Where(p => p.Name.Contains(name));
+            }
+
+            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
+            {
+                Powerbanks = Powerbanks.Where(p => p.Availability == aviability);
+            }
+
+            // сортировка
+            switch (sortOrder)
+            {
+                case SortState.NameDesc:
+                    Powerbanks = Powerbanks.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.PriceAsc:
+                    Powerbanks = Powerbanks.OrderBy(s => s.Price);
+                    break;
+                case SortState.PriceDesc:
+                    Powerbanks = Powerbanks.OrderByDescending(s => s.Price);
+                    break;
+                case SortState.CapacityAsc:
+                    Powerbanks = Powerbanks.OrderBy(s => s.Capacity);
+                    break;
+                case SortState.CapacityDesc:
+                    Powerbanks = Powerbanks.OrderByDescending(s => s.Capacity);
+                    break;
+                default:
+                    Powerbanks = Powerbanks.OrderBy(s => s.Name);
+                    break;
+            }
+
+            // пагинация
+            var count = await Powerbanks.CountAsync();
+            var items = await Powerbanks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // формируем модель представления
+            IndexViewModel viewModel = new IndexViewModel
+            {
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                FilterViewModel = new FilterViewModel(name, aviability),
+                Powerbanks = items
+            };
+            return View(viewModel);
+        }
 
         [HttpGet]
         public IActionResult Create() => View();
