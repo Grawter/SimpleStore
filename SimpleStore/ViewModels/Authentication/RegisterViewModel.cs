@@ -56,8 +56,8 @@ namespace SimpleStore.ViewModels.Authentication
 
 
         [Required(ErrorMessage = "Не указан пароль")]
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{1,20}$", ErrorMessage = "Пароль должен состоять минимум из 6 символов и " +
-            "иметь хотя бы 1 букву из [a-z], 1 букву из [A-Z], одну цифру из [0-9] и один знак")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{1,20}$", ErrorMessage = "Пароль должен состоять минимум из 6 символов и " +
+            "иметь хотя бы 1 букву из [a-z], 1 букву из [A-Z], одну цифру из [0-9]")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

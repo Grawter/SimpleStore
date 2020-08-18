@@ -144,6 +144,18 @@ namespace SimpleStore.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [ActionName("Delete")]
+        public async Task<ActionResult> ConfirmDelete(string id) 
+        {
+            if (id != null)
+            {
+                User user = await _userManager.FindByIdAsync(id);
+                return View(user);
+            }
+            return NotFound();
+        }
+
         [HttpPost]
         public async Task<ActionResult> Delete(string id)
         {

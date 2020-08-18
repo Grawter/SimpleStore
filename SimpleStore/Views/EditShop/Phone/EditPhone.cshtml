@@ -1,10 +1,10 @@
 ﻿@model SimpleStore.Models.Shop.Phone
 
 @{
-    ViewBag.Title = "Добавление товара";
+    ViewBag.Title = "Редактирование телефона";
 }
 
-<form method="post" asp-action="Create" asp-controller="Shop" enctype="multipart/form-data">
+<form method="post" asp-action="EditPhone" asp-controller="EditShop" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label><br />
         <input asp-for="Name" class="form-control" />
@@ -37,6 +37,6 @@
         <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
     </div>
     <div>
-        <a asp-action="Index">Назад</a>
+        <a asp-action="Phone">Назад</a>
     </div>
 </form>

@@ -23,7 +23,7 @@ namespace SimpleStore
             services.AddDbContext<ApplicationContext>(options => // Entity FrameWork
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>() // Identity
+            services.AddIdentity<User, IdentityRole>(options => options.Password.RequireNonAlphanumeric = false) // Identity
                 .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddControllersWithViews();

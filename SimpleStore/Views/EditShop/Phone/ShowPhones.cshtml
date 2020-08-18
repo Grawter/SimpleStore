@@ -3,8 +3,10 @@
 @model IndexViewModel
 
 @{
-    ViewBag.Title = "Телефоны";
+    ViewBag.Title = "Настройка витрины телефонов";
 }
+
+<a asp-action="CreatePhone">Добавить товар</a>
 
 <form method="get">
     <div class="form-inline form-group">
@@ -24,7 +26,7 @@
 <table class="table">
     <tr>
         <td>
-            <a asp-action="Phone"
+            <a asp-action="Phone" asp-controller="EditShop"
                asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
                asp-route-name="@(Model.FilterViewModel.SelectedName)"
                asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"> Название ⇕</a>
@@ -42,26 +44,32 @@
                asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)">Цена ⇕</a>
         </td>
         <td>Наличие</td>
+        <td></td>
+        <td></td>
     </tr>
 
     @foreach (var item in Model.Phones)
     {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Company</td>
-            <td>@item.Price Руб</td>
-            <td>@item.Availability</td>
-            <td>
-                @if (item.Image != null)
-                {
-                    <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
-                }
-                else
-                {
-                    <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
-                }
-            </td>
-        </tr>
+<tr>
+    <td>@item.Name</td>
+    <td>@item.Company</td>
+    <td>@item.Price Руб</td>
+    <td>@item.Availability</td>
+    <td>
+        @if (item.Image != null)
+        {
+            <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
+        }
+        else
+        {
+            <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
+        }
+    </td>
+    <td>
+        <a class="btn btn-sm btn-outline-info" asp-controller="EditShop" asp-action="EditPhone" asp-route-id="@item.Id">Изменить</a>
+        <a class="btn btn-sm btn-outline-danger" asp-controller="EditShop" asp-action="DeletePhone" asp-route-id="@item.Id">Удалить</a>
+    </td>
+</tr>
     }
 </table>
 

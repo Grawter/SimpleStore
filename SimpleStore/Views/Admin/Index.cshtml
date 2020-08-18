@@ -16,20 +16,16 @@
     </tr>
     @foreach (var user in Model)
      {
-<tr>
-    <td>@user.Email</td>
-    <td>@user.PhoneNumber</td>
-    <td>@user.Name</td>
-    <td>@user.Surname</td>
-    <td>
-        <form method="post" asp-action="Delete" asp-route-id="@user.Id">
-            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
-            <a class="btn btn-sm btn-primary" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
-            <button type="submit" class="btn btn-sm btn-danger">
-                Удалить
-            </button>
-        </form>
-    </td>
-</tr>
+      <tr>
+        <td>@user.Email</td>
+        <td>@user.PhoneNumber</td>
+        <td>@user.Name</td>
+        <td>@user.Surname</td>
+      <td>
+        <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
+        <a class="btn btn-sm btn-outline-warning" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
+        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@user.Id">Удалить</a>
+      </td>
+      </tr>
      }
 </table>
