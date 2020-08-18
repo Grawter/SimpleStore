@@ -1,0 +1,12 @@
+﻿@model SimpleStore.Models.Shop.Case
+
+@{
+    ViewBag.Title = "Удаление чехла";
+}
+
+<h3>Вы уверены, что хотит удалить чехол @Model.Name?</h3>
+
+<form method="post" asp-controller="EditShop" asp-action="DeleteCase">
+    <input type="submit" value="Удалить" class="btn btn-sm btn-danger" />
+    <a asp-action="ShowCases" asp-controller="EditShop" class="btn btn-sm btn-secondary">Нет</a>
+</form>

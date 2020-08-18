@@ -16,13 +16,12 @@ namespace SimpleStore.Controllers
             db = context;
         }
 
-        public async Task<IActionResult> Index() => View();
+        public IActionResult Index() => View();
 
+        ///////////////// Section Case
         [HttpGet]
         public async Task<IActionResult> Case(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
-            int pageSize = 5;
-
             //фильтрация
             IQueryable<Case> Cases = db.Cases;
 
@@ -54,6 +53,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
+            int pageSize = 5;
             var count = await Cases.CountAsync();
             var items = await Cases.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -68,11 +68,10 @@ namespace SimpleStore.Controllers
             return View(viewModel);
         }
 
+        ///////////////// Section Headphone
         [HttpGet]
         public async Task<IActionResult> Headphone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc) 
         {
-            int pageSize = 5;
-
             //фильтрация
             IQueryable<Headphone> Headphones = db.Headphones;
 
@@ -104,6 +103,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
+            int pageSize = 5;
             var count = await Headphones.CountAsync();
             var items = await Headphones.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -118,11 +118,10 @@ namespace SimpleStore.Controllers
             return View(viewModel);
         }
 
+        ///////////////// Section Phone
         [HttpGet]
         public async Task<IActionResult> Phone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
-            int pageSize = 5;
-
             //фильтрация
             IQueryable<Phone> Phones = db.Phones;
 
@@ -160,6 +159,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
+            int pageSize = 5;
             var count = await Phones.CountAsync();
             var items = await Phones.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -174,11 +174,10 @@ namespace SimpleStore.Controllers
             return View(viewModel);
         }
 
+        ///////////////// Section Powerbank
         [HttpGet]
         public async Task<IActionResult> Powerbank(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
-            int pageSize = 5;
-
             //фильтрация
             IQueryable<Powerbank> Powerbanks = db.Powerbanks;
 
@@ -198,17 +197,17 @@ namespace SimpleStore.Controllers
                 case SortState.NameDesc:
                     Powerbanks = Powerbanks.OrderByDescending(s => s.Name);
                     break;
-                case SortState.PriceAsc:
-                    Powerbanks = Powerbanks.OrderBy(s => s.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Powerbanks = Powerbanks.OrderByDescending(s => s.Price);
-                    break;
                 case SortState.CapacityAsc:
                     Powerbanks = Powerbanks.OrderBy(s => s.Capacity);
                     break;
                 case SortState.CapacityDesc:
                     Powerbanks = Powerbanks.OrderByDescending(s => s.Capacity);
+                    break;
+                case SortState.PriceAsc:
+                    Powerbanks = Powerbanks.OrderBy(s => s.Price);
+                    break;
+                case SortState.PriceDesc:
+                    Powerbanks = Powerbanks.OrderByDescending(s => s.Price);
                     break;
                 default:
                     Powerbanks = Powerbanks.OrderBy(s => s.Name);
@@ -216,6 +215,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
+            int pageSize = 5;
             var count = await Powerbanks.CountAsync();
             var items = await Powerbanks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
