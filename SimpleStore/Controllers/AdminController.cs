@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Admin;
+using SimpleStore.ViewModels.Supporting_tools;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimpleStore.Controllers
 {
@@ -16,7 +18,60 @@ namespace SimpleStore.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index() => View(_userManager.Users.ToList());
+        public async Task<IActionResult> Index(string name, int page = 1, SortState sortOrder = SortState.NamesAsc)
+        {
+            IQueryable<User> users = _userManager.Users;
+
+            // Фильтрация
+            if (!string.IsNullOrEmpty(name))
+            {
+                users = users.Where(p => p.Email.Contains(name));
+            }
+
+            // Сортировка
+            switch (sortOrder)
+            {
+                case SortState.NamesDesc:
+                    users = users.OrderByDescending(s => s.Name);
+                    break;
+                case SortState.SurnameAsc:
+                    users = users.OrderBy(s => s.Surname);
+                    break;
+                case SortState.SurnameDesc:
+                    users = users.OrderByDescending(s => s.Surname);
+                    break;
+                case SortState.EmailAsc:
+                    users = users.OrderBy(s => s.Email);
+                    break;
+                case SortState.EmailDesc:
+                    users = users.OrderByDescending(s => s.Email);
+                    break;
+                case SortState.PhoneAsc:
+                    users = users.OrderBy(s => s.PhoneNumber);
+                    break;
+                case SortState.PhoneDesc:
+                    users = users.OrderByDescending(s => s.PhoneNumber);
+                    break;
+                default:
+                    users = users.OrderBy(s => s.Name);
+                    break;
+            }
+
+            // пагинация
+            int pageSize = 7;
+            var count = await users.CountAsync();
+            var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // формируем модель представления
+            IndexViewModel indexviewModel = new IndexViewModel
+            {
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                FilterViewModel = new FilterViewModel(name),
+                Users = items
+            };
+            return View(indexviewModel);
+        }
 
         [HttpGet]
         public IActionResult Create() => View();
@@ -26,7 +81,7 @@ namespace SimpleStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, Name = model.Name, Surname = model.SurName,
+                User user = new User { Email = model.Email, UserName = model.Email, Name = model.Name, Surname = model.Surname,
                     Address = model.Address, PhoneNumber = model.PhoneNumber, Day = model.Day, Mount = model.Mount, Year = model.Year };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -52,7 +107,7 @@ namespace SimpleStore.Controllers
             {
                 return NotFound();
             }
-            AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, Name = user.Name, SurName = user.Surname, 
+            AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, Name = user.Name, Surname = user.Surname, 
                 Address = user.Address, PhoneNumber = user.PhoneNumber, Day = user.Day, Mount = user.Mount, Year = user.Year,
                 Email = user.Email };
             return View(model);
@@ -67,7 +122,7 @@ namespace SimpleStore.Controllers
                 if (user != null)
                 {
                     user.Name = model.Name;
-                    user.Surname = model.SurName;
+                    user.Surname = model.Surname;
                     user.Address = model.Address;
                     user.PhoneNumber = model.PhoneNumber;
                     user.Day = model.Day;

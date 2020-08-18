@@ -13,6 +13,8 @@ namespace SimpleStore.ViewModels.Supporting_tools
 
         public IEnumerable<Powerbank> Powerbanks { get; set; }
 
+        public IEnumerable<SimpleStore.Models.User> Users { get; set; }
+
         public PageViewModel PageViewModel { get; set; }
         public FilterViewModel FilterViewModel { get; set; }
         public SortViewModel SortViewModel { get; set; }

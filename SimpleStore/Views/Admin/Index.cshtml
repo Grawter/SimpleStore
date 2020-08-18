@@ -1,31 +1,62 @@
-﻿@model IEnumerable<SimpleStore.Models.User>
+﻿@using SimpleStore.ViewModels.Supporting_tools
+@addTagHelper *, SimpleStore
+@model IndexViewModel
 
 @{
-    ViewBag.Title = "Список пользователей";
+    ViewBag.Title = "Админ-панель";
 }
 
-<a asp-action="Create" asp-controller="Admin">Добавить пользователя</a>
+<a asp-action="Create" asp-controller="Admin" class="btn btn-outline-primary">Добавить пользователя</a>
+
+<form method="get">
+    <div class="form-inline form-group">
+        <label class="control-label">Название:</label>
+        <input name="name" class="form-control" />
+        <input type="submit" value="Найти" class="btn btn-outline-dark" />
+    </div>
+</form>
 
 <table class="table">
     <tr>
-    <th>Email</th>
-    <th>Номер телефона</th>
-    <th>Имя</th>
-    <th>Фамилия</th>
-    <th></th>
+        <td>
+            <a asp-action="Index" asp-controller="Admin"
+               asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">Email ⇕</a>
+        </td>
+        <td>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">Номер ⇕</a>
+        </td>
+        <td>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">Имя ⇕</a>
+        </td>
+        <td><a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortViewModel.SurnameSort)"
+               asp-route-name="@(Model.FilterViewModel.SelectedName)">Фамилия ⇕</a>
+        </td>
+        <td></td>
     </tr>
-    @foreach (var user in Model)
-     {
-      <tr>
-        <td>@user.Email</td>
-        <td>@user.PhoneNumber</td>
-        <td>@user.Name</td>
-        <td>@user.Surname</td>
-      <td>
-        <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
-        <a class="btn btn-sm btn-outline-warning" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
-        <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@user.Id">Удалить</a>
-      </td>
-      </tr>
-     }
+
+    @foreach (var user in Model.Users)
+    {
+        <tr>
+            <td>@user.Email</td>
+            <td>@user.PhoneNumber</td>
+            <td>@user.Name</td>
+            <td>@user.Surname</td>
+            <td>
+                <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
+                <a class="btn btn-sm btn-outline-warning" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
+                <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@user.Id">Удалить</a>
+            </td>
+        </tr>
+    }
 </table>
+
+<page-link page-model="Model.PageViewModel" page-action="Index"
+           page-url-name="@(Model.FilterViewModel.SelectedName)"
+           page-url-sortOrder="@(Model.SortViewModel.Current)">
+</page-link>

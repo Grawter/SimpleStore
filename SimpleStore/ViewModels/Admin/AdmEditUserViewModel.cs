@@ -16,7 +16,7 @@ namespace SimpleStore.ViewModels.Admin
 
         [Required(ErrorMessage = "Не указана фамилия")]
         [Display(Name = "Фамилия")]
-        public string SurName { get; set; }
+        public string Surname { get; set; }
 
 
         [Required(ErrorMessage = "Не указан адрес")]

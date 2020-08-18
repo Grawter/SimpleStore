@@ -3,11 +3,11 @@ namespace SimpleStore.ViewModels.Supporting_tools
 {
     public class FilterViewModel
     {
-        public string SelectedName { get; private set; }    // введенное имя
+        public string SelectedName { get; private set; } // введенное имя
 
-        public string SelectedAvailability { get; private set; }    // введенная доступность
+        public string SelectedAvailability { get; private set; } // введенная доступность
         
-        public FilterViewModel(string name, string availability)
+        public FilterViewModel(string name, string availability = null)
         {
             SelectedName = name;
             SelectedAvailability = availability;

@@ -26,7 +26,7 @@ namespace SimpleStore.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowCases(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
-            //фильтрация
+            // фильтрация
             IQueryable<Case> Cases = db.Cases;
 
             if (!string.IsNullOrEmpty(name))
