@@ -1,4 +1,5 @@
-﻿using SimpleStore.Models.Shop;
+﻿using SimpleStore.Models.Booking;
+using SimpleStore.Models.Shop;
 using System.Collections.Generic;
 
 namespace SimpleStore.ViewModels.Supporting_tools
@@ -14,6 +15,8 @@ namespace SimpleStore.ViewModels.Supporting_tools
         public IEnumerable<Powerbank> Powerbanks { get; set; }
 
         public IEnumerable<SimpleStore.Models.User> Users { get; set; }
+
+        public IEnumerable<Order> Orders { get; set; }
 
         public PageViewModel PageViewModel { get; set; }
         public FilterViewModel FilterViewModel { get; set; }

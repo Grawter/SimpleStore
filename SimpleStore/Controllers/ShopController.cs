@@ -1,8 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleStore.Models;
+using SimpleStore.Models.Booking;
 using SimpleStore.Models.Shop;
 using SimpleStore.ViewModels.Supporting_tools;
 
@@ -11,9 +13,11 @@ namespace SimpleStore.Controllers
     public class ShopController : Controller
     {
         private readonly ApplicationContext db;
-        public ShopController(ApplicationContext context)
+        private readonly UserManager<User> _userManager;
+        public ShopController(ApplicationContext context, UserManager<User> userManager)
         {
             db = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index() => View();
@@ -64,13 +68,13 @@ namespace SimpleStore.Controllers
                 SortViewModel = new SortViewModel(sortOrder),
                 FilterViewModel = new FilterViewModel(name, aviability),
                 Cases = items
-            };
+            };           
             return View(viewModel);
         }
 
         ///////////////// Section Headphone
         [HttpGet]
-        public async Task<IActionResult> Headphone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc) 
+        public async Task<IActionResult> Headphone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
             //фильтрация
             IQueryable<Headphone> Headphones = db.Headphones;
@@ -171,7 +175,59 @@ namespace SimpleStore.Controllers
                 FilterViewModel = new FilterViewModel(name, aviability),
                 Phones = items
             };
+
+            ViewBag.Users = _userManager.Users.ToList();
             return View(viewModel);
+        }
+
+        [HttpGet]
+        [ActionName("Buy")]
+        public async Task<IActionResult> ConfirmBuy(int? ProductId, string UserId, int ProductCount)
+        {
+            if (ProductId != null)
+            {
+                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == ProductId);
+                if (phone != null)
+                {
+                    ViewBag.ProductId = ProductId;
+                    ViewBag.UserId = UserId;
+                    ViewBag.Count = ProductCount;
+                    return View(phone);
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Buy(int? ProductId, string UserId, int Count)
+        {
+            if (ProductId != null && UserId != null)
+            {
+                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == ProductId);
+                User user = await _userManager.FindByIdAsync(UserId);
+                if (phone != null && user != null)
+                {
+                    Order order = new Order
+                    {
+                        ProductId = (int)ProductId,
+                        UserId = UserId,
+                        ProductName = phone.Name,
+                        ProductCount = Count,
+                        ProductPrice = Count * phone.Price,
+                        UserEmail = user.Email,
+                        UserPhone = user.PhoneNumber,
+                        UserSurname = user.Surname,
+                        UserName = user.Name,
+                        UserAddress = user.Address,
+                        Status = "На рассмотрении"
+                    };
+
+                    db.Orders.Add(order);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Phone");
+                }
+            }
+            return NotFound();
         }
 
         ///////////////// Section Powerbank

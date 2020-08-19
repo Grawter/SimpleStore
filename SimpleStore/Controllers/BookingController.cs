@@ -1,0 +1,127 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SimpleStore.Models;
+using SimpleStore.Models.Booking;
+using SimpleStore.Models.Shop;
+using SimpleStore.ViewModels.Supporting_tools;
+
+namespace SimpleStore.Controllers
+{
+    public class BookingController : Controller
+    {
+        private readonly ApplicationContext db;
+        private readonly UserManager<User> _userManager;
+        public BookingController(ApplicationContext context, UserManager<User> userManager)
+        {
+            db = context;
+            _userManager = userManager;
+        }
+        
+        public async Task<IActionResult> Index (string name, int page = 1, SortState sortOrder = SortState.IdDesc)
+        {
+            IQueryable<Order> orders = db.Orders;
+
+            // Фильтрация
+            if (!string.IsNullOrEmpty(name))
+            {
+                orders = orders.Where(p => p.UserEmail.Contains(name));
+            }
+
+            // Сортировка
+            switch (sortOrder)
+            {
+                case SortState.IdAsc:
+                    orders = orders.OrderBy(s => s.Id);
+                    break;
+                //case SortState.IdDesc:
+                //    orders = orders.OrderByDescending(s => s.Id);
+                //    break;
+                case SortState.IdProductAsc:
+                    orders = orders.OrderBy(s => s.ProductId);
+                    break;
+                case SortState.IdProductDesc:
+                    orders = orders.OrderByDescending(s => s.ProductId);
+                    break;
+                case SortState.NameAsc:
+                    orders = orders.OrderBy(s => s.ProductName);
+                    break;
+                case SortState.NameDesc:
+                    orders = orders.OrderByDescending(s => s.ProductName);
+                    break;
+                case SortState.CountAsc:
+                    orders = orders.OrderBy(s => s.ProductCount);
+                    break;
+                case SortState.CountDesc:
+                    orders = orders.OrderByDescending(s => s.ProductCount);
+                    break;
+                case SortState.PriceAsc:
+                    orders = orders.OrderBy(s => s.ProductPrice);
+                    break;
+                case SortState.PriceDesc:
+                    orders = orders.OrderByDescending(s => s.ProductPrice);
+                    break;
+                case SortState.NamesAsc:
+                    orders = orders.OrderBy(s => s.UserName);
+                    break;
+                case SortState.NamesDesc:
+                    orders = orders.OrderByDescending(s => s.UserName);
+                    break;
+                case SortState.SurnameAsc:
+                    orders = orders.OrderBy(s => s.UserSurname);
+                    break;
+                case SortState.SurnameDesc:
+                    orders = orders.OrderByDescending(s => s.UserSurname);
+                    break;
+                case SortState.EmailAsc:
+                    orders = orders.OrderBy(s => s.UserEmail);
+                    break;
+                case SortState.EmailDesc:
+                    orders = orders.OrderByDescending(s => s.UserEmail);
+                    break;
+                case SortState.PhoneAsc:
+                    orders = orders.OrderBy(s => s.UserPhone);
+                    break;
+                case SortState.PhoneDesc:
+                    orders = orders.OrderByDescending(s => s.UserPhone);
+                    break;
+                case SortState.AddressAsc:
+                    orders = orders.OrderBy(s => s.UserAddress);
+                    break;
+                case SortState.AddressDesc:
+                    orders = orders.OrderByDescending(s => s.UserAddress);
+                    break;
+                case SortState.StatusAsc:
+                    orders = orders.OrderBy(s => s.Status);
+                    break;
+                case SortState.StatusDesc:
+                    orders = orders.OrderByDescending(s => s.Status);
+                    break;
+                default:
+                    orders = orders.OrderByDescending(s => s.Id);
+                    break;
+            }
+
+            // пагинация
+            int pageSize = 7;
+            var count = await orders.CountAsync();
+            var items = await orders.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // формируем модель представления
+            IndexViewModel indexviewModel = new IndexViewModel
+            {
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                SortViewModel = new SortViewModel(sortOrder),
+                FilterViewModel = new FilterViewModel(name),
+                Orders = items
+            };
+            return View(indexviewModel);
+        }
+        
+
+    }
+}
