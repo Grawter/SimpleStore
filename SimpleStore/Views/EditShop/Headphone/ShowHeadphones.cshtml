@@ -28,13 +28,13 @@
         <td>
             <a asp-action="ShowHeadphones"
                asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"> Название ⇕</a>
         </td>
         <td>
             <a asp-action="ShowHeadphones"
                asp-route-sortOrder="@(Model.SortViewModel.PriceSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)"
+               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)">Цена ⇕</a>
         </td>
         <td>Наличие</td>
@@ -67,7 +67,7 @@
 </table>
 
 <page-link page-model="Model.PageViewModel" page-action="ShowHeadphones"
-           page-url-name="@(Model.FilterViewModel.SelectedName)"
+           page-url-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
            page-url-aviability="@(Model.FilterViewModel.SelectedAvailability)"
            page-url-sortOrder="@(Model.SortViewModel.Current)">
 </page-link>

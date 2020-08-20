@@ -15,6 +15,7 @@
     </form>
 
     <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
+    <a class="btn btn-sm btn-primary" asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
 }
 else
 {

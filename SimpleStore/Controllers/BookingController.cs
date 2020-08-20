@@ -22,14 +22,24 @@ namespace SimpleStore.Controllers
             _userManager = userManager;
         }
         
-        public async Task<IActionResult> Index (string name, int page = 1, SortState sortOrder = SortState.IdDesc)
+        public async Task<IActionResult> Index (int id, string email, string status, int page = 1, SortState sortOrder = SortState.IdDesc)
         {
             IQueryable<Order> orders = db.Orders;
 
             // Фильтрация
-            if (!string.IsNullOrEmpty(name))
+            if (id != 0)
             {
-                orders = orders.Where(p => p.UserEmail.Contains(name));
+                orders = orders.Where(p => p.Id == id);
+            }
+
+            if (!string.IsNullOrEmpty(email))
+            {
+                orders = orders.Where(p => p.UserEmail.Contains(email));
+            }
+
+            if (!string.IsNullOrEmpty(status) && status != "Все")
+            {
+                orders = orders.Where(p => p.Status == status);
             }
 
             // Сортировка
@@ -38,9 +48,6 @@ namespace SimpleStore.Controllers
                 case SortState.IdAsc:
                     orders = orders.OrderBy(s => s.Id);
                     break;
-                //case SortState.IdDesc:
-                //    orders = orders.OrderByDescending(s => s.Id);
-                //    break;
                 case SortState.IdProductAsc:
                     orders = orders.OrderBy(s => s.ProductId);
                     break;
@@ -116,12 +123,35 @@ namespace SimpleStore.Controllers
             {
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name),
+                FilterViewModel = new FilterViewModel(id, email, status),
                 Orders = items
             };
             return View(indexviewModel);
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            Order order = await db.Orders.FirstOrDefaultAsync(p => p.Id == id);
+
+            if (order != null)
+            {
+                return View(order);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Order order)
+        {
+            if (order != null)
+            {
+                db.Orders.Update(order);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
 
     }
 }

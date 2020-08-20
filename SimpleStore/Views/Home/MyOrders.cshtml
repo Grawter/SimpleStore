@@ -1,0 +1,62 @@
+﻿@using SimpleStore.ViewModels.Supporting_tools
+@addTagHelper *, SimpleStore
+@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Покупки";
+}
+
+<table class="table">
+    <tr>
+        <td>
+            Номер заказа
+        </td>
+        <td>
+            Название
+        </td>
+        <td>
+            Кол-во
+        </td>
+        <td>
+            Цена
+        </td>
+        <td>
+            Email
+        </td>
+        <td>
+            Телефон
+        </td>
+        <td>
+            Фамилия
+        </td>
+        <td>
+            Имя
+        </td>
+        <td>
+            Адрес
+        </td>
+        <td>
+            Статус
+        </td>
+    </tr>
+
+    @foreach (var item in Model.Orders)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.ProductName</td>
+            <td>@item.ProductCount</td>
+            <td>@item.ProductPrice</td>
+            <td>@item.UserEmail</td>
+            <td>@item.UserPhone</td>
+            <td>@item.UserSurname</td>
+            <td>@item.UserName</td>
+            <td>@item.UserAddress</td>
+            <td>@item.Status</td>
+        </tr>
+    }
+</table>
+
+<page-link page-model="@Model.PageViewModel" page-action="MyOrders" 
+           page-url-UserId="@Model.Orders.FirstOrDefault().UserId">
+</page-link>

@@ -3,14 +3,30 @@ namespace SimpleStore.ViewModels.Supporting_tools
 {
     public class FilterViewModel
     {
-        public string SelectedName { get; private set; } // введенное имя
-
+        public int SelectedId { get; private set; } // введенное Id
+        public string SelectedNameOrEmail { get; private set; } // введенное имя или email
         public string SelectedAvailability { get; private set; } // введенная доступность
-        
-        public FilterViewModel(string name, string availability = null)
+        public string SelectedStatus { get; private set; } // введенный статус
+
+        // Для модерирования магазина и админки
+        public FilterViewModel(string NameOrEmail)
         {
-            SelectedName = name;
+            SelectedNameOrEmail = NameOrEmail;
+        }
+
+        // Для магазина
+        public FilterViewModel(string name, string availability)
+        {
+            SelectedNameOrEmail = name;
             SelectedAvailability = availability;
+        }
+
+        // Для заказов
+        public FilterViewModel(int? Id, string email, string status)
+        {
+            SelectedId = (int)Id;
+            SelectedNameOrEmail = email;
+            SelectedStatus = status;
         }
 
     }

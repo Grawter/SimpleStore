@@ -6,7 +6,7 @@
 
 <h3>Вы подтверждаете заказ @Model.Name в количества @ViewBag.Count?</h3>
 
-<form method="post" asp-action="Buy" asp-route-ProductId="@Model.Id" asp-route-UserId="@ViewBag.UserId" asp-route-ProductCount="@ViewBag.Count">
+<form method="post" asp-action="Buy" asp-route-ProductId="@Model.Id" asp-route-UserId="@ViewBag.UserId" asp-route-Count="@ViewBag.Count">
     <input type="submit" value="Подтвердить" class="btn btn-success" />
     <a asp-action="Phone" class="btn btn-secondary">Нет</a>
 </form>

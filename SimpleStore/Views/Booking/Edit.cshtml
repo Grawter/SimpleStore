@@ -1,0 +1,60 @@
+﻿@model SimpleStore.Models.Booking.Order
+
+@{
+    ViewBag.Title = "Редактирование заказа";
+}
+
+<form method="post" asp-action="Edit">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="ProductName" />
+        <input type="hidden" asp-for="ProductCount" />
+        <input type="hidden" asp-for="ProductPrice" />
+    </div>
+    <div>
+        <label asp-for="UserEmail"></label><br />
+        <input asp-for="UserEmail" />
+        <span asp-validation-for="UserEmail"></span>
+    </div>
+    <div>
+        <label asp-for="UserPhone"></label><br />
+        <input asp-for="UserPhone" />
+        <span asp-validation-for="UserPhone"></span>
+    </div>
+    <div>
+        <label asp-for="UserSurname"></label><br />
+        <textarea asp-for="UserSurname"></textarea>
+        <span asp-validation-for="UserSurname"></span>
+    </div>
+    <div>
+        <label asp-for="UserName"></label><br />
+        <input asp-for="UserName" />
+        <span asp-validation-for="UserName"></span>
+    </div>
+    <div>
+        <label asp-for="UserAddress"></label><br />
+        <input asp-for="UserAddress" />
+        <span asp-validation-for="UserAddress"></span>
+    </div>
+    <div>
+        <label asp-for="Status"></label><br />
+        <select asp-for="Status">
+            <option value="Все">Все</option>
+            <option value="На рассмотрении">На рассмотрении</option>
+            <option value="В сборке">В сборке</option>
+            <option value="Отправлено">Отправлено</option>
+            <option value="Исполнено">Исполнено</option>
+            <option value="Отказано">Отказано</option>
+        </select>
+        <span asp-validation-for="Status"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+    </div>
+    <div>
+        <a asp-action="Index">Назад</a>
+    </div>
+</form>

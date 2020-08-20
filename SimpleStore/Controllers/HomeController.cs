@@ -6,17 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.User;
+using SimpleStore.Models.Booking;
+using Microsoft.EntityFrameworkCore;
+using SimpleStore.ViewModels.Supporting_tools;
 
 namespace SimpleStore.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationContext db;
         private readonly UserManager<User> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<User> userManager)
+        public HomeController(ILogger<HomeController> logger, ApplicationContext context, UserManager<User> userManager)
         {
             _logger = logger;
+            db = context;
             _userManager = userManager;
         }
 
@@ -164,6 +169,25 @@ namespace SimpleStore.Controllers
                 }
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> MyOrders(string UserId, int page = 1)
+        {
+            IQueryable<Order> orders = db.Orders.Where(p => p.UserId == UserId);
+            orders = orders.OrderByDescending(s => s.Id);
+
+            // пагинация
+            int pageSize = 7;
+            var count = await orders.CountAsync();
+            var items = await orders.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            // формируем модель представления
+            IndexViewModel indexviewModel = new IndexViewModel
+            {
+                PageViewModel = new PageViewModel(count, page, pageSize),
+                Orders = items
+            };
+            return View(indexviewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

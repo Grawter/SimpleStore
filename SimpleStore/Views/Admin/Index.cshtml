@@ -21,21 +21,21 @@
         <td>
             <a asp-action="Index" asp-controller="Admin"
                asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)">Email ⇕</a>
+               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Email ⇕</a>
         </td>
         <td>
             <a asp-action="Index"
                asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)">Номер ⇕</a>
+               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Номер ⇕</a>
         </td>
         <td>
             <a asp-action="Index"
                asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)">Имя ⇕</a>
+               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Имя ⇕</a>
         </td>
         <td><a asp-action="Index"
                asp-route-sortOrder="@(Model.SortViewModel.SurnameSort)"
-               asp-route-name="@(Model.FilterViewModel.SelectedName)">Фамилия ⇕</a>
+               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Фамилия ⇕</a>
         </td>
         <td></td>
     </tr>
@@ -57,6 +57,6 @@
 </table>
 
 <page-link page-model="Model.PageViewModel" page-action="Index"
-           page-url-name="@(Model.FilterViewModel.SelectedName)"
+           page-url-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
            page-url-sortOrder="@(Model.SortViewModel.Current)">
 </page-link>

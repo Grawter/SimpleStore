@@ -18,14 +18,14 @@ namespace SimpleStore.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(string name, int page = 1, SortState sortOrder = SortState.NamesAsc)
+        public async Task<IActionResult> Index(string email, int page = 1, SortState sortOrder = SortState.NamesAsc)
         {
             IQueryable<User> users = _userManager.Users;
 
             // Фильтрация
-            if (!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(email))
             {
-                users = users.Where(p => p.Email.Contains(name));
+                users = users.Where(p => p.Email.Contains(email));
             }
 
             // Сортировка
@@ -67,7 +67,7 @@ namespace SimpleStore.Controllers
             {
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name),
+                FilterViewModel = new FilterViewModel(email),
                 Users = items
             };
             return View(indexviewModel);
