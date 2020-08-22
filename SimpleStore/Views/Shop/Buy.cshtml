@@ -1,4 +1,4 @@
-﻿@model SimpleStore.Models.Shop.Phone
+﻿@model SimpleStore.Models.Shop.Product
 
 @{
     ViewBag.Title = "Подтверждение покупки товара";
@@ -8,5 +8,5 @@
 
 <form method="post" asp-action="Buy" asp-route-ProductId="@Model.Id" asp-route-UserId="@ViewBag.UserId" asp-route-Count="@ViewBag.Count">
     <input type="submit" value="Подтвердить" class="btn btn-success" />
-    <a asp-action="Phone" class="btn btn-secondary">Нет</a>
+    <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">Нет</a>
 </form>

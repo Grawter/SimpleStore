@@ -17,463 +17,59 @@ namespace SimpleStore.Controllers
             db = context;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        ///////////////// Section Case
-        [HttpGet]
-        public async Task<IActionResult> ShowCases(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
-            // фильтрация
-            IQueryable<Case> Cases = db.Cases;
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                Cases = Cases.Where(p => p.Name.Contains(name));
-            }
-
-            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
-            {
-                Cases = Cases.Where(p => p.Availability == aviability);
-            }
-
-            // сортировка
-            switch (sortOrder)
-            {
-                case SortState.NameDesc:
-                    Cases = Cases.OrderByDescending(s => s.Name);
-                    break;
-                case SortState.PriceAsc:
-                    Cases = Cases.OrderBy(s => s.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Cases = Cases.OrderByDescending(s => s.Price);
-                    break;
-                default:
-                    Cases = Cases.OrderBy(s => s.Name);
-                    break;
-            }
-
-            // пагинация
-            int pageSize = 5;
-            var count = await Cases.CountAsync();
-            var items = await Cases.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            // формируем модель представления
-            IndexViewModel indexviewModel = new IndexViewModel
-            {
-                PageViewModel = new PageViewModel(count, page, pageSize),
-                SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name, aviability),
-                Cases = items
-            };
-            return View("~/Views/EditShop/Case/ShowCases.cshtml", indexviewModel);
-        }
+        public IActionResult Index() => View();
 
         [HttpGet]
-        public IActionResult CreateCase() => View("~/Views/EditShop/Case/CreateCase.cshtml");
-        // добавлена папка в модель
-
-        [HttpPost]
-        public async Task<IActionResult> CreateCase(Case casing)
+        public async Task<IActionResult> ShowProducts(string type, string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
-            if (casing.File != null)
-            {
-                byte[] imageData = null;
-                // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(casing.File.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)casing.File.Length);
-                }
-                // установка массива байтов
-                casing.Image = imageData;
-            }
+            ViewBag.type = type;
 
-            db.Cases.Add(casing);
-            await db.SaveChangesAsync();
-            return RedirectToAction("ShowCases");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditCase(int? id)
-        {
-            if (id != null)
-            {
-                Case casing = await db.Cases.FirstOrDefaultAsync(p => p.Id == id);
-                if (casing != null)
-                    return View("~/Views/EditShop/Case/EditCase.cshtml", casing);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditCase(Case casing)
-        {
-            if (casing.File != null)
-            {
-                byte[] imageData = null;
-                // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(casing.File.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)casing.File.Length);
-                }
-                // установка массива байтов
-                casing.Image = imageData;
-            }
-
-            db.Cases.Update(casing);
-            await db.SaveChangesAsync();
-            return RedirectToAction("ShowCases");
-        }
-
-        [HttpGet]
-        [ActionName("DeleteCase")]
-        public async Task<ActionResult> ConfirmDeleteCase(int? id)
-        {
-            if (id != null)
-            {
-                Case casing = await db.Cases.FirstOrDefaultAsync(p => p.Id == id);
-                return View("~/Views/EditShop/Case/DeleteCase.cshtml", casing);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> DeleteCase(int? id)
-        {
-            if (id != null)
-            {
-                Case casing = await db.Cases.FirstOrDefaultAsync(p => p.Id == id);
-                if (casing != null)
-                {
-                    db.Cases.Remove(casing);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("ShowCases");
-                }
-            }
-            return NotFound();
-        }
-
-        ///////////////// Section Headphone
-        [HttpGet]
-        public async Task<IActionResult> ShowHeadphones(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
             //фильтрация
-            IQueryable<Headphone> Headphones = db.Headphones;
+            IQueryable<Product> Products = db.Products.Where(p => p.Type == type);
 
             if (!string.IsNullOrEmpty(name))
             {
-                Headphones = Headphones.Where(p => p.Name.Contains(name));
+                Products = Products.Where(p => p.Name.Contains(name));
             }
 
             if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
             {
-                Headphones = Headphones.Where(p => p.Availability == aviability);
+                Products = Products.Where(p => p.Availability == aviability);
             }
 
             // сортировка
             switch (sortOrder)
             {
                 case SortState.NameDesc:
-                    Headphones = Headphones.OrderByDescending(s => s.Name);
-                    break;
-                case SortState.PriceAsc:
-                    Headphones = Headphones.OrderBy(s => s.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Headphones = Headphones.OrderByDescending(s => s.Price);
-                    break;
-                default:
-                    Headphones = Headphones.OrderBy(s => s.Name);
-                    break;
-            }
-
-            // пагинация
-            int pageSize = 5;
-            var count = await Headphones.CountAsync();
-            var items = await Headphones.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            // формируем модель представления
-            IndexViewModel indexviewModel = new IndexViewModel
-            {
-                PageViewModel = new PageViewModel(count, page, pageSize),
-                SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name, aviability),
-                Headphones = items
-            };
-            return View("~/Views/EditShop/Headphone/ShowHeadphones.cshtml", indexviewModel);
-        }
-
-        [HttpGet]
-        public IActionResult CreateHeadphone() => View("~/Views/EditShop/Headphone/CreateHeadphone.cshtml");
-        // добавлена папка в модель
-
-        [HttpPost]
-        public async Task<IActionResult> CreateHeadphone(Headphone headphone)
-        {
-            if (headphone.File != null)
-            {
-                byte[] imageData = null;
-                // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(headphone.File.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)headphone.File.Length);
-                }
-                // установка массива байтов
-                headphone.Image = imageData;
-            }
-
-            db.Headphones.Add(headphone);
-            await db.SaveChangesAsync();
-            return RedirectToAction("ShowHeadphones");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditHeadphone(int? id)
-        {
-            if (id != null)
-            {
-                Headphone headphone = await db.Headphones.FirstOrDefaultAsync(p => p.Id == id);
-                if (headphone != null)
-                    return View("~/Views/EditShop/Headphone/EditHeadphone.cshtml", headphone);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditHeadphone(Headphone headphone)
-        {
-            if (headphone.File != null)
-            {
-                byte[] imageData = null;
-                // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(headphone.File.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)headphone.File.Length);
-                }
-                // установка массива байтов
-                headphone.Image = imageData;
-            }
-
-            db.Headphones.Update(headphone);
-            await db.SaveChangesAsync();
-            return RedirectToAction("ShowHeadphones");
-        }
-
-        [HttpGet]
-        [ActionName("DeleteHeadphone")]
-        public async Task<ActionResult> ConfirmDeleteHeadphone(int? id)
-        {
-            if (id != null)
-            {
-                Headphone headphone = await db.Headphones.FirstOrDefaultAsync(p => p.Id == id);
-                return View("~/Views/EditShop/Headphone/DeleteHeadphone.cshtml", headphone);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> DeleteHeadphone(int? id)
-        {
-            if (id != null)
-            {
-                Headphone headphone = await db.Headphones.FirstOrDefaultAsync(p => p.Id == id);
-                if (headphone != null)
-                {
-                    db.Headphones.Remove(headphone);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("ShowHeadphones");
-                }
-            }
-            return NotFound();
-        }
-
-        ///////////////// Section Phone
-        [HttpGet]
-        public async Task<IActionResult> ShowPhones(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
-            //фильтрация
-            IQueryable<Phone> Phones = db.Phones;
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                Phones = Phones.Where(p => p.Name.Contains(name));
-            }
-
-            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
-            {
-                Phones = Phones.Where(p => p.Availability == aviability);
-            }
-
-            // сортировка
-            switch (sortOrder)
-            {
-                case SortState.NameDesc:
-                    Phones = Phones.OrderByDescending(s => s.Name);
+                    Products = Products.OrderByDescending(s => s.Name);
                     break;
                 case SortState.CompanyAsc:
-                    Phones = Phones.OrderBy(s => s.Company);
+                    Products = Products.OrderBy(s => s.Company);
                     break;
                 case SortState.CompanyDesc:
-                    Phones = Phones.OrderByDescending(s => s.Company);
-                    break;
-                case SortState.PriceAsc:
-                    Phones = Phones.OrderBy(s => s.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Phones = Phones.OrderByDescending(s => s.Price);
-                    break;
-                default:
-                    Phones = Phones.OrderBy(s => s.Name);
-                    break;
-            }
-
-            // пагинация
-            int pageSize = 5;
-            var count = await Phones.CountAsync();
-            var items = await Phones.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            // формируем модель представления
-            IndexViewModel indexviewModel = new IndexViewModel
-            {
-                PageViewModel = new PageViewModel(count, page, pageSize),
-                SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name, aviability),
-                Phones = items
-            };
-            return View("~/Views/EditShop/Phone/ShowPhones.cshtml", indexviewModel);
-        }
-
-        [HttpGet]
-        public IActionResult CreatePhone() => View("~/Views/EditShop/Phone/CreatePhone.cshtml"); // полный путь, т.к. для большей наглядности и сортировки в
-        // добавлена папка в модель
-
-        [HttpPost]
-        public async Task<IActionResult> CreatePhone(Phone phone)
-        {
-            if (phone.File != null)
-            {
-                byte[] imageData = null;
-                // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(phone.File.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)phone.File.Length);
-                }
-                // установка массива байтов
-                phone.Image = imageData;
-            }
-
-            db.Phones.Add(phone);
-            await db.SaveChangesAsync();
-            return RedirectToAction("ShowPhones"); // RedirectToAction по дефолту перебрасывает в метод контроллера, поэтому путь указвать не нужно
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> EditPhone(int? id)
-        {
-            if (id != null)
-            {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == id);
-                if (phone != null)
-                    return View("~/Views/EditShop/Phone/EditPhone.cshtml", phone);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> EditPhone(Phone phone)
-        {
-            if (phone.File != null)
-            {
-                byte[] imageData = null;
-                // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(phone.File.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)phone.File.Length);
-                }
-                // установка массива байтов
-                phone.Image = imageData;
-            }
-
-            db.Phones.Update(phone);
-            await db.SaveChangesAsync();
-            return RedirectToAction("ShowPhones");
-        }
-
-        [HttpGet]
-        [ActionName("DeletePhone")]
-        public async Task<ActionResult> ConfirmDeletePhone(int? id)
-        {
-            if (id != null)
-            {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == id);
-                return View("~/Views/EditShop/Phone/DeletePhone.cshtml", phone);
-            }
-            return NotFound();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> DeletePhone(int? id)
-        {
-            if (id != null)
-            {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == id);
-                if (phone != null)
-                {
-                    db.Phones.Remove(phone);
-                    await db.SaveChangesAsync();
-                    return RedirectToAction("ShowPhones");
-                }
-            }
-            return NotFound();
-        }
-
-        ///////////////// Section Powerbank
-        [HttpGet]
-        public async Task<IActionResult> ShowPowerbanks(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
-            //фильтрация
-            IQueryable<Powerbank> Powerbanks = db.Powerbanks;
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                Powerbanks = Powerbanks.Where(p => p.Name.Contains(name));
-            }
-
-            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
-            {
-                Powerbanks = Powerbanks.Where(p => p.Availability == aviability);
-            }
-
-            // сортировка
-            switch (sortOrder)
-            {
-                case SortState.NameDesc:
-                    Powerbanks = Powerbanks.OrderByDescending(s => s.Name);
+                    Products = Products.OrderByDescending(s => s.Company);
                     break;
                 case SortState.CapacityAsc:
-                    Powerbanks = Powerbanks.OrderBy(s => s.Capacity);
+                    Products = Products.OrderBy(s => s.Capacity);
                     break;
                 case SortState.CapacityDesc:
-                    Powerbanks = Powerbanks.OrderByDescending(s => s.Capacity);
+                    Products = Products.OrderByDescending(s => s.Capacity);
                     break;
                 case SortState.PriceAsc:
-                    Powerbanks = Powerbanks.OrderBy(s => s.Price);
+                    Products = Products.OrderBy(s => s.Price);
                     break;
                 case SortState.PriceDesc:
-                    Powerbanks = Powerbanks.OrderByDescending(s => s.Price);
+                    Products = Products.OrderByDescending(s => s.Price);
                     break;
                 default:
-                    Powerbanks = Powerbanks.OrderBy(s => s.Name);
+                    Products = Products.OrderBy(s => s.Name);
                     break;
             }
 
             // пагинация
             int pageSize = 5;
-            var count = await Powerbanks.CountAsync();
-            var items = await Powerbanks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await Products.CountAsync();
+            var items = await Products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             // формируем модель представления
             IndexViewModel indexviewModel = new IndexViewModel
@@ -481,93 +77,95 @@ namespace SimpleStore.Controllers
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 SortViewModel = new SortViewModel(sortOrder),
                 FilterViewModel = new FilterViewModel(name, aviability),
-                Powerbanks = items
+                Products = items
             };
-            return View("~/Views/EditShop/Powerbank/ShowPowerbanks.cshtml", indexviewModel);
+            return View(indexviewModel);
         }
 
         [HttpGet]
-        public IActionResult CreatePowerbank() => View("~/Views/EditShop/Powerbank/CreatePowerbank.cshtml"); // полный путь, т.к. для большей наглядности и сортировки в
-        // добавлена папка в модель
+        public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> CreatePowerbank(Powerbank powerbank)
+        public async Task<IActionResult> Create(Product product)
         {
-            if (powerbank.File != null)
+            if (product.File != null)
             {
                 byte[] imageData = null;
                 // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(powerbank.File.OpenReadStream()))
+                using (var binaryReader = new BinaryReader(product.File.OpenReadStream()))
                 {
-                    imageData = binaryReader.ReadBytes((int)powerbank.File.Length);
+                    imageData = binaryReader.ReadBytes((int)product.File.Length);
                 }
                 // установка массива байтов
-                powerbank.Image = imageData;
+                product.Image = imageData;
             }
 
-            db.Powerbanks.Add(powerbank);
+            db.Products.Add(product);
             await db.SaveChangesAsync();
-            return RedirectToAction("ShowPowerbanks"); // RedirectToAction по дефолту перебрасывает в метод контроллера, поэтому путь указвать не нужно
+
+
+            return RedirectToAction("ShowCases", new { type = product.Type });
         }
 
         [HttpGet]
-        public async Task<IActionResult> EditPowerbank(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id != null)
             {
-                Powerbank powerbank = await db.Powerbanks.FirstOrDefaultAsync(p => p.Id == id);
-                if (powerbank != null)
-                    return View("~/Views/EditShop/Powerbank/EditPowerbank.cshtml", powerbank);
+                Product product = await db.Products.FirstOrDefaultAsync(p => p.Id == id);
+                if (product != null)
+                    return View(product);
             }
             return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditPowerbank(Powerbank powerbank)
+        public async Task<IActionResult> Edit(Product product)
         {
-            if (powerbank.File != null)
+            if (product.File != null)
             {
                 byte[] imageData = null;
                 // считываем переданный файл в массив байтов
-                using (var binaryReader = new BinaryReader(powerbank.File.OpenReadStream()))
+                using (var binaryReader = new BinaryReader(product.File.OpenReadStream()))
                 {
-                    imageData = binaryReader.ReadBytes((int)powerbank.File.Length);
+                    imageData = binaryReader.ReadBytes((int)product.File.Length);
                 }
                 // установка массива байтов
-                powerbank.Image = imageData;
+                product.Image = imageData;
             }
 
-            db.Powerbanks.Update(powerbank);
+            db.Products.Update(product);
             await db.SaveChangesAsync();
-            return RedirectToAction("ShowPowerbanks");
+            return RedirectToAction("ShowCases", new { type = product.Type });
         }
 
         [HttpGet]
-        [ActionName("DeletePowerbank")]
-        public async Task<ActionResult> ConfirmDeletePowerbank(int? id)
+        [ActionName("Delete")]
+        public async Task<ActionResult> ConfirmDelete(int? id)
         {
             if (id != null)
             {
-                Powerbank powerbank = await db.Powerbanks.FirstOrDefaultAsync(p => p.Id == id);
-                return View("~/Views/EditShop/Powerbank/DeletePowerbank.cshtml", powerbank);
+                Product product = await db.Products.FirstOrDefaultAsync(p => p.Id == id);
+                return View(product);
             }
             return NotFound();
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeletePowerbank(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id != null)
             {
-                Powerbank powerbank = await db.Powerbanks.FirstOrDefaultAsync(p => p.Id == id);
-                if (powerbank != null)
+                Product product = await db.Products.FirstOrDefaultAsync(p => p.Id == id);
+                if (product != null)
                 {
-                    db.Powerbanks.Remove(powerbank);
+                    db.Products.Remove(product);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("ShowPowerbanks");
+                    return RedirectToAction("ShowCases", new { type = product.Type });
                 }
             }
             return NotFound();
         }
+
     }
 }

@@ -1,0 +1,12 @@
+﻿@model SimpleStore.Models.Shop.Product
+
+@{
+    ViewBag.Title = "Удаление товара";
+}
+
+<h3>Вы уверены, что хотит удалить товар @Model.Name?</h3>
+
+<form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+    <input type="submit" value="Удалить" class="btn btn-danger" />
+    <a asp-action="ShowProducts" asp-route-type="@Model.Type" class="btn btn-primary">Нет</a>
+</form>

@@ -22,162 +22,69 @@ namespace SimpleStore.Controllers
 
         public IActionResult Index() => View();
 
-        ///////////////// Section Case
         [HttpGet]
-        public async Task<IActionResult> Case(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
+        public async Task<IActionResult> Product(string type, string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
+        {     
+            ViewBag.type = type;
+            ViewBag.Users = _userManager.Users.ToList();
+            
             //фильтрация
-            IQueryable<Case> Cases = db.Cases;
-
+            IQueryable<Product> Products = db.Products.Where(p => p.Type == type);
+            
             if (!string.IsNullOrEmpty(name))
             {
-                Cases = Cases.Where(p => p.Name.Contains(name));
+                Products = Products.Where(p => p.Name.Contains(name));
             }
 
             if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
             {
-                Cases = Cases.Where(p => p.Availability == aviability);
+                Products = Products.Where(p => p.Availability == aviability);
             }
 
             // сортировка
             switch (sortOrder)
             {
                 case SortState.NameDesc:
-                    Cases = Cases.OrderByDescending(s => s.Name);
-                    break;
-                case SortState.PriceAsc:
-                    Cases = Cases.OrderBy(s => s.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Cases = Cases.OrderByDescending(s => s.Price);
-                    break;
-                default:
-                    Cases = Cases.OrderBy(s => s.Name);
-                    break;
-            }
-
-            // пагинация
-            int pageSize = 5;
-            var count = await Cases.CountAsync();
-            var items = await Cases.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            // формируем модель представления
-            IndexViewModel viewModel = new IndexViewModel
-            {
-                PageViewModel = new PageViewModel(count, page, pageSize),
-                SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name, aviability),
-                Cases = items
-            };           
-            return View(viewModel);
-        }
-
-        ///////////////// Section Headphone
-        [HttpGet]
-        public async Task<IActionResult> Headphone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
-            //фильтрация
-            IQueryable<Headphone> Headphones = db.Headphones;
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                Headphones = Headphones.Where(p => p.Name.Contains(name));
-            }
-
-            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
-            {
-                Headphones = Headphones.Where(p => p.Availability == aviability);
-            }
-
-            // сортировка
-            switch (sortOrder)
-            {
-                case SortState.NameDesc:
-                    Headphones = Headphones.OrderByDescending(s => s.Name);
-                    break;
-                case SortState.PriceAsc:
-                    Headphones = Headphones.OrderBy(s => s.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Headphones = Headphones.OrderByDescending(s => s.Price);
-                    break;
-                default:
-                    Headphones = Headphones.OrderBy(s => s.Name);
-                    break;
-            }
-
-            // пагинация
-            int pageSize = 5;
-            var count = await Headphones.CountAsync();
-            var items = await Headphones.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            // формируем модель представления
-            IndexViewModel viewModel = new IndexViewModel
-            {
-                PageViewModel = new PageViewModel(count, page, pageSize),
-                SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name, aviability),
-                Headphones = items
-            };
-            return View(viewModel);
-        }
-
-        ///////////////// Section Phone
-        [HttpGet]
-        public async Task<IActionResult> Phone(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
-            //фильтрация
-            IQueryable<Phone> Phones = db.Phones;
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                Phones = Phones.Where(p => p.Name.Contains(name));
-            }
-
-            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
-            {
-                Phones = Phones.Where(p => p.Availability == aviability);
-            }
-
-            // сортировка
-            switch (sortOrder)
-            {
-                case SortState.NameDesc:
-                    Phones = Phones.OrderByDescending(s => s.Name);
+                    Products = Products.OrderByDescending(s => s.Name);
                     break;
                 case SortState.CompanyAsc:
-                    Phones = Phones.OrderBy(s => s.Company);
+                    Products = Products.OrderBy(s => s.Company);
                     break;
                 case SortState.CompanyDesc:
-                    Phones = Phones.OrderByDescending(s => s.Company);
+                    Products = Products.OrderByDescending(s => s.Company);
+                    break;
+                case SortState.CapacityAsc:
+                    Products = Products.OrderBy(s => s.Capacity);
+                    break;
+                case SortState.CapacityDesc:
+                    Products = Products.OrderByDescending(s => s.Capacity);
                     break;
                 case SortState.PriceAsc:
-                    Phones = Phones.OrderBy(s => s.Price);
+                    Products = Products.OrderBy(s => s.Price);
                     break;
                 case SortState.PriceDesc:
-                    Phones = Phones.OrderByDescending(s => s.Price);
+                    Products = Products.OrderByDescending(s => s.Price);
                     break;
                 default:
-                    Phones = Phones.OrderBy(s => s.Name);
+                    Products = Products.OrderBy(s => s.Name);
                     break;
             }
 
             // пагинация
             int pageSize = 5;
-            var count = await Phones.CountAsync();
-            var items = await Phones.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+            var count = await Products.CountAsync();
+            var items = await Products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             // формируем модель представления
-            IndexViewModel viewModel = new IndexViewModel
+            IndexViewModel indexviewModel = new IndexViewModel
             {
                 PageViewModel = new PageViewModel(count, page, pageSize),
                 SortViewModel = new SortViewModel(sortOrder),
                 FilterViewModel = new FilterViewModel(name, aviability),
-                Phones = items
+                Products = items
             };
 
-            ViewBag.Users = _userManager.Users.ToList();
-            return View(viewModel);
+            return View(indexviewModel);
         }
 
         [HttpGet]
@@ -186,13 +93,13 @@ namespace SimpleStore.Controllers
         {
             if (ProductId != null)
             {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == ProductId);
-                if (phone != null)
+                Product product = await db.Products.FirstOrDefaultAsync(p => p.Id == ProductId);
+                if (product != null)
                 {
                     ViewBag.ProductId = ProductId;
                     ViewBag.UserId = UserId;
                     ViewBag.Count = ProductCount;
-                    return View(phone);
+                    return View(product);
                 }
             }
             return NotFound();
@@ -203,17 +110,17 @@ namespace SimpleStore.Controllers
         {
             if (ProductId != null && UserId != null)
             {
-                Phone phone = await db.Phones.FirstOrDefaultAsync(p => p.Id == ProductId);
+                Product product = await db.Products.FirstOrDefaultAsync(p => p.Id == ProductId);
                 User user = await _userManager.FindByIdAsync(UserId);
-                if (phone != null && user != null)
+                if (product != null && user != null)
                 {
                     Order order = new Order
                     {
                         ProductId = (int)ProductId,
                         UserId = UserId,
-                        ProductName = phone.Name,
+                        ProductName = product.Name,
                         ProductCount = Count,
-                        ProductPrice = Count * phone.Price,
+                        ProductPrice = Count * product.Price,
                         UserEmail = user.Email,
                         UserPhone = user.PhoneNumber,
                         UserSurname = user.Surname,
@@ -224,66 +131,10 @@ namespace SimpleStore.Controllers
 
                     db.Orders.Add(order);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Phone");
+                    return RedirectToAction("Case", new { type = product.Type });
                 }
             }
             return NotFound();
-        }
-
-        ///////////////// Section Powerbank
-        [HttpGet]
-        public async Task<IActionResult> Powerbank(string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {
-            //фильтрация
-            IQueryable<Powerbank> Powerbanks = db.Powerbanks;
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                Powerbanks = Powerbanks.Where(p => p.Name.Contains(name));
-            }
-
-            if (!string.IsNullOrEmpty(aviability) && aviability != "Все")
-            {
-                Powerbanks = Powerbanks.Where(p => p.Availability == aviability);
-            }
-
-            // сортировка
-            switch (sortOrder)
-            {
-                case SortState.NameDesc:
-                    Powerbanks = Powerbanks.OrderByDescending(s => s.Name);
-                    break;
-                case SortState.CapacityAsc:
-                    Powerbanks = Powerbanks.OrderBy(s => s.Capacity);
-                    break;
-                case SortState.CapacityDesc:
-                    Powerbanks = Powerbanks.OrderByDescending(s => s.Capacity);
-                    break;
-                case SortState.PriceAsc:
-                    Powerbanks = Powerbanks.OrderBy(s => s.Price);
-                    break;
-                case SortState.PriceDesc:
-                    Powerbanks = Powerbanks.OrderByDescending(s => s.Price);
-                    break;
-                default:
-                    Powerbanks = Powerbanks.OrderBy(s => s.Name);
-                    break;
-            }
-
-            // пагинация
-            int pageSize = 5;
-            var count = await Powerbanks.CountAsync();
-            var items = await Powerbanks.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
-
-            // формируем модель представления
-            IndexViewModel viewModel = new IndexViewModel
-            {
-                PageViewModel = new PageViewModel(count, page, pageSize),
-                SortViewModel = new SortViewModel(sortOrder),
-                FilterViewModel = new FilterViewModel(name, aviability),
-                Powerbanks = items
-            };
-            return View(viewModel);
         }
 
     }

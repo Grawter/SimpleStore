@@ -1,19 +1,40 @@
-﻿@model SimpleStore.Models.Shop.Powerbank
+﻿@model SimpleStore.Models.Shop.Product
 
 @{
-    ViewBag.Title = "Добавление товара в powerbank";
+    ViewBag.Title = "Редактирование товара";
 }
 
-<form method="post" asp-action="CreatePowerbank" asp-controller="EditShop" enctype="multipart/form-data">
+<form method="post" asp-action="Edit" enctype="multipart/form-data">
+    <input asp-for="Id" type="hidden" />
+    <div class="form-group">
+        <label asp-for="Type"></label><br />
+        <select asp-for="Type">
+            <option value="Case">Чехол</option>
+            <option value="Headphone">Наушники</option>
+            <option value="Phone">Телефон</option>
+            <option value="Powerbank">Powerbank</option>
+        </select>
+        <span asp-validation-for="Type"></span>
+    </div>
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label><br />
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name"></span>
     </div>
     <div class="form-group">
+        <label asp-for="Company" class="control-label"></label><br />
+        <input asp-for="Company" class="form-control" />
+        <span asp-validation-for="Company"></span>
+    </div>
+    <div class="form-group">
         <label asp-for="Capacity" class="control-label"></label><br />
         <input asp-for="Capacity" class="form-control" />
         <span asp-validation-for="Capacity"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label><br />
+        <textarea asp-for="Description"></textarea>
+        <span asp-validation-for="Description"></span>
     </div>
     <div class="form-group">
         <label asp-for="Price" class="control-label"></label><br />
@@ -34,9 +55,7 @@
         <input type="file" asp-for="File" class="form-control" />
     </div>
     <div class="form-group">
-        <input type="submit" value="Добавить" class="btn btn-outline-secondary" />
-    </div>
-    <div>
-        <a asp-action="ShowPowerbanks">Назад</a>
+        <input type="submit" value="Сохранить" class="btn btn-success" />
+        <a asp-action="ShowProducts" asp-route-type="@Model.Type" class="btn btn-primary">Назад</a>
     </div>
 </form>

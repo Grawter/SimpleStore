@@ -16,6 +16,8 @@ namespace SimpleStore.ViewModels.Supporting_tools
 
         public IEnumerable<SimpleStore.Models.User> Users { get; set; }
 
+        public IEnumerable<Product> Products { get; set; }
+
         public IEnumerable<Order> Orders { get; set; }
 
         public PageViewModel PageViewModel { get; set; }

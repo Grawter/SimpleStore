@@ -57,6 +57,9 @@
     }
 </table>
 
-<page-link page-model="@Model.PageViewModel" page-action="MyOrders" 
+@if(Model.Orders.Count() > 0)
+{
+<page-link page-model="@Model.PageViewModel" page-action="MyOrders"
            page-url-UserId="@Model.Orders.FirstOrDefault().UserId">
 </page-link>
+}
