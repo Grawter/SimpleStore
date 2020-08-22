@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.User;
-using SimpleStore.Models.Booking;
 using Microsoft.EntityFrameworkCore;
 using SimpleStore.ViewModels.Supporting_tools;
+using System;
 
 namespace SimpleStore.Controllers
 {
@@ -44,9 +44,7 @@ namespace SimpleStore.Controllers
                 FullName = user.FullName,
                 Address = user.Address,
                 PhoneNumber = user.PhoneNumber,
-                Day = user.Day,
-                Mount = user.Mount,
-                Year = user.Year,
+                DateBirth = DateTime.Parse(user.DateBirth)
             };
             return View(model);
         }
@@ -62,9 +60,7 @@ namespace SimpleStore.Controllers
                     user.FullName = model.FullName;
                     user.Address = model.Address;
                     user.PhoneNumber = model.PhoneNumber;
-                    user.Day = model.Day;
-                    user.Mount = model.Mount;
-                    user.Year = model.Year;
+                    user.DateBirth = model.DateBirth.ToShortDateString();
 
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SimpleStore.Models.Booking;
-using SimpleStore.Models.Shop;
-
 
 namespace SimpleStore.Models
 {

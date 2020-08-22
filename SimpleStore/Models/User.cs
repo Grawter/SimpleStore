@@ -6,8 +6,7 @@ namespace SimpleStore.Models
     {
         public string FullName { get; set; }
         public string Address { get; set; }
-        public int Year { get; set; }
-        public int Mount { get; set; }
-        public int Day { get; set; }
+        public string DateBirth { get; set; }
+
     }
 }

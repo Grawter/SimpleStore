@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace SimpleStore.Models.Booking
+namespace SimpleStore.Models
 {
     public class Order
     {

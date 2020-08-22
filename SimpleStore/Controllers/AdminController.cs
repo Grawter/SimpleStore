@@ -6,6 +6,7 @@ using SimpleStore.Models;
 using SimpleStore.ViewModels.Admin;
 using SimpleStore.ViewModels.Supporting_tools;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace SimpleStore.Controllers
 {
@@ -76,8 +77,8 @@ namespace SimpleStore.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName,
-                    Address = model.Address, PhoneNumber = model.PhoneNumber, 
-                    Day = model.Day, Mount = model.Mount, Year = model.Year };
+                    Address = model.Address, PhoneNumber = model.PhoneNumber, DateBirth = model.DateBirth.ToShortDateString()};
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -103,7 +104,7 @@ namespace SimpleStore.Controllers
                 return NotFound();
             }
             AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, FullName = user.FullName, 
-                Address = user.Address, PhoneNumber = user.PhoneNumber, Day = user.Day, Mount = user.Mount, Year = user.Year,
+                Address = user.Address, PhoneNumber = user.PhoneNumber, DateBirth = DateTime.Parse(user.DateBirth),
                 Email = user.Email };
             return View(model);
         }
@@ -119,9 +120,7 @@ namespace SimpleStore.Controllers
                     user.FullName = model.FullName;
                     user.Address = model.Address;
                     user.PhoneNumber = model.PhoneNumber;
-                    user.Day = model.Day;
-                    user.Mount = model.Mount;
-                    user.Year = model.Year;
+                    user.DateBirth = model.DateBirth.ToShortDateString();
                     user.Email = model.Email;
                     user.UserName = model.Email;
 

@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleStore.Models;
-using SimpleStore.Models.Booking;
-using SimpleStore.Models.Shop;
 using SimpleStore.ViewModels.Supporting_tools;
 
 namespace SimpleStore.Controllers

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Http;
 
-namespace SimpleStore.Models.Shop
+namespace SimpleStore.Models
 {
     public class Product
     {

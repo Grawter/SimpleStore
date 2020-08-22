@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Authentication;
-
+using System;
 
 namespace SimpleStore.Controllers
 {
@@ -27,8 +27,7 @@ namespace SimpleStore.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName,
-                    Address = model.Address, PhoneNumber = model.PhoneNumber, 
-                    Day = model.Day, Mount = model.Mount, Year = model.Year };
+                    Address = model.Address, PhoneNumber = model.PhoneNumber, DateBirth = model.DateBirth.ToShortDateString() };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

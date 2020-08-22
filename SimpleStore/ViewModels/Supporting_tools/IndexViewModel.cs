@@ -1,5 +1,4 @@
-﻿using SimpleStore.Models.Booking;
-using SimpleStore.Models.Shop;
+﻿using SimpleStore.Models;
 using System.Collections.Generic;
 
 namespace SimpleStore.ViewModels.Supporting_tools

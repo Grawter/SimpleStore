@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimpleStore.ViewModels.Authentication
@@ -12,33 +13,20 @@ namespace SimpleStore.ViewModels.Authentication
 
         
         [Required(ErrorMessage = "Не указан адрес")]
-        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 1 до 150 символов")]
+        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 10 до 150 символов")]
         [Display(Name = "Адрес")]
         public string Address { get; set; }
+    
 
-        
         [Required(ErrorMessage = "Не указан телефон")]
         [Phone(ErrorMessage = "Некорректный телефон")]
         [Display(Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
 
 
-        [Required(ErrorMessage = "Не указан день рождения")]
-        [Range(1, 31, ErrorMessage = "Допустимые значения 1-31")]
-        [Display(Name = "День рождения")]
-        public int Day { get; set; }
-
-
-        [Required(ErrorMessage = "Не указан месяц рождения")]
-        [Range(1, 12, ErrorMessage = "Допустимые значения 1-12")]
-        [Display(Name = "Месяц рождения")]
-        public int Mount { get; set; }
-
-
-        [Required(ErrorMessage = "Не указан год рождения")]
-        [Range(1900, 2002, ErrorMessage = "Допустимые значения 1900-2002")]
-        [Display(Name = "Год рождения")]
-        public int Year { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Дата рождения")]
+        public DateTime DateBirth { get; set; }
 
 
         [Required(ErrorMessage = "Не указан Email")]
