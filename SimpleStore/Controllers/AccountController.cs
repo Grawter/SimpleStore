@@ -26,8 +26,9 @@ namespace SimpleStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, Name = model.Name, Surname = model.SurName,
-                    Address = model.Address, PhoneNumber = model.PhoneNumber, Day = model.Day, Mount = model.Mount, Year = model.Year };
+                User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName,
+                    Address = model.Address, PhoneNumber = model.PhoneNumber, 
+                    Day = model.Day, Mount = model.Mount, Year = model.Year };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

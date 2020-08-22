@@ -73,16 +73,10 @@ namespace SimpleStore.Controllers
                     orders = orders.OrderByDescending(s => s.ProductPrice);
                     break;
                 case SortState.NamesAsc:
-                    orders = orders.OrderBy(s => s.UserName);
+                    orders = orders.OrderBy(s => s.UserFullName);
                     break;
                 case SortState.NamesDesc:
-                    orders = orders.OrderByDescending(s => s.UserName);
-                    break;
-                case SortState.SurnameAsc:
-                    orders = orders.OrderBy(s => s.UserSurname);
-                    break;
-                case SortState.SurnameDesc:
-                    orders = orders.OrderByDescending(s => s.UserSurname);
+                    orders = orders.OrderByDescending(s => s.UserFullName);
                     break;
                 case SortState.EmailAsc:
                     orders = orders.OrderBy(s => s.UserEmail);

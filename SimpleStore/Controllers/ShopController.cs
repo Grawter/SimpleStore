@@ -123,15 +123,14 @@ namespace SimpleStore.Controllers
                         ProductPrice = Count * product.Price,
                         UserEmail = user.Email,
                         UserPhone = user.PhoneNumber,
-                        UserSurname = user.Surname,
-                        UserName = user.Name,
+                        UserFullName = user.FullName,
                         UserAddress = user.Address,
                         Status = "На рассмотрении"
                     };
 
                     db.Orders.Add(order);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Case", new { type = product.Type });
+                    return RedirectToAction("Product", new { type = product.Type });
                 }
             }
             return NotFound();

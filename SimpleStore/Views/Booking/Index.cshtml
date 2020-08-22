@@ -81,14 +81,7 @@
                asp-route-sortOrder="@(Model.SortViewModel.SurnameSort)"
                asp-route-id="@(Model.FilterViewModel.SelectedId)"
                asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Фамилия ⇕</a>
-        </td>
-        <td>
-            <a asp-action="Index"
-               asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
-               asp-route-id="@(Model.FilterViewModel.SelectedId)"
-               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Имя ⇕</a>
+               asp-route-status="@(Model.FilterViewModel.SelectedStatus)">ФИО ⇕</a>
         </td>
         <td>
             <a asp-action="Index"
@@ -117,8 +110,7 @@
     <td>@item.ProductPrice</td>
     <td>@item.UserEmail</td>
     <td>@item.UserPhone</td>
-    <td>@item.UserSurname</td>
-    <td>@item.UserName</td>
+    <td>@item.UserFullName</td>
     <td>@item.UserAddress</td>
     <td>@item.Status</td>
     <td>

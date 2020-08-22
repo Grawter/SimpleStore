@@ -9,14 +9,9 @@ namespace SimpleStore.ViewModels.Admin
         public string Id { get; set; }
 
 
-        [Required(ErrorMessage = "Не указано имя")]
-        [Display(Name = "Имя")]
-        public string Name { get; set; }
-
-
-        [Required(ErrorMessage = "Не указана фамилия")]
-        [Display(Name = "Фамилия")]
-        public string Surname { get; set; }
+        [Required(ErrorMessage = "Не указано ФИО")]
+        [Display(Name = "ФИО")]
+        public string FullName { get; set; }
 
 
         [Required(ErrorMessage = "Не указан адрес")]

@@ -6,14 +6,6 @@ namespace SimpleStore.ViewModels.Supporting_tools
 {
     public class IndexViewModel
     {
-        public IEnumerable<Case> Cases { get; set; }
-
-        public IEnumerable<Headphone> Headphones { get; set; }
-
-        public IEnumerable<Phone> Phones { get; set; }
-
-        public IEnumerable<Powerbank> Powerbanks { get; set; }
-
         public IEnumerable<SimpleStore.Models.User> Users { get; set; }
 
         public IEnumerable<Product> Products { get; set; }

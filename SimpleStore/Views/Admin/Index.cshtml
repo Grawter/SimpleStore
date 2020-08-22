@@ -31,11 +31,7 @@
         <td>
             <a asp-action="Index"
                asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
-               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Имя ⇕</a>
-        </td>
-        <td><a asp-action="Index"
-               asp-route-sortOrder="@(Model.SortViewModel.SurnameSort)"
-               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Фамилия ⇕</a>
+               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">ФИО ⇕</a>
         </td>
         <td></td>
     </tr>
@@ -45,8 +41,7 @@
         <tr>
             <td>@user.Email</td>
             <td>@user.PhoneNumber</td>
-            <td>@user.Name</td>
-            <td>@user.Surname</td>
+            <td>@user.FullName</td>
             <td>
                 <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
                 <a class="btn btn-sm btn-outline-warning" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>

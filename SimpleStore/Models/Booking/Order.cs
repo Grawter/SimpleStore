@@ -27,23 +27,16 @@ namespace SimpleStore.Models.Booking
         public string UserPhone { get; set; } // телефон заказчика
 
 
-        [Required(ErrorMessage = "Не указана фамилия")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина фамилии должна быть от 1 до 50 символов")]
-        [Display(Name = "Фамилия")]
-        public string UserSurname { get; set; } // фамилия заказчика
-
-
-        [Required(ErrorMessage = "Не указано имя")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина имени должна быть от 1 до 50 символов")]
-        [Display(Name = "Имя")]
-        public string UserName { get; set; } // имя заказчика
+        [Required(ErrorMessage = "Не указано ФИО")]
+        [StringLength(50, ErrorMessage = "Длина ФИО должна быть до 50 символов")]
+        [Display(Name = "ФИО")]
+        public string UserFullName { get; set; } // фамилия заказчика
 
 
         [Required(ErrorMessage = "Не указан адрес")]
         [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 1 до 150 символов")]
         [Display(Name = "Адрес")]
         public string UserAddress { get; set; } // адрес заказчика
-
 
 
         [Required(ErrorMessage = "Не указан статус")]

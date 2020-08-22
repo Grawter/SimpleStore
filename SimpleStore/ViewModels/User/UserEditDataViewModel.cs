@@ -8,16 +8,10 @@ namespace SimpleStore.ViewModels.User
         public string Id { get; set; }
 
 
-        [Required(ErrorMessage = "Не указано имя")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина имени должна быть от 1 до 50 символов")]
-        [Display(Name = "Имя")]
-        public string Name { get; set; }
-
-
-        [Required(ErrorMessage = "Не указана фамилия")]
-        [StringLength(50, MinimumLength = 1, ErrorMessage = "Длина фамилии должна быть от 1 до 50 символов")]
-        [Display(Name = "Фамилия")]
-        public string SurName { get; set; }
+        [Required(ErrorMessage = "Не указано ФИО")]
+        [StringLength(80, ErrorMessage = "Длина ФИО должна быть от 1 до 50 символов")]
+        [Display(Name = "ФИО")]
+        public string FullName { get; set; }
 
 
         [Required(ErrorMessage = "Не указан адрес")]

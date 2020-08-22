@@ -32,13 +32,7 @@ namespace SimpleStore.Controllers
             switch (sortOrder)
             {
                 case SortState.NamesDesc:
-                    users = users.OrderByDescending(s => s.Name);
-                    break;
-                case SortState.SurnameAsc:
-                    users = users.OrderBy(s => s.Surname);
-                    break;
-                case SortState.SurnameDesc:
-                    users = users.OrderByDescending(s => s.Surname);
+                    users = users.OrderByDescending(s => s.FullName);
                     break;
                 case SortState.EmailAsc:
                     users = users.OrderBy(s => s.Email);
@@ -53,7 +47,7 @@ namespace SimpleStore.Controllers
                     users = users.OrderByDescending(s => s.PhoneNumber);
                     break;
                 default:
-                    users = users.OrderBy(s => s.Name);
+                    users = users.OrderBy(s => s.FullName);
                     break;
             }
 
@@ -81,8 +75,9 @@ namespace SimpleStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, Name = model.Name, Surname = model.Surname,
-                    Address = model.Address, PhoneNumber = model.PhoneNumber, Day = model.Day, Mount = model.Mount, Year = model.Year };
+                User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName,
+                    Address = model.Address, PhoneNumber = model.PhoneNumber, 
+                    Day = model.Day, Mount = model.Mount, Year = model.Year };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -107,7 +102,7 @@ namespace SimpleStore.Controllers
             {
                 return NotFound();
             }
-            AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, Name = user.Name, Surname = user.Surname, 
+            AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, FullName = user.FullName, 
                 Address = user.Address, PhoneNumber = user.PhoneNumber, Day = user.Day, Mount = user.Mount, Year = user.Year,
                 Email = user.Email };
             return View(model);
@@ -121,8 +116,7 @@ namespace SimpleStore.Controllers
                 User user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                    user.Name = model.Name;
-                    user.Surname = model.Surname;
+                    user.FullName = model.FullName;
                     user.Address = model.Address;
                     user.PhoneNumber = model.PhoneNumber;
                     user.Day = model.Day;

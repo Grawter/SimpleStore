@@ -4,13 +4,12 @@
     ViewBag.Title = "Изменение электронного адреса";
 }
 
-<h2>Изменение электронного адреса для пользователя @Model.Name @Model.SurName</h2>
+<h2>Изменение электронного адреса для пользователя @Model.FullName</h2>
 
 <form asp-action="ChangeEmail" asp-controller="Home">
     <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="Id" />
-    <input type="hidden" asp-for="Name" />
-    <input type="hidden" asp-for="SurName" />
+    <input type="hidden" asp-for="FullName" />
     <div class="form-group">
         <label asp-for="Email" class="control-label"></label>
         <input asp-for="Email" class="form-control" />

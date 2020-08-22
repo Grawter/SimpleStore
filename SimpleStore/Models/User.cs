@@ -4,8 +4,7 @@ namespace SimpleStore.Models
 {
     public class User : IdentityUser
     {
-        public string Name { get; set; }
-        public string Surname { get; set; }
+        public string FullName { get; set; }
         public string Address { get; set; }
         public int Year { get; set; }
         public int Mount { get; set; }

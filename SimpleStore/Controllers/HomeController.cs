@@ -41,8 +41,7 @@ namespace SimpleStore.Controllers
             UserEditDataViewModel model = new UserEditDataViewModel
             {
                 Id = user.Id,
-                Name = user.Name,
-                SurName = user.Surname,
+                FullName = user.FullName,
                 Address = user.Address,
                 PhoneNumber = user.PhoneNumber,
                 Day = user.Day,
@@ -60,8 +59,7 @@ namespace SimpleStore.Controllers
                 User user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                    user.Name = model.Name;
-                    user.Surname = model.SurName;
+                    user.FullName = model.FullName;
                     user.Address = model.Address;
                     user.PhoneNumber = model.PhoneNumber;
                     user.Day = model.Day;
@@ -93,7 +91,7 @@ namespace SimpleStore.Controllers
             {
                 return NotFound();
             }
-            UserChangeEmailViewModel model = new UserChangeEmailViewModel { Id = user.Id, Name = user.Name, SurName = user.Surname, Email = user.Email };
+            UserChangeEmailViewModel model = new UserChangeEmailViewModel { Id = user.Id, FullName = user.FullName, Email = user.Email };
             return View(model);
         }
 

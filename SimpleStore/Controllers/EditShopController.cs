@@ -104,7 +104,7 @@ namespace SimpleStore.Controllers
             await db.SaveChangesAsync();
 
 
-            return RedirectToAction("ShowCases", new { type = product.Type });
+            return RedirectToAction("ShowProducts", new { type = product.Type });
         }
 
         [HttpGet]
@@ -136,7 +136,7 @@ namespace SimpleStore.Controllers
 
             db.Products.Update(product);
             await db.SaveChangesAsync();
-            return RedirectToAction("ShowCases", new { type = product.Type });
+            return RedirectToAction("ShowProducts", new { type = product.Type });
         }
 
         [HttpGet]
@@ -161,7 +161,7 @@ namespace SimpleStore.Controllers
                 {
                     db.Products.Remove(product);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("ShowCases", new { type = product.Type });
+                    return RedirectToAction("ShowProducts", new { type = product.Type });
                 }
             }
             return NotFound();
