@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -85,6 +86,7 @@ namespace SimpleStore.Controllers
             return View(indexviewModel);
         }
 
+        [Authorize(Roles = "Admin, Moderator, User")]
         [HttpGet]
         [ActionName("Buy")]
         public async Task<IActionResult> ConfirmBuy(int? ProductId, string UserId, int ProductCount)
@@ -103,6 +105,7 @@ namespace SimpleStore.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "Admin, Moderator, User")]
         [HttpPost]
         public async Task<IActionResult> Buy(int? ProductId, string UserId, int Count)
         {

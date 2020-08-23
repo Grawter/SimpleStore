@@ -12,10 +12,20 @@
 
     <form method="post" asp-controller="Account" asp-action="Logout">
         <input type="submit" value="Выход" />
+        <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
+    <a class="btn btn-sm btn-primary" asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
     </form>
 
-    <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
-    <a class="btn btn-sm btn-primary" asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
+    @if (User.IsInRole("Moderator"))
+    {
+        <a class="btn btn-sm btn-primary" asp-controller="EditShop" asp-action="Index">Модерация магазина</a>
+        <a class="btn btn-sm btn-primary" asp-controller="Booking" asp-action="Index">Заказы</a>
+        if (User.IsInRole("Admin"))
+        {
+            <a class="btn btn-sm btn-primary" asp-controller="Admin" asp-action="Index">Редактирование пользователей </a>
+            <a class="btn btn-sm btn-primary" asp-controller="Roles" asp-action="Index">Настройка ролей </a>
+        }
+    }
 }
 else
 {

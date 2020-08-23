@@ -1,0 +1,12 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityRole
+
+@{
+    ViewBag.Title = "Удаление роли";
+}
+
+<h3>Вы уверены, что хотит удалить роль @Model.Name? Это может привести к сбою авторизации всего проекта!</h3>
+
+<form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+    <input type="submit" value="Удалить" class="btn btn-sm btn-danger" />
+    <a asp-action="Index" class="btn btn-sm btn-secondary">Нет</a>
+</form>

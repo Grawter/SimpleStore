@@ -7,18 +7,21 @@ using SimpleStore.ViewModels.Admin;
 using SimpleStore.ViewModels.Supporting_tools;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimpleStore.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AdminController(UserManager<User> userManager)
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
         }
-
         public async Task<IActionResult> Index(string email, int page = 1, SortState sortOrder = SortState.NamesAsc)
         {
             IQueryable<User> users = _userManager.Users;
@@ -80,6 +83,8 @@ namespace SimpleStore.Controllers
                     Address = model.Address, PhoneNumber = model.PhoneNumber, DateBirth = model.DateBirth.ToShortDateString()};
 
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await _userManager.AddToRoleAsync(user, "User");
+
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index");
@@ -106,11 +111,15 @@ namespace SimpleStore.Controllers
             AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, FullName = user.FullName, 
                 Address = user.Address, PhoneNumber = user.PhoneNumber, DateBirth = DateTime.Parse(user.DateBirth),
                 Email = user.Email };
+            
+            if (user.Email == User.Identity.Name)
+                ViewBag.ThisAdmAcc = true;
+
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AdmEditUserViewModel model)
+        public async Task<IActionResult> Edit(AdmEditUserViewModel model, bool ThisAdmAcc)
         {
             if (ModelState.IsValid)
             {
@@ -127,6 +136,13 @@ namespace SimpleStore.Controllers
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
+                        var aUser = await _userManager.FindByNameAsync(User.Identity.Name); // Определение текущего аккаунта
+
+                        // перезаход после изменения данных. (Для корректной работы с авторизацией у изменённого пользователя)
+                        await _signInManager.RefreshSignInAsync(user);
+                        if(!ThisAdmAcc)
+                            await _signInManager.RefreshSignInAsync(aUser); // Возвращаение на свой изначальный (админский) аккаунт
+                        
                         return RedirectToAction("Index");
                     }
                     else

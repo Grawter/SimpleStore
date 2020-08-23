@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleStore.Models;
@@ -8,6 +9,7 @@ using SimpleStore.ViewModels.Supporting_tools;
 
 namespace SimpleStore.Controllers
 {
+    [Authorize(Roles = "Admin, Moderator")]
     public class EditShopController : Controller
     {
         private readonly ApplicationContext db;

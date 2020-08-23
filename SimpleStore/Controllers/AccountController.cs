@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Authentication;
-using System;
 
 namespace SimpleStore.Controllers
 {
@@ -30,6 +29,8 @@ namespace SimpleStore.Controllers
                     Address = model.Address, PhoneNumber = model.PhoneNumber, DateBirth = model.DateBirth.ToShortDateString() };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
+                await _userManager.AddToRoleAsync(user, "User");
+
                 if (result.Succeeded)
                 {
                     // установка куки

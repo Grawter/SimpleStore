@@ -17,12 +17,14 @@ namespace SimpleStore.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationContext db;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationContext context, UserManager<User> userManager)
+        public HomeController(ILogger<HomeController> logger, ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _logger = logger;
             db = context;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index() => View(_userManager.Users.ToList());
@@ -65,6 +67,7 @@ namespace SimpleStore.Controllers
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
+                        await _signInManager.RefreshSignInAsync(user);
                         return RedirectToAction("Index");
                     }
                     else
@@ -106,7 +109,9 @@ namespace SimpleStore.Controllers
                     var result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Login", "Account");
+                        // перезаход после изменения данных. (Для корректной работы с авторизацией у изменённого пользователя)
+                        await _signInManager.RefreshSignInAsync(user); 
+                        return RedirectToAction("Index");
                     }
                     else
                     {
@@ -147,7 +152,7 @@ namespace SimpleStore.Controllers
                     IdentityResult result = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Login", "Account");
+                        return RedirectToAction("Index");
                     }
                     else
                     {
