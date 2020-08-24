@@ -7,7 +7,7 @@
 }
 
 <a class="btn btn-sm btn-outline-primary" asp-action="Create" asp-controller="Admin">Добавить пользователя</a>
-<a class="btn btn-sm btn-outline-primary" asp-action="Index" asp-controller="Roles">Управление ролями</a>
+<a class="btn btn-sm btn-outline-dark" asp-action="Roles">Управление ролями</a>
 
 <form method="get">
     <div class="form-inline form-group">
@@ -45,7 +45,8 @@
             <td>@user.FullName</td>
             <td>
                 <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@user.Id">Изменить</a>
-                <a class="btn btn-sm btn-outline-warning" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
+                <a class="btn btn-sm btn-outline-primary" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
+                <a class="btn btn-sm btn-outline-warning" asp-action="EditRole" asp-route-userid="@user.Id">Права доступа</a>
                 <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@user.Id">Удалить</a>
             </td>
         </tr>

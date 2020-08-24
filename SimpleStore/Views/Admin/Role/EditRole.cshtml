@@ -7,7 +7,7 @@
 
 <h3>Изменение ролей для пользователя @Model.UserEmail</h3>
 
-<form method="post" asp-action="Edit">
+<form method="post" asp-action="EditRole">
     <input type="hidden" name="userId" value="@Model.UserId" />
     <div class="form-group">
         @foreach (IdentityRole role in Model.AllRoles)
@@ -16,5 +16,5 @@
         }
     </div>
     <button class="btn btn-success" type="submit">Сохранить</button>
-    <a class="btn btn-primary" asp-action="UserList">Назад</a>
+    <a class="btn btn-primary" asp-action="Index">Назад</a>
 </form>

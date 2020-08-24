@@ -6,7 +6,7 @@
 
 <h3>Вы уверены, что хотит удалить роль @Model.Name? Это может привести к сбою авторизации всего проекта!</h3>
 
-<form method="post" asp-action="Delete" asp-route-id="@Model.Id">
+<form method="post" asp-action="DeleteRole" asp-route-id="@Model.Id">
     <input class="btn btn-sm btn-danger" type="submit" value="Удалить" />
-    <a class="btn btn-sm btn-primary" asp-action="Index">Назад</a>
+    <a class="btn btn-sm btn-primary" asp-action="Roles">Назад</a>
 </form>

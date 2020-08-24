@@ -13,10 +13,10 @@
                 @role.Name
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@role.Id" class="btn btn-sm btn-outline-danger">Удалить</a>
+                <a asp-action="DeleteRole" asp-route-id="@role.Id" class="btn btn-sm btn-outline-danger">Удалить</a>
             </td>
         </tr>
     }
 </table>
-<a class="btn btn-outline-primary" asp-action="Create">Добавить роль</a>
-<a class="btn btn-outline-primary" asp-action="UserList">Список пользователей</a>
+<a class="btn btn-outline-primary" asp-action="CreateRole">Добавить роль</a>
+<a class="btn btn-outline-primary" asp-action="Index">Список пользователей</a>

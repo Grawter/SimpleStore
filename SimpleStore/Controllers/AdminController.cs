@@ -8,19 +8,24 @@ using SimpleStore.ViewModels.Supporting_tools;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using SimpleStore.ViewModels.Authorization;
 
 namespace SimpleStore.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AdminController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
         public async Task<IActionResult> Index(string email, int page = 1, SortState sortOrder = SortState.NamesAsc)
         {
@@ -230,5 +235,111 @@ namespace SimpleStore.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult Roles() => View("~/Views/Admin/Role/Roles.cshtml", _roleManager.Roles.ToList());
+
+        public IActionResult CreateRole() => View("~/Views/Admin/Role/CreateRole.cshtml");
+
+        [HttpPost]
+        public async Task<IActionResult> CreateRole(string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                IdentityResult result = await _roleManager.CreateAsync(new IdentityRole(name));
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("Roles");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View("~/Views/Admin/Role/CreateRole.cshtml",name);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditRole(string userId)
+        {
+            // получаем пользователя
+            User user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                // получем список ролей пользователя
+                var userRoles = await _userManager.GetRolesAsync(user);
+                var allRoles = _roleManager.Roles.ToList();
+                ChangeRoleViewModel model = new ChangeRoleViewModel
+                {
+                    UserId = user.Id,
+                    UserEmail = user.Email,
+                    UserRoles = userRoles,
+                    AllRoles = allRoles
+                };
+                return View("~/Views/Admin/Role/EditRole.cshtml", model);
+            }
+
+            return NotFound($"Пользователь не найден/неверный id");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditRole(string userId, List<string> roles)
+        {
+            // получаем пользователя
+            User user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                // получем список ролей пользователя
+                var userRoles = await _userManager.GetRolesAsync(user);
+                // получаем все роли
+                var allRoles = _roleManager.Roles.ToList();
+                // получаем список ролей, которые были добавлены
+                var addedRoles = roles.Except(userRoles);
+                // получаем роли, которые были удалены
+                var removedRoles = userRoles.Except(roles);
+
+                await _userManager.AddToRolesAsync(user, addedRoles);
+
+                await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+                var aUser = await _userManager.FindByNameAsync(User.Identity.Name); // Определение текущего аккаунта
+
+                // перезаход после изменения данных. (Для корректной работы с авторизацией у изменённого пользователя)
+                await _signInManager.RefreshSignInAsync(user);
+
+                if (aUser.UserName != user.UserName)
+                    await _signInManager.RefreshSignInAsync(aUser); // Возвращаение на свой изначальный (админский) аккаунт
+
+                return RedirectToAction("Index");
+            }
+
+            return NotFound("Пользователь не найден");
+        }
+
+        [HttpGet]
+        [ActionName("DeleteRole")]
+        public async Task<IActionResult> ConfirmDeleteRole(string id)
+        {
+            if (id != null)
+            {
+                IdentityRole role = await _roleManager.FindByIdAsync(id);
+                return View("~/Views/Admin/Role/DeleteRole.cshtml", role);
+            }
+            return NotFound($"Неверный id");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole(string id)
+        {
+            IdentityRole role = await _roleManager.FindByIdAsync(id);
+            if (role != null)
+            {
+                IdentityResult result = await _roleManager.DeleteAsync(role);
+            }
+            return RedirectToAction("Roles");
+        }
+
     }
 }
