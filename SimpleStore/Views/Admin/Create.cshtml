@@ -4,6 +4,8 @@
     ViewBag.Title = "Добавление пользователя";
 }
 
+<h3>Добавление пользователя @Model.Email</h3>
+
 <form asp-action="Create" asp-controller="Admin">
     <div>
         <label asp-for="FullName"></label><br />

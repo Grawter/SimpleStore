@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<SimpleStore.Models.User>
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = "Личный кабинет";
 }
 
 @if (User.Identity.IsAuthenticated)

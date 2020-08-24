@@ -1,6 +1,11 @@
 ﻿@model IEnumerable<SimpleStore.Models.User>
 
-<h2>Список пользователей</h2>
+@{
+    ViewBag.Title = "Список пользователей";
+}
+
+<h3>Список пользователей</h3>
+
 <table class="table">
     @foreach (var user in Model)
     {

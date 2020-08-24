@@ -1,6 +1,10 @@
 ﻿@model SimpleStore.ViewModels.Authentication.RegisterViewModel
 
-<h2>Регистрация нового пользователя</h2>
+@{
+    ViewBag.Title = "Регистрация";
+}
+
+<h3>Регистрация нового пользователя</h3>
 
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>

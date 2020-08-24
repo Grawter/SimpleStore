@@ -1,6 +1,11 @@
 ﻿@model SimpleStore.ViewModels.Authentication.LoginViewModel
 
-<h2>Вход в приложение</h2>
+@{
+    ViewBag.Title = "Аутентификация";
+}
+
+<h3>Вход в личный кабинет</h3>
+
 <form method="post" asp-controller="Account" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
     <div asp-validation-summary="ModelOnly"></div>

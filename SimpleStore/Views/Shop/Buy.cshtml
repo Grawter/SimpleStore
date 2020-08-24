@@ -4,9 +4,20 @@
     ViewBag.Title = "Подтверждение покупки товара";
 }
 
-<h3>Вы подтверждаете заказ @Model.Name в количества @ViewBag.Count?</h3>
+@if (ViewBag.Count > 0)
+{
 
-<form method="post" asp-action="Buy" asp-route-ProductId="@Model.Id" asp-route-UserId="@ViewBag.UserId" asp-route-Count="@ViewBag.Count">
-    <input type="submit" value="Подтвердить" class="btn btn-success" />
-    <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">Нет</a>
-</form>
+   double total_price = ViewBag.Count * Model.Price;
+    
+    <h3>Вы подтверждаете заказ @Model.Name в количестве @ViewBag.Count шт? <br/>Итоговая цена составит @total_price рублей</h3>
+
+    <form method="post" asp-action="Buy" asp-route-ProductId="@Model.Id" asp-route-UserId="@ViewBag.UserId" asp-route-Count="@ViewBag.Count">
+        <input type="submit" value="Подтвердить" class="btn btn-success" />
+        <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">Нет</a>
+    </form>
+}
+else
+{
+    <h3>Количество товара в заказе не может быть меньше 1. Пожалуйста, проверьте правильность заказа. </h3>
+    <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">Вернуться</a>
+}

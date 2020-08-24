@@ -4,6 +4,8 @@
     ViewBag.Title = "Редактирование товара";
 }
 
+<h3>Редактирование товара @Model.Name</h3>
+
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
     <input asp-for="Id" type="hidden" />
     <div class="form-group">
