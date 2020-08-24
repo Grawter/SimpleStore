@@ -4,9 +4,9 @@
     ViewBag.Title = "Удаление товара";
 }
 
-<h3>Вы уверены, что хотит удалить товар @Model.Name?</h3>
+<h3>Вы уверены, что хотите удалить товар @Model.Name?</h3>
 
 <form method="post" asp-action="Delete" asp-route-id="@Model.Id">
-    <input type="submit" value="Удалить" class="btn btn-danger" />
-    <a asp-action="ShowProducts" asp-route-type="@Model.Type" class="btn btn-primary">Нет</a>
+    <input class="btn btn-sm btn-danger" type="submit" value="Удалить" />
+    <a class="btn btn-sm btn-primary" asp-action="ShowProducts" asp-route-type="@Model.Type">Назад</a>
 </form>

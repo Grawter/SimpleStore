@@ -15,5 +15,6 @@
             <input type="checkbox" name="roles" value="@role.Name" @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />@role.Name <br />
         }
     </div>
-    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <button class="btn btn-success" type="submit">Сохранить</button>
+    <a class="btn btn-primary" asp-action="UserList">Назад</a>
 </form>

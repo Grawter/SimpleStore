@@ -45,8 +45,6 @@ namespace SimpleStore.Controllers
             return View(name);
         } 
 
-        public IActionResult UserList() => View(_userManager.Users.ToList());
-
         public async Task<IActionResult> Edit(string userId)
         {
             // получаем пользователя

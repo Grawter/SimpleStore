@@ -20,10 +20,11 @@
         <span asp-validation-for="Password"></span>
     </div>
     <div>
-        <label asp-for="RememberMe"></label><br />
+        <label asp-for="RememberMe"></label>
         <input asp-for="RememberMe" />
     </div>
     <div>
-        <input type="submit" value="Войти" />
+        <input class="btn btn-outline-dark" type="submit" value="Войти" />
+        <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Назад</a>
     </div>
 </form>

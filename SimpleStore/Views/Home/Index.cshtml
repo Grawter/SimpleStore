@@ -1,34 +1,59 @@
 ﻿@model IEnumerable<SimpleStore.Models.User>
 
-@{
-    ViewBag.Title = "Личный кабинет";
-}
-
 @if (User.Identity.IsAuthenticated)
 {
-    <p>@User.Identity.Name</p>
+    ViewBag.Title = "Личный кабинет";
 
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
 
     <form method="post" asp-controller="Account" asp-action="Logout">
-        <input type="submit" value="Выход" />
-        <a class="btn btn-sm btn-primary" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
-    <a class="btn btn-sm btn-primary" asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
+        <input class="btn btn-sm btn-outline-dark" type="submit" value="Выход" />
+        <a class="btn btn-sm btn-outline-dark" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
+        <a class="btn btn-sm btn-outline-dark" asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
     </form>
 
     @if (User.IsInRole("Moderator"))
     {
-        <a class="btn btn-sm btn-primary" asp-controller="EditShop" asp-action="Index">Модерация магазина</a>
-        <a class="btn btn-sm btn-primary" asp-controller="Booking" asp-action="Index">Заказы</a>
+        <a class="btn btn-sm btn-outline-primary" asp-controller="EditShop" asp-action="Index">Модерация магазина</a>
+        <a class="btn btn-sm btn-outline-primary" asp-controller="Booking" asp-action="Index">Заказы</a>
         if (User.IsInRole("Admin"))
         {
-            <a class="btn btn-sm btn-primary" asp-controller="Admin" asp-action="Index">Редактирование пользователей </a>
-            <a class="btn btn-sm btn-primary" asp-controller="Roles" asp-action="Index">Настройка ролей </a>
+            <a class="btn btn-sm btn-outline-danger" asp-controller="Admin" asp-action="Index">Редактирование пользователей </a>
+            <a class="btn btn-sm btn-outline-danger" asp-controller="Roles" asp-action="Index">Управление ролями </a>
         }
     }
 }
 else
 {
+    ViewBag.Title = "Гостевая страница";
+   
     <a asp-controller="Account" asp-action="Login">Вход</a>
     <a asp-controller="Account" asp-action="Register">Регистрация</a>
 }
+<form>
+    <div>
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
+            <img style='width:180px; height:180px;' src="~/img/Phone.jpg" /><br />Телефоны </a>
+    </div>
+
+    <div>
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
+            <img style='width:180px; height:180px;' src="~/img/Case.jpg" /><br />
+            Чехлы для телефонов
+        </a>
+    </div>
+
+    <div>
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
+            <img style='width:180px; height:180px;' src="~/img/Headphone.jpg" /><br />
+            Наушники
+        </a>
+    </div>
+
+    <div>
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
+            <img style='width:180px; height:180px;' src="~/img/Powerbank.jpg" /><br />
+            Powerbank
+        </a>
+    </div>
+</form>

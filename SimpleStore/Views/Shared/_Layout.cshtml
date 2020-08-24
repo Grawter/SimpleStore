@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - SimpleStore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/mode.css" />
 </head>
 <body>
     <header>
@@ -19,11 +20,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">О нас</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
                         </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <p class="dalk">Добро пожаловать, @User.Identity.Name</p>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>

@@ -9,11 +9,22 @@
 
    double total_price = ViewBag.Count * Model.Price;
     
-    <h3>Вы подтверждаете заказ @Model.Name в количестве @ViewBag.Count шт? <br/>Итоговая цена составит @total_price рублей</h3>
+<h3>
+    Подтвердить заказ?<br />
+    @if (Model.Image != null)
+    {
+        <img style='height: 400px; width: 400px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(Model.Image))" /> <br />
+    }
+    else
+    {
+        <img style='height: 400px; width: 400px;' src="~/img/Question.jpg" /> <br />
+    }
+    Название: @Model.Name <br /> Количество: @ViewBag.Count шт <br />Итоговая цена: @total_price руб <br />
+</h3>
 
     <form method="post" asp-action="Buy" asp-route-ProductId="@Model.Id" asp-route-UserId="@ViewBag.UserId" asp-route-Count="@ViewBag.Count">
         <input type="submit" value="Подтвердить" class="btn btn-success" />
-        <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">Нет</a>
+        <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">Назад</a>
     </form>
 }
 else

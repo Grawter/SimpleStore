@@ -6,13 +6,14 @@
     ViewBag.Title = "Настройка витрины чехлов";
 }
 
-<a asp-action="Create">Добавить товар</a>
+<a class="btn btn-sm btn-outline-primary" asp-action="Create">Добавить товар</a>
+<a class="btn btn-sm btn-outline-primary" asp-action="Index">Меню модерации</a>
 
 <form method="get" asp-action="ShowProducts">
     <div class="form-inline form-group">
         <input type="hidden" name="type" value="@ViewBag.type" />
         <label class="control-label">Название:</label>
-        <input name="name" class="form-control" />
+        <input name="name" class="form-control form-control-sm" />
         <label class="control-label">Наличие:</label>
         <select name="aviability">
             <option value="Все">Все</option>
@@ -20,7 +21,7 @@
             <option value="Скоро будет в продаже">Скоро будет в продаже</option>
             <option value="Нет в наличии">Нет в наличии</option>
         </select>
-        <input type="submit" value="Найти" class="btn btn-outline-secondary" />
+        <input class="btn btn-sm btn-outline-dark" type="submit" value="Найти" />
     </div>
 </form>
 

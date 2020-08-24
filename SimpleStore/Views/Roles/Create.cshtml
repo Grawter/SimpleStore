@@ -8,10 +8,11 @@
 
 <div asp-validation-summary="All" class="text-danger"></div>
 
-<form asp-action="Create" method="post">
+<form method="post" asp-action="Create">
     <div class="form-group">
         <label for="name">Новая роль</label>
         <input name="name" class="form-control" />
     </div>
-    <button type="submit" class="btn btn-primary">Добавить</button>
+    <button class="btn btn-success" type="submit">Добавить</button>
+    <a class="btn btn-primary" asp-action="Index">Назад</a>
 </form>

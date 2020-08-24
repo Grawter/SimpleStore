@@ -32,11 +32,10 @@
         <span asp-validation-for="DateBirth"></span>
     </div>
     <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-outline-secondary" />
+        <input class="btn btn-outline-dark" type="submit" value="Сохранить" />
+        <a class="btn btn-outline-secondary" asp-action="Settings">Назад</a>
     </div>
-    <div>
-        <a asp-action="Settings">Назад</a>
-    </div>
+
 </form>
 
 @section scripts{

@@ -12,8 +12,9 @@
         <tr>
             <td>@user.Email</td>
             <td>
-                <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-userid="@user.Id">Права доступа</a>
             </td>
         </tr>
     }
 </table>
+<a class="btn btn-outline-primary" asp-action="Index">Список ролей</a>

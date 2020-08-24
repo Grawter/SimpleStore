@@ -1,27 +1,27 @@
 ﻿@model SimpleStore.ViewModels.User.UserChangeEmailViewModel
 
-@{
+@if (User.Identity.IsAuthenticated)
+{
     ViewBag.Title = "Изменение электронного адреса";
+
+    <h3>Изменение электронного адреса для пользователя @Model.FullName</h3>
+
+    <form asp-action="ChangeEmail" asp-controller="Home">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="FullName" />
+        <div class="form-group">
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email"></span>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-outline-dark" type="submit" value="Сохранить" />
+            <a class="btn btn-outline-secondary" asp-action="Settings">Назад</a>
+        </div>
+    </form>
+
 }
-
-<h3>Изменение электронного адреса для пользователя @Model.FullName</h3>
-
-<form asp-action="ChangeEmail" asp-controller="Home">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <input type="hidden" asp-for="Id" />
-    <input type="hidden" asp-for="FullName" />
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
-    </div>
-    <div>
-        <a asp-action="Settings">Назад</a>
-    </div>
-</form>
 
 @section scripts{
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
