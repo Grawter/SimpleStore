@@ -2,10 +2,6 @@
 @addTagHelper *, SimpleStore
 @model IndexViewModel
 
-@{
-    ViewBag.Title = "Настройка витрины чехлов";
-}
-
 <a class="btn btn-sm btn-outline-primary" asp-action="Create">Добавить товар</a>
 <a class="btn btn-sm btn-outline-primary" asp-action="Index">Меню модерации</a>
 
@@ -25,9 +21,9 @@
     </div>
 </form>
 
-@if (ViewBag.type == "Case")
+@if (ViewBag.type == "Case" || ViewBag.type == "Headphone" || ViewBag.type == "Phone" || ViewBag.type == "Powerbank")
 {
-    ViewBag.Title = "Чехлы для телефона";
+    ViewBag.Title = "Edit "+ ViewBag.type + "s";
 
 <table class="table">
     <tr>
@@ -38,6 +34,29 @@
                asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
                asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
         </td>
+
+        @if (ViewBag.type == "Phone")
+        {
+            <td>
+                <a asp-action="ShowProducts"
+                   asp-route-type="@ViewBag.type"
+                   asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                   asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
+                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Компания ⇕</a>
+            </td>
+        }
+
+        @if (ViewBag.type == "Powerbank")
+        {
+            <td>
+                <a asp-action="ShowProducts"
+                   asp-route-type="@ViewBag.type"
+                   asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                   asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
+                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Ёмкость заряда ⇕</a>
+            </td>
+        }
+
         <td>
             <a asp-action="ShowProducts"
                asp-route-type="@ViewBag.type"
@@ -55,175 +74,17 @@
     {
         <tr>
             <td>@item.Name</td>
-            <td>@item.Price Руб</td>
-            <td>@item.Description</td>
-            <td>@item.Availability</td>
-            <td>
-                @if (item.Image != null)
-                {
-                    <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
-                }
-                else
-                {
-                    <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
-                }
-            </td>
-            <td>
-                <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
-                <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-            </td>
-        </tr>
-    }
-</table>
-}
-else if (ViewBag.type == "Headphone")
-{
-    ViewBag.Title = "Наушники";
 
-<table class="table">
-    <tr>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
-        </td>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Цена ⇕</a>
-        </td>
-        <td>Описание</td>
-        <td>Наличие</td>
-        <td></td>
-        <td></td>
-    </tr>
+            @if (ViewBag.type == "Phone")
+             {
+                <td>@item.Company</td>
+             }
 
-    @foreach (var item in Model.Products)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Price Руб</td>
-            <td>@item.Description</td>
-            <td>@item.Availability</td>
-            <td>
-                @if (item.Image != null)
-                {
-                    <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
-                }
-                else
-                {
-                    <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
-                }
-            </td>
-            <td>
-                <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
-                <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-            </td>
-        </tr>
-    }
-</table>
-}
-else if (ViewBag.type == "Phone")
-{
-    ViewBag.Title = "Телефоны";
+            @if (ViewBag.type == "Powerbank")    
+            {
+                <td>@item.Capacity</td>
+            }
 
-<table class="table">
-    <tr>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
-        </td>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Компания ⇕</a>
-        </td>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Цена ⇕</a>
-        </td>
-        <td>Описание</td>
-        <td>Наличие</td>
-        <td></td>
-        <td></td>
-    </tr>
-
-    @foreach (var item in Model.Products)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Company</td>
-            <td>@item.Price Руб</td>
-            <td>@item.Description</td>
-            <td>@item.Availability</td>
-            <td>
-                @if (item.Image != null)
-                {
-                    <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
-                }
-                else
-                {
-                    <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
-                }
-            </td>
-            <td>
-                <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
-                <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-            </td>
-        </tr>
-    }
-</table>
-}
-else if (ViewBag.type == "Powerbank")
-{
-    ViewBag.Title = "Powerbank";
-
-<table class="table">
-    <tr>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
-        </td>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Ёмкость заряда ⇕</a>
-        </td>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Цена ⇕</a>
-        </td>
-        <td>Описание</td>
-        <td>Наличие</td>
-        <td></td>
-        <td></td>
-    </tr>
-
-    @foreach (var item in Model.Products)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Capacity</td>
             <td>@item.Price Руб</td>
             <td>@item.Description</td>
             <td>@item.Availability</td>

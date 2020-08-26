@@ -26,34 +26,35 @@
 else
 {
     ViewBag.Title = "Гостевая страница";
-   
+
     <a asp-controller="Account" asp-action="Login">Вход</a>
     <a asp-controller="Account" asp-action="Register">Регистрация</a>
 }
-<form>
-    <div>
-        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
-            <img style='width:180px; height:180px;' src="~/img/Phone.jpg" /><br />Телефоны </a>
-    </div>
 
-    <div>
-        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
-            <img style='width:180px; height:180px;' src="~/img/Case.jpg" /><br />
-            Чехлы для телефонов
-        </a>
-    </div>
+<div>
+    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
+        <img style='width:180px; height:180px;' src="~/img/Phone.jpg" /><br />
+        Телефоны
+    </a>
+</div>
 
-    <div>
-        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
-            <img style='width:180px; height:180px;' src="~/img/Headphone.jpg" /><br />
-            Наушники
-        </a>
-    </div>
+<div>
+    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
+        <img style='width:180px; height:180px;' src="~/img/Case.jpg" /><br />
+        Чехлы для телефонов
+    </a>
+</div>
 
-    <div>
-        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
-            <img style='width:180px; height:180px;' src="~/img/Powerbank.jpg" /><br />
-            Powerbank
-        </a>
-    </div>
-</form>
+<div>
+    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
+        <img style='width:180px; height:180px;' src="~/img/Headphone.jpg" /><br />
+        Наушники
+    </a>
+</div>
+
+<div>
+    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
+        <img style='width:180px; height:180px;' src="~/img/Powerbank.jpg" /><br />
+        Powerbank
+    </a>
+</div>
