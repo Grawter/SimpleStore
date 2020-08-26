@@ -44,17 +44,18 @@ namespace SimpleStore
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseRouting(); // Подключение EndpointRoutingMiddleware
 
-            app.UseAuthentication();    // подключение аутентификации
+            app.UseAuthentication(); // подключение аутентификации
             app.UseAuthorization(); // подключение авторизации
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => // Подключение EndpointMiddleware
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}");
-                    //pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapFallbackToController("Index", "Home"); // если запрос не соответствует ни одному маршруту
             });
         }
     }

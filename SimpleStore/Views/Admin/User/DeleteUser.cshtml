@@ -6,7 +6,7 @@
 
 <h3>Вы уверены, что хотит удалить пользователя @Model.Email?</h3>
 
-<form method="post" asp-controller="Admin" asp-action="Delete" asp-route-id="@Model.Id">
+<form method="post" asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@Model.Id">
     <input class="btn btn-sm btn-danger" type="submit" value="Удалить" />
     <a class="btn btn-sm btn-primary" asp-action="Index" asp-controller="Admin">Назад</a>
 </form>

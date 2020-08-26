@@ -16,7 +16,6 @@ namespace SimpleStore.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -27,6 +26,7 @@ namespace SimpleStore.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
+
         public async Task<IActionResult> Index(string email, int page = 1, SortState sortOrder = SortState.NamesAsc)
         {
             IQueryable<User> users = _userManager.Users;
@@ -77,10 +77,10 @@ namespace SimpleStore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create() => View();
+        public IActionResult CreateUser() => View("~/Views/Admin/User/CreateUser.cshtml");
 
         [HttpPost]
-        public async Task<IActionResult> Create(AdmCreateUserViewModel model)
+        public async Task<IActionResult> CreateUser(AdmCreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -102,11 +102,11 @@ namespace SimpleStore.Controllers
                     }
                 }
             }
-            return View(model);
+            return View("~/Views/Admin/User/CreateUser.cshtml", model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string id)
+        public async Task<IActionResult> EditUser(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
@@ -120,11 +120,11 @@ namespace SimpleStore.Controllers
             if (user.Email == User.Identity.Name)
                 ViewBag.ThisAdmAcc = true;
 
-            return View(model);
+            return View("~/Views/Admin/User/EditUser.cshtml", model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(AdmEditUserViewModel model, bool ThisAdmAcc)
+        public async Task<IActionResult> EditUser(AdmEditUserViewModel model, bool ThisAdmAcc)
         {
             if (ModelState.IsValid)
             {
@@ -163,7 +163,7 @@ namespace SimpleStore.Controllers
                     ModelState.AddModelError(string.Empty, "Пользователь не найден");
                 }
             }
-            return View(model);
+            return View("~/Views/Admin/User/EditUser.cshtml", model);
         }
 
         [HttpGet]
@@ -175,7 +175,7 @@ namespace SimpleStore.Controllers
                 return NotFound();
             }
             AdmChangePassViewModel model = new AdmChangePassViewModel { Id = user.Id, Email = user.Email };
-            return View(model);
+            return View("~/Views/Admin/User/ChangePassword.cshtml", model);
         }
 
         [HttpPost]
@@ -210,23 +210,23 @@ namespace SimpleStore.Controllers
                     ModelState.AddModelError(string.Empty, "Пользователь не найден");
                 }
             }
-            return View(model);
+            return View("~/Views/Admin/User/ChangePassword.cshtml", model);
         }
 
         [HttpGet]
-        [ActionName("Delete")]
-        public async Task<ActionResult> ConfirmDelete(string id) 
+        [ActionName("DeleteUser")]
+        public async Task<ActionResult> ConfirmDeleteUser(string id) 
         {
             if (id != null)
             {
                 User user = await _userManager.FindByIdAsync(id);
-                return View(user);
+                return View("~/Views/Admin/User/DeleteUser.cshtml", user);
             }
             return NotFound();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(string id)
+        public async Task<ActionResult> DeleteUser(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
             if (user != null)
@@ -235,6 +235,8 @@ namespace SimpleStore.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        ///////////// Section Role
 
         public IActionResult Roles() => View("~/Views/Admin/Role/Roles.cshtml", _roleManager.Roles.ToList());
 

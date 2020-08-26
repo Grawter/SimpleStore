@@ -13,8 +13,4 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Admin\Data\" />
-  </ItemGroup>
-
 </Project>
