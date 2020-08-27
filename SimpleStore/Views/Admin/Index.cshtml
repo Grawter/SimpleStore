@@ -6,14 +6,13 @@
     ViewBag.Title = "Админ-панель";
 }
 
-<a class="btn btn-sm btn-outline-primary" asp-action="CreateUser" asp-controller="Admin">Добавить пользователя</a>
-<a class="btn btn-sm btn-outline-dark" asp-action="Roles">Управление ролями</a>
-
 <form method="get">
     <div class="form-inline form-group">
-        <label class="control-label">Название:</label>
-        <input name="name" class="form-control form-control-sm" />
+        <label class="control-label">Email:</label>
+        <input name="email" class="form-control form-control-sm inp" />
         <input class="btn btn-sm btn-outline-dark" type="submit" value="Найти" />
+        <a class="btn btn-sm btn-outline-primary btt" asp-action="CreateUser" asp-controller="Admin">Добавить пользователя</a>
+        <a class="btn btn-sm btn-outline-dark" asp-action="Roles">Управление ролями</a>
     </div>
 </form>
 

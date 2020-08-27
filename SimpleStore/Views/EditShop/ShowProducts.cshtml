@@ -2,22 +2,21 @@
 @addTagHelper *, SimpleStore
 @model IndexViewModel
 
-<a class="btn btn-sm btn-outline-primary" asp-action="Create">Добавить товар</a>
-<a class="btn btn-sm btn-outline-primary" asp-action="Index">Меню модерации</a>
-
 <form method="get" asp-action="ShowProducts">
     <div class="form-inline form-group">
         <input type="hidden" name="type" value="@ViewBag.type" />
         <label class="control-label">Название:</label>
-        <input name="name" class="form-control form-control-sm" />
+        <input name="name" class="form-control form-control-sm inp" />
         <label class="control-label">Наличие:</label>
-        <select name="aviability">
+        <select name="aviability" class="sel">
             <option value="Все">Все</option>
             <option value="В наличии">В наличии</option>
             <option value="Скоро будет в продаже">Скоро будет в продаже</option>
             <option value="Нет в наличии">Нет в наличии</option>
         </select>
         <input class="btn btn-sm btn-outline-dark" type="submit" value="Найти" />
+        <a class="btn btn-sm btn-outline-primary btt" asp-action="Create">Добавить товар</a>
+        <a class="btn btn-sm btn-outline-secondary" asp-action="Index">Меню модерации</a>
     </div>
 </form>
 

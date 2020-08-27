@@ -8,13 +8,8 @@
 {
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
 
-    <a class="btn btn-sm btn-outline-secondary" asp-action="Index" asp-route-id="@aUser.Id">Назад</a>
-    <a class="btn btn-sm btn-outline-dark" asp-action="EditData" asp-route-id="@aUser.Id">Изменить данные пользователя</a>
-    <a class="btn btn-sm btn-outline-dark" asp-action="ChangeEmail" asp-route-id="@aUser.Id">Изменить электронный адрес</a>
-    <a class="btn btn-sm btn-outline-dark" asp-action="ChangePassword" asp-route-id="@aUser.Id">Изменить пароль</a>
-}
-else
-{
-    <a class="btn btn-sm btn-outline-dark" asp-controller="Account" asp-action="Login">Вход</a>
-    <a class="btn btn-sm btn-outline-dark" asp-controller="Account" asp-action="Register">Регистрация</a>
+    <a class="btn btn-sm btn-outline-secondary set-back" asp-action="Index" asp-route-id="@aUser.Id">Назад</a>
+    <a class="btn btn-sm btn-outline-dark set-data" asp-action="EditData" asp-route-id="@aUser.Id">Изменить данные пользователя</a>
+    <a class="btn btn-sm btn-outline-dark set-email" asp-action="ChangeEmail" asp-route-id="@aUser.Id">Изменить электронный адрес</a>
+    <a class="btn btn-sm btn-outline-dark set-pass" asp-action="ChangePassword" asp-route-id="@aUser.Id">Изменить пароль</a>
 }

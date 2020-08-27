@@ -1,59 +1,55 @@
 ﻿@model IEnumerable<SimpleStore.Models.User>
 
+@{
+    ViewBag.Title = "Гостевая страница"; 
+ }
+
+<h3 class="atten">SimpleStore - магазин телефонов и аксессуаров для них </h3>
+
 @if (User.Identity.IsAuthenticated)
 {
     ViewBag.Title = "Личный кабинет";
 
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
+        <a class="btn btn-sm btn-outline-dark settings" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
+        <a class="btn btn-sm btn-outline-dark myorders" asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
 
-    <form method="post" asp-controller="Account" asp-action="Logout">
-        <input class="btn btn-sm btn-outline-dark" type="submit" value="Выход" />
-        <a class="btn btn-sm btn-outline-dark" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
-        <a class="btn btn-sm btn-outline-dark" asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
-    </form>
 
     @if (User.IsInRole("Moderator"))
     {
-        <a class="btn btn-sm btn-outline-primary" asp-controller="EditShop" asp-action="Index">Модерация магазина</a>
-        <a class="btn btn-sm btn-outline-primary" asp-controller="Booking" asp-action="Index">Заказы</a>
+        <a class="btn btn-sm btn-outline-primary moder" asp-controller="EditShop" asp-action="Index">Модерация магазина</a>
+        <a class="btn btn-sm btn-outline-primary orders" asp-controller="Booking" asp-action="Index">Заказы</a>
+
         if (User.IsInRole("Admin"))
         {
-            <a class="btn btn-sm btn-outline-danger" asp-controller="Admin" asp-action="Index">Редактирование пользователей </a>
-            <a class="btn btn-sm btn-outline-danger" asp-controller="Roles" asp-action="Index">Управление ролями </a>
+            <a class="btn btn-sm btn-outline-danger admin" asp-controller="Admin" asp-action="Index">Администрирование </a>
         }
     }
 }
-else
-{
-    ViewBag.Title = "Гостевая страница";
-
-    <a asp-controller="Account" asp-action="Login">Вход</a>
-    <a asp-controller="Account" asp-action="Register">Регистрация</a>
-}
 
 <div>
-    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
+    <a class="btn btn-lg btn-outline-dark S-Phone" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
         <img style='width:180px; height:180px;' src="~/img/Phone.jpg" /><br />
         Телефоны
     </a>
 </div>
 
 <div>
-    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
+    <a class="btn btn-lg btn-outline-dark S-Case" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
         <img style='width:180px; height:180px;' src="~/img/Case.jpg" /><br />
         Чехлы для телефонов
     </a>
 </div>
 
 <div>
-    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
+    <a class="btn btn-lg btn-outline-dark S-Headphone" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
         <img style='width:180px; height:180px;' src="~/img/Headphone.jpg" /><br />
         Наушники
     </a>
 </div>
 
 <div>
-    <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
+    <a class="btn btn-lg btn-outline-dark S-Powerbank" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
         <img style='width:180px; height:180px;' src="~/img/Powerbank.jpg" /><br />
         Powerbank
     </a>

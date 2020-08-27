@@ -1,4 +1,196 @@
-﻿
+﻿.navbar { /*header*/
+    position: relative;
+    padding: 0.5rem 1rem;
+    background-color: #212529 !important;
+}
+
+.footer {
+    background-color: #212529;
+}
+
+.page-item.active .page-link { /*page*/
+    color: #0c0c0c;
+    background-color: #ffffff;
+    border-color: #212529;
+}
+
+.heil {
+    position: relative;
+    left: 840px;
+    top: 7px;
+    color: #f8f9fa;
+}
+
+.logout {
+    position: relative;
+    left: 855px;
+    top: 5px;
+    color: #f8f9fa;
+    background-color: #96989a;
+}
+
+.register {
+    height: 30px;
+    position: relative;
+    left: 990px;
+    top: 5px;
+    color: #f8f9fa;
+    background-color: #96989a;
+}
+
+.login {
+    height: 30px;
+    position: relative;
+    left: 980px;
+    top: 5px;
+    color: #f8f9fa;
+    background-color: #96989a;
+}
+
+.atten {
+    position: relative;
+    left: 110px;
+    top:150px;
+}
+
+.settings {
+    position: absolute;
+    left: 1760px;
+    top: 60px;
+}
+
+.myorders {
+    position: absolute;
+    left: 1650px;
+    top: 60px;
+}
+
+.moder {
+    position: absolute;
+    left: 1692px;
+    top: 100px;
+}
+
+.orders {
+    position: absolute;
+    left: 1623px;
+    top: 100px;
+}
+
+.admin {
+    position: absolute;
+    left: 1697px;
+    top: 140px;
+}
+
 a.btn.btn-lg.btn-outline-dark {
     border-color: #f8f9fa;
+    border-radius: 1.5rem;
+}
+
+/*shop*/
+
+.S-Phone {
+    position: absolute;
+    top: 300px;
+}
+
+.S-Case {
+    position: absolute;
+    left:650px;
+    top:300px;
+}
+
+.S-Headphone {
+    position: absolute;
+    left: 910px;
+    top: 300px;
+}
+
+.S-Powerbank {
+    position: absolute;
+    left: 1150px;
+    top: 300px;
+}
+
+/*settings*/
+
+.set-data {
+    position: absolute;
+}
+
+.set-email {
+    position: absolute;
+    top: 110px;
+}
+
+.set-pass {
+    position: absolute;
+    top: 147px;
+}
+
+.set-back {
+    position: absolute;
+    top: 183px;
+}
+
+/*edit*/
+
+.edit-btn {
+    position: relative;
+    top: 10px;
+}
+
+/*buy*/
+
+.product-foto {
+    position: absolute;
+    left:300px;
+}
+
+.product {
+    position: absolute;
+    top:550px;
+}
+
+.product-btn {
+    position: relative;
+    top: 520px;
+}
+
+/*index*/
+
+.inp {
+    margin-left:5px;
+    margin-right:15px;
+}
+
+.sel {
+    margin-left: 5px;
+    margin-right: 15px;
+}
+
+.btt {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/*moder*/
+
+.M-Case {
+    position: absolute;
+    left: 680px;
+    top: 300px;
+}
+
+.M-Headphone {
+    position: absolute;
+    left: 920px;
+    top: 300px;
+}
+
+.M-Powerbank {
+    position: absolute;
+    left: 1195px;
+    top: 300px;
 }

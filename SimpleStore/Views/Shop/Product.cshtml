@@ -6,15 +6,15 @@
     <div class="form-inline form-group">
         <input type="hidden" name="type" value="@ViewBag.type" />
         <label class="control-label">Название:</label>
-        <input name="name" class="form-control" />
+        <input name="name" class="form-control form-control-sm inp" />
         <label class="control-label">Наличие:</label>
-        <select name="aviability">
+        <select name="aviability" class="sel">
             <option value="Все">Все</option>
             <option value="В наличии">В наличии</option>
             <option value="Скоро будет в продаже">Скоро будет в продаже</option>
             <option value="Нет в наличии">Нет в наличии</option>
         </select>
-        <input type="submit" value="Найти" class="btn btn-outline-secondary" />
+        <input type="submit" value="Найти" class="btn btn-sm btn-outline-dark" />
     </div>
 </form>
 
@@ -105,7 +105,7 @@
                         <form method="get" asp-action="Buy">
                             <div class="form-inline form-group">
                                 <label class="control-label">Кол-во:</label>
-                                <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2" />
+                                <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2 inp" />
                                 <input type="hidden" name="ProductId" value="@item.Id">
                                 <input type="hidden" name="UserId" value="@aUser.Id">
                                 <input type="submit" value="Купить" class="btn btn-sm btn-outline-success" />

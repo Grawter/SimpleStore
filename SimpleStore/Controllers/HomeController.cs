@@ -31,7 +31,6 @@ namespace SimpleStore.Controllers
         public IActionResult About() => View();
         public IActionResult Contacts() => View();
 
-
         [HttpGet]
         public IActionResult Settings() => View(_userManager.Users.ToList());
 
