@@ -16,15 +16,14 @@
 
 .heil {
     position: relative;
-    left: 840px;
+    left: 315px;
     top: 7px;
     color: #f8f9fa;
 }
 
 .logout {
     position: relative;
-    left: 855px;
-    top: 5px;
+    left: 330px;
     color: #f8f9fa;
     background-color: #96989a;
 }
@@ -32,8 +31,7 @@
 .register {
     height: 30px;
     position: relative;
-    left: 990px;
-    top: 5px;
+    left: 320px;
     color: #f8f9fa;
     background-color: #96989a;
 }
@@ -41,8 +39,7 @@
 .login {
     height: 30px;
     position: relative;
-    left: 980px;
-    top: 5px;
+    left: 310px;
     color: #f8f9fa;
     background-color: #96989a;
 }
@@ -91,7 +88,7 @@ a.btn.btn-lg.btn-outline-dark {
 /*shop*/
 
 .S-Phone {
-    position: absolute;
+    position: relative;
     top: 300px;
 }
 

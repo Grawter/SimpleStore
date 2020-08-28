@@ -25,21 +25,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
                         </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <p class="heil header-color">Добро пожаловать,<b> @User.Identity.Name</b> </p>
-                            
-                            <form method="post" asp-controller="Account" asp-action="Logout">
-                                <input class="btn btn-sm btn-outline-light logout" type="submit" value="Выход" />
-                            </form>
-                        }
-                        else
-                        {
-                            <a class="btn btn-sm btn-outline-light login" asp-controller="Account" asp-action="Login">Вход</a>
-                            <a class="btn btn-sm  btn-outline-light register" asp-controller="Account" asp-action="Register">Регистрация</a>
-                        }
                     </ul>
                 </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <p class="heil header-color">Добро пожаловать,<b> @User.Identity.Name</b> </p>
+
+                    <form method="post" asp-controller="Account" asp-action="Logout">
+                        <input class="btn btn-sm btn-outline-light logout" type="submit" value="Выход" />
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-sm btn-outline-light login" asp-controller="Account" asp-action="Login">Вход</a>
+                    <a class="btn btn-sm  btn-outline-light register" asp-controller="Account" asp-action="Register">Регистрация</a>
+                }
             </div>
         </nav>
     </header>
