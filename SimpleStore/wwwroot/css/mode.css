@@ -15,99 +15,113 @@
 }
 
 .heil {
-    position: relative;
-    left: 315px;
+    position: sticky;
+    margin-bottom:-1px;
+    margin-right:10px;
+    left: 550px;
     top: 7px;
     color: #f8f9fa;
 }
 
 .logout {
-    position: relative;
-    left: 330px;
+    position: sticky;
+    margin-right:-50px;
     color: #f8f9fa;
     background-color: #96989a;
 }
 
 .register {
     height: 30px;
-    position: relative;
-    left: 320px;
+    position:sticky;
+    margin-left:10px;
+    margin-right:-50px;
     color: #f8f9fa;
     background-color: #96989a;
 }
 
 .login {
     height: 30px;
-    position: relative;
-    left: 310px;
+    position: sticky;
     color: #f8f9fa;
     background-color: #96989a;
 }
 
 .atten {
-    position: relative;
-    left: 110px;
-    top:150px;
+    margin-left:50px;
+    margin-top:140px;
 }
 
-.settings {
-    position: absolute;
-    left: 1760px;
-    top: 60px;
+.news {
+    font-style:italic;
+    margin-left: 80px;
+    margin-top: 30px;
+    width: 380px;
+    background: #ccc;
+    padding: 5px;
+    padding-right: 20px;
+    border: solid 1px black;
 }
 
 .myorders {
-    position: absolute;
-    left: 1650px;
-    top: 60px;
+    position: sticky;
+    left: 1315px;
+    margin-top:-460px;
+    margin-right: 90px;
 }
 
-.moder {
-    position: absolute;
-    left: 1692px;
-    top: 100px;
+.settings {
+    position: sticky;
+    left: 1428px;
+    margin-top: -460px;
 }
 
 .orders {
-    position: absolute;
-    left: 1623px;
-    top: 100px;
+    position: sticky;
+    left: 1287px;
+    margin-right: 157px;
+    margin-top:-430px;
+}
+
+.moder {
+    position: sticky;
+    left: 1386px;
+    margin-top: -430px;
 }
 
 .admin {
-    position: absolute;
-    left: 1697px;
-    top: 140px;
+    position: sticky;
+    left: 1388px;
+    margin-top:-400px;
 }
 
-a.btn.btn-lg.btn-outline-dark {
+/*a.btn.btn-lg.btn-outline-dark {
     border-color: #f8f9fa;
     border-radius: 1.5rem;
-}
+}*/
 
-/*shop*/
+/*shop-home*/
 
 .S-Phone {
-    position: relative;
-    top: 300px;
-}
-
-.S-Case {
-    position: absolute;
-    left:650px;
-    top:300px;
+    position: sticky;
+    margin-left:90px;
+    margin-top: 0px;
 }
 
 .S-Headphone {
-    position: absolute;
-    left: 910px;
-    top: 300px;
+    position: sticky;
+    margin-left: 90px;
+}
+
+.S-Case {
+    position: sticky;
+    left: 740px;
+    margin-top: -712px;
 }
 
 .S-Powerbank {
-    position: absolute;
-    left: 1150px;
-    top: 300px;
+    position: sticky;
+    left: 740px;
+    margin-top: -305px;
 }
 
 /*settings*/
@@ -129,6 +143,31 @@ a.btn.btn-lg.btn-outline-dark {
 .set-back {
     position: absolute;
     top: 183px;
+}
+
+/*shop*/
+
+.MS-Phone {
+    position: sticky;
+    margin-left: 90px;
+    margin-top: 40px;
+}
+
+.MS-Headphone {
+    position: sticky;
+    margin-left: 90px;
+}
+
+.MS-Case {
+    position: sticky;
+    left: 740px;
+    margin-top: -712px;
+}
+
+.MS-Powerbank {
+    position: sticky;
+    left: 740px;
+    margin-top: -305px;
 }
 
 /*edit*/
@@ -174,20 +213,25 @@ a.btn.btn-lg.btn-outline-dark {
 
 /*moder*/
 
-.M-Case {
-    position: absolute;
-    left: 680px;
-    top: 300px;
+.M-Phone {
+    position: sticky;
+    margin-left: 38px;
+    margin-top: 0px;
 }
 
 .M-Headphone {
-    position: absolute;
-    left: 920px;
-    top: 300px;
+    position: sticky;
+    margin-left: 38px;
+}
+
+.M-Case {
+    position: sticky;
+    left: 740px;
+    margin-top: -712px;
 }
 
 .M-Powerbank {
-    position: absolute;
-    left: 1195px;
-    top: 300px;
+    position: sticky;
+    left: 740px;
+    margin-top: -305px;
 }
