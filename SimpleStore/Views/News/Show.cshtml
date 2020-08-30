@@ -1,0 +1,10 @@
+﻿@model SimpleStore.Models.Novelty
+
+@{
+    ViewBag.Title = "Чтение новости";
+}
+
+<h3>@Model.Title</h3>
+<div>@Model.Message</div>
+
+<a class="btn btn-outline-secondary edit-btn" asp-action="Index">Назад</a>

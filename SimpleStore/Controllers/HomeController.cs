@@ -9,26 +9,36 @@ using SimpleStore.ViewModels.User;
 using Microsoft.EntityFrameworkCore;
 using SimpleStore.ViewModels.Supporting_tools;
 using System;
+using System.Collections.Generic;
 
 namespace SimpleStore.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly ApplicationContext db;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
+        public HomeController(ApplicationContext context, UserManager<User> userManager, SignInManager<User> signInManager)
         {
-            _logger = logger;
             db = context;
             _userManager = userManager;
             _signInManager = signInManager;
         }
 
-        public IActionResult Index() => View(_userManager.Users.ToList());
+        public async Task<IActionResult> Index()
+        {
+            List<Novelty> News = db.News.ToList();
+            if (News != null)
+            {
+                var LastNews = News.LastOrDefault();
+                ViewBag.LastNews = LastNews;
+            }
+            return View(await _userManager.Users.ToListAsync());
+        }
+
         public IActionResult About() => View();
+
         public IActionResult Contacts() => View();
 
         [HttpGet]

@@ -16,25 +16,27 @@
     </div>
 </form>
 
-<table class="table">
-    <tr>
-        <td>
-            <a asp-action="Index" asp-controller="Admin"
-               asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
-               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Email ⇕</a>
-        </td>
-        <td>
-            <a asp-action="Index"
-               asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
-               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Номер ⇕</a>
-        </td>
-        <td>
-            <a asp-action="Index"
-               asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
-               asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">ФИО ⇕</a>
-        </td>
-        <td></td>
-    </tr>
+<table class="table table-bordered table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                <a asp-action="Index" asp-controller="Admin"
+                   asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
+                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Email ⇕</a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
+                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Номер ⇕</a>
+            </th>
+            <th>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
+                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">ФИО ⇕</a>
+            </th>
+            <th>Настройки</th>
+        </tr>
+    </thead>
 
     @foreach (var user in Model.Users)
     {

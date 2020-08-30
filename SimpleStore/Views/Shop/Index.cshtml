@@ -5,7 +5,11 @@
 
 <h3 class="atten">SimpleStore - магазин телефонов и аксессуаров для них </h3>
 
-<div class="news">Скидки до 50% на всю продукцию ЗЕТ</div>
+@if (ViewBag.LastNews != null)
+{
+    <a class="news" asp-controller="News" asp-action="Show" asp-route-id="@ViewBag.LastNews.Id"><i><u>@ViewBag.LastNews.Message</u></i></a>
+}
+
 
 <div>
     <a class="btn btn-lg btn-outline-dark MS-Phone" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">

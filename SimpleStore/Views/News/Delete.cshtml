@@ -1,0 +1,14 @@
+﻿@model SimpleStore.Models.Novelty
+
+@{
+    ViewBag.Title = "Удаление новости";
+}
+
+<h3>Подтвердите удаление новости @Model.Title</h3>
+
+<form asp-action="Delete" asp-controller="News" asp-route-id="@Model.Id">
+    <div class="form-group">
+        <input class="btn btn-danger edit-btn" type="submit" value="Удалить" />
+        <a class="btn btn-primary edit-btn" asp-action="Index">Назад</a>
+    </div>
+</form>

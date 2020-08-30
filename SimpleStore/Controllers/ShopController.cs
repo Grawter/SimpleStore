@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,16 @@ namespace SimpleStore.Controllers
             _userManager = userManager;
         }
 
-        public IActionResult Index() => View();
+        public async Task<IActionResult> Index()
+        {
+            List<Novelty> News = db.News.ToList();
+            if (News != null)
+            {
+                var LastNews = News.LastOrDefault();
+                ViewBag.LastNews = LastNews;
+            }
+            return View(await _userManager.Users.ToListAsync());
+        }
 
         [HttpGet]
         public async Task<IActionResult> Product(string type, string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)

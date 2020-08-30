@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SimpleStore.Models.Novelty>
+
+@{
+    ViewBag.Title = "Новости";
+}
+
+<h3>Новости</h3>
+
+@if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
+{
+    <a class="btn btn-sm btn-outline-primary" asp-action="Create">Создать новость</a>
+}
+
+<table class="table col-md-5">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-action="Show" asp-route-id="@item.Id"><b><u>@item.Title</u></b></a>
+            </td>
+            <td>
+                @item.Date.ToString("f")
+            </td>
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
+            {
+                <td>
+                    <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@item.Id"> Редактировать</a>
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            }
+        </tr>
+    }
+</table>

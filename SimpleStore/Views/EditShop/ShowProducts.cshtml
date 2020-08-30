@@ -24,50 +24,52 @@
 {
     ViewBag.Title = "Edit "+ ViewBag.type + "s";
 
-<table class="table">
-    <tr>
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
-        </td>
-
-        @if (ViewBag.type == "Phone")
-        {
-            <td>
+<table class="table table-hover">
+    <thead class="thead-light">
+        <tr>
+            <th>
                 <a asp-action="ShowProducts"
                    asp-route-type="@ViewBag.type"
                    asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                    asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Компания ⇕</a>
-            </td>
-        }
+                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
+            </th>
 
-        @if (ViewBag.type == "Powerbank")
-        {
-            <td>
+            @if (ViewBag.type == "Phone")
+            {
+                <th>
+                    <a asp-action="ShowProducts"
+                       asp-route-type="@ViewBag.type"
+                       asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                       asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Компания ⇕</a>
+                </th>
+            }
+
+            @if (ViewBag.type == "Powerbank")
+            {
+                <th>
+                    <a asp-action="ShowProducts"
+                       asp-route-type="@ViewBag.type"
+                       asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                       asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Ёмкость заряда ⇕</a>
+                </th>
+            }
+
+            <th>
                 <a asp-action="ShowProducts"
                    asp-route-type="@ViewBag.type"
                    asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                    asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Ёмкость заряда ⇕</a>
-            </td>
-        }
-
-        <td>
-            <a asp-action="ShowProducts"
-               asp-route-type="@ViewBag.type"
-               asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-               asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-               asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Цена ⇕</a>
-        </td>
-        <td>Описание</td>
-        <td>Наличие</td>
-        <td></td>
-        <td></td>
-    </tr>
+                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Цена ⇕</a>
+            </th>
+            <th>Описание</th>
+            <th>Наличие</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model.Products)
     {
@@ -75,11 +77,11 @@
             <td>@item.Name</td>
 
             @if (ViewBag.type == "Phone")
-             {
+            {
                 <td>@item.Company</td>
-             }
+            }
 
-            @if (ViewBag.type == "Powerbank")    
+            @if (ViewBag.type == "Powerbank")
             {
                 <td>@item.Capacity</td>
             }

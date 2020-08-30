@@ -15,7 +15,6 @@
 }
 
 .heil {
-    position: sticky;
     margin-bottom:-1px;
     margin-right:10px;
     left: 550px;
@@ -25,7 +24,7 @@
 
 .logout {
     position: sticky;
-    margin-right:-50px;
+    margin-right:-32px;
     color: #f8f9fa;
     background-color: #96989a;
 }
@@ -47,52 +46,49 @@
 }
 
 .atten {
-    margin-left:50px;
-    margin-top:140px;
+    position:relative;
+    top:130px;
 }
 
 .news {
-    font-style: italic;
-    margin-left: 80px;
-    margin-top: 30px;
-    width: 380px;
-    background: #ccc;
-    padding: 5px;
-    padding-right: 20px;
-    border: solid 1px black;
-    border-radius: 1.5rem;
+    font-size: 1.25rem;
+    color:red;
+    position:relative;
+    left: 80px;
+    top: 130px;
+    margin-bottom:20px;
 }
 
 .myorders {
     position: sticky;
     left: 1315px;
-    margin-top:-460px;
+    margin-top:-160px;
     margin-right: 90px;
 }
 
 .settings {
     position: sticky;
     left: 1428px;
-    margin-top: -460px;
+    margin-top: -160px;
 }
 
 .orders {
     position: sticky;
     left: 1287px;
     margin-right: 157px;
-    margin-top:-430px;
+    margin-top:-135px;
 }
 
 .moder {
     position: sticky;
     left: 1386px;
-    margin-top: -430px;
+    margin-top: -135px;
 }
 
 .admin {
     position: sticky;
     left: 1388px;
-    margin-top:-400px;
+    margin-top:-110px;
 }
 
 a.btn.btn-lg.btn-outline-dark {
@@ -105,7 +101,7 @@ a.btn.btn-lg.btn-outline-dark {
 .S-Phone {
     position: sticky;
     margin-left:90px;
-    margin-top: 15px;
+    margin-top: 80px;
 }
 
 .S-Headphone {
@@ -151,7 +147,7 @@ a.btn.btn-lg.btn-outline-dark {
 .MS-Phone {
     position: sticky;
     margin-left: 90px;
-    margin-top: 40px;
+    margin-top: 145px;
 }
 
 .MS-Headphone {
@@ -220,7 +216,7 @@ a.btn.btn-lg.btn-outline-dark {
 .M-Phone {
     position: sticky;
     margin-left: 38px;
-    margin-top: 0px;
+    margin-top: 140px;
 }
 
 .M-Headphone {

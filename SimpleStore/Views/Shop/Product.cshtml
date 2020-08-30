@@ -23,116 +23,118 @@
 {
     ViewBag.Title = ViewBag.type + "s";
 
-    <table class="table">
+<table class="table table-hover">
+    <thead class="thead-light">
         <tr>
-            <td>
+            <th>
                 <a asp-action="Product"
                    asp-route-type="@ViewBag.type"
                    asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                    asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
                    asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
-            </td>
+            </th>
 
             @if (ViewBag.type == "Phone")
             {
-                <td>
+                <th>
                     <a asp-action="Product"
                        asp-route-type="@ViewBag.type"
                        asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                        asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
                        asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Компания ⇕</a>
-                </td>
+                </th>
             }
 
             @if (ViewBag.type == "Powerbank")
             {
-                <td>
+                <th>
                     <a asp-action="Product"
                        asp-route-type="@ViewBag.type"
                        asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                        asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
                        asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Ёмкость заряда ⇕</a>
-                </td>
+                </th>
             }
 
-            <td>
+            <th>
                 <a asp-action="Product"
                    asp-route-type="@ViewBag.type"
                    asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                    asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
                    asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Цена ⇕</a>
-            </td>
-            <td>Описание</td>
-            <td>Наличие</td>
-            <td></td>
-            <td></td>
+            </th>
+            <th>Описание</th>
+            <th>Наличие</th>
+            <th></th>
+            <th></th>
         </tr>
+    </thead>
 
-        @foreach (var item in Model.Products)
-        {
-            <tr>
-                <td>@item.Name</td>
+    @foreach (var item in Model.Products)
+    {
+        <tr>
+            <td>@item.Name</td>
 
-                @if (ViewBag.type == "Phone")
+            @if (ViewBag.type == "Phone")
+            {
+                <td>@item.Company</td>
+            }
+
+            @if (ViewBag.type == "Powerbank")
+            {
+                <td>@item.Capacity</td>
+            }
+
+            <td>@item.Price Руб</td>
+            <td>@item.Description</td>
+            <td>@item.Availability</td>
+            <td>
+                @if (item.Image != null)
                 {
-                    <td>@item.Company</td>
+                    <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
                 }
-
-                @if (ViewBag.type == "Powerbank")
+                else
                 {
-                    <td>@item.Capacity</td>
+                    <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
                 }
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    IEnumerable<User> aUsers = ViewBag.Users;
+                    var aUser = aUsers.FirstOrDefault(M => M.UserName == User.Identity.Name);
 
-                <td>@item.Price Руб</td>
-                <td>@item.Description</td>
-                <td>@item.Availability</td>
-                <td>
-                    @if (item.Image != null)
-                    {
-                        <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
-                    }
-                    else
-                    {
-                        <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
-                    }
-                </td>
-                <td>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        IEnumerable<User> aUsers = ViewBag.Users;
-                        var aUser = aUsers.FirstOrDefault(M => M.UserName == User.Identity.Name);
-
-                        <form method="get" asp-action="Buy">
-                            <div class="form-inline form-group">
-                                @if (item.Availability == "В наличии" || item.Availability == "Скоро будет в продаже")
+                    <form method="get" asp-action="Buy">
+                        <div class="form-inline form-group">
+                            @if (item.Availability == "В наличии" || item.Availability == "Скоро будет в продаже")
+                            {
+                                <label class="control-label">Кол-во:</label>
+                                <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2 inp" />
+                                <input type="hidden" name="ProductId" value="@item.Id">
+                                <input type="hidden" name="UserId" value="@aUser.Id">
+                                if (item.Availability == "Скоро будет в продаже")
                                 {
-                                    <label class="control-label">Кол-во:</label>
-                                    <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2 inp" />
-                                    <input type="hidden" name="ProductId" value="@item.Id">
-                                    <input type="hidden" name="UserId" value="@aUser.Id">
-                                    if (item.Availability == "Скоро будет в продаже")
-                                    {
-                                        <input type="hidden" name="preorder" value="true">
-                                        <input type="submit" value="Предзаказ" class="btn btn-sm btn-outline-success" />
-                                    }
-                                    else
-                                    {
-                                        <input type="submit" value="Купить" class="btn btn-sm btn-outline-success" />
-                                    }
+                                    <input type="hidden" name="preorder" value="true">
+                                    <input type="submit" value="Предзаказ" class="btn btn-sm btn-outline-success" />
                                 }
-                                else if (item.Availability == "Нет в наличии")
-                                { }
-                            </div>
-                        </form>
-                    }
-                    else
-                    {
-                        <a class="btn btn-sm btn-outline-success" asp-action="Register" asp-controller="Account">Купить</a>
-                    }
-                </td>
-            </tr>
-        }
-    </table>
+                                else
+                                {
+                                    <input type="submit" value="Купить" class="btn btn-sm btn-outline-success" />
+                                }
+                            }
+                            else if (item.Availability == "Нет в наличии")
+                            { }
+                        </div>
+                    </form>
+                }
+                else
+                {
+                    <a class="btn btn-sm btn-outline-success" asp-action="Register" asp-controller="Account">Купить</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
 }
 
 <page-link page-model="Model.PageViewModel" page-action="Product"
