@@ -23,7 +23,7 @@ namespace SimpleStore.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Product(string type, string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
-        {     
+        {
             ViewBag.type = type;
             ViewBag.Users = _userManager.Users.ToList();
             
@@ -89,13 +89,14 @@ namespace SimpleStore.Controllers
         [Authorize(Roles = "Admin, Moderator, User")]
         [HttpGet]
         [ActionName("Buy")]
-        public async Task<IActionResult> ConfirmBuy(int? ProductId, string UserId, int ProductCount)
+        public async Task<IActionResult> ConfirmBuy(int? ProductId, string UserId, int ProductCount, string preorder)
         {
             if (ProductId != null)
             {
                 Product product = await db.Products.FirstOrDefaultAsync(p => p.Id == ProductId);
                 if (product != null)
                 {
+                    ViewBag.preorder = preorder;
                     ViewBag.ProductId = ProductId;
                     ViewBag.UserId = UserId;
                     ViewBag.Count = ProductCount;

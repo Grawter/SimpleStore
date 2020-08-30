@@ -7,9 +7,17 @@
 @if (ViewBag.Count > 0)
 {
 
-   double total_price = ViewBag.Count * Model.Price;
+    double total_price = ViewBag.Count * Model.Price;
     
-   <h3> Подтвердить заказ?</h3>
+    if(ViewBag.preorder == "true")
+    {
+        <h3> Подтвердить предзаказ?</h3>
+    }
+    else
+    { 
+       <h3> Подтвердить заказ?</h3>
+    }
+
     <p class="product-foto">
         <br />
         @if (Model.Image != null)

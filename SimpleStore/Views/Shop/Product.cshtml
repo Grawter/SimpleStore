@@ -104,22 +104,24 @@
 
                         <form method="get" asp-action="Buy">
                             <div class="form-inline form-group">
-                                @if (item.Availability == "В наличии")
+                                @if (item.Availability == "В наличии" || item.Availability == "Скоро будет в продаже")
                                 {
-                                <label class="control-label">Кол-во:</label>
-                                <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2 inp" />
-                                <input type="hidden" name="ProductId" value="@item.Id">
-                                <input type="hidden" name="UserId" value="@aUser.Id">
-                                <input type="submit" value="Купить" class="btn btn-sm btn-outline-success" />
-                                }
-                                else if (item.Availability == "Скоро будет в продаже")
-                                {
-
+                                    <label class="control-label">Кол-во:</label>
+                                    <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2 inp" />
+                                    <input type="hidden" name="ProductId" value="@item.Id">
+                                    <input type="hidden" name="UserId" value="@aUser.Id">
+                                    if (item.Availability == "Скоро будет в продаже")
+                                    {
+                                        <input type="hidden" name="preorder" value="true">
+                                        <input type="submit" value="Предзаказ" class="btn btn-sm btn-outline-success" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="Купить" class="btn btn-sm btn-outline-success" />
+                                    }
                                 }
                                 else if (item.Availability == "Нет в наличии")
-                                {
-
-                                }
+                                { }
                             </div>
                         </form>
                     }

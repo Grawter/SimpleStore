@@ -52,7 +52,7 @@
 }
 
 .news {
-    font-style:italic;
+    font-style: italic;
     margin-left: 80px;
     margin-top: 30px;
     width: 380px;
@@ -60,6 +60,7 @@
     padding: 5px;
     padding-right: 20px;
     border: solid 1px black;
+    border-radius: 1.5rem;
 }
 
 .myorders {
@@ -94,17 +95,17 @@
     margin-top:-400px;
 }
 
-/*a.btn.btn-lg.btn-outline-dark {
+a.btn.btn-lg.btn-outline-dark {
     border-color: #f8f9fa;
     border-radius: 1.5rem;
-}*/
+}
 
 /*shop-home*/
 
 .S-Phone {
     position: sticky;
     margin-left:90px;
-    margin-top: 0px;
+    margin-top: 15px;
 }
 
 .S-Headphone {
