@@ -89,7 +89,7 @@ namespace SimpleStore.Controllers
         [Authorize(Roles = "Admin, Moderator, User")]
         [HttpGet]
         [ActionName("Buy")]
-        public async Task<IActionResult> ConfirmBuy(int? ProductId, string UserId, int ProductCount, string preorder)
+        public async Task<IActionResult> ConfirmBuy(int? ProductId, string UserId, int ProductCount, string preorder ="false")
         {
             if (ProductId != null)
             {

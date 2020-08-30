@@ -15,7 +15,7 @@ namespace SimpleStore.ViewModels.User
 
 
         [Required(ErrorMessage = "Не указан адрес")]
-        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 1 до 150 символов")]
+        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 10 до 150 символов")]
         [Display(Name = "Адрес")]
         public string Address { get; set; }
 
