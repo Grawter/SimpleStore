@@ -1,0 +1,10 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewBag.Title = "О компании";
+}
+
+<h3>@Localizer["Title"]</h3>
+
+<p class="karm">@Localizer["Information"]</p>

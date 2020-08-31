@@ -1,12 +1,15 @@
-﻿@model IEnumerable<SimpleStore.Models.User>
+﻿@using System.Globalization
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model IEnumerable<SimpleStore.Models.User>
 
 @{
     ViewBag.Title = "Гостевая страница";
 }
 
-<h3 class="atten">SimpleStore - магазин телефонов и аксессуаров для них </h3>
+<h3 class="atten">@Localizer["Title"] </h3>
 
-@if (ViewBag.LastNews != null)
+@if (ViewBag.LastNews != null && CultureInfo.CurrentCulture.Name == "ru")
 {
     <a class="news" asp-controller="News" asp-action="Show" asp-route-id="@ViewBag.LastNews.Id"><i><u>@ViewBag.LastNews.Message</u></i></a>
 }
@@ -17,8 +20,8 @@
 
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
     <div>
-        <a class="btn btn-sm btn-outline-dark myorders " asp-action="MyOrders" asp-route-UserId="@aUser.Id">Мои покупки</a>
-        <a class="btn btn-sm btn-outline-dark settings " asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">Настройки</a>
+        <a class="btn btn-sm btn-outline-dark myorders " asp-action="MyOrders" asp-route-UserId="@aUser.Id">@Localizer["Мои покупки"]</a>
+        <a class="btn btn-sm btn-outline-dark settings " asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">@Localizer["Настройки"]</a>
     </div>
 
     @if (User.IsInRole("Moderator"))
@@ -39,27 +42,27 @@
 <div>
     <a class="btn btn-lg btn-outline-dark S-Phone" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
         <img style='width:180px; height:180px;' src="~/img/Phone.jpg" /><br />
-        Телефоны
+        @Localizer["Телефоны"]
     </a>
 </div>
 
 <div>
     <a class="btn btn-lg btn-outline-dark S-Headphone" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
         <img style='width:180px; height:180px;' src="~/img/Headphone.jpg" /><br />
-        Наушники
+        @Localizer["Наушники"]
     </a>
 </div>
 
 <div>
     <a class="btn btn-lg btn-outline-dark S-Case" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
         <img style='width:180px; height:180px;' src="~/img/Case.jpg" /><br />
-        Чехлы для телефонов
+        @Localizer["Чехлы для телефонов"]
     </a>
 </div>
 
 <div>
     <a class="btn btn-lg btn-outline-dark S-Powerbank" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
         <img style='width:180px; height:180px;' src="~/img/Powerbank.jpg" /><br />
-        Powerbank
+        @Localizer["Powerbanks"]
     </a>
 </div>

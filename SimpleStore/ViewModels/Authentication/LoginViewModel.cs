@@ -4,12 +4,12 @@ namespace SimpleStore.ViewModels.Authentication
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Не указан Email")]
+        [Required(ErrorMessage = "EmailRequired")]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
 
-        [Required(ErrorMessage = "Не указан пароль")]
+        [Required(ErrorMessage = "PasswordRequired")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
         public string Password { get; set; }

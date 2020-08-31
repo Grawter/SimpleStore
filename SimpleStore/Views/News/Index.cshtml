@@ -1,17 +1,19 @@
-﻿@model IEnumerable<SimpleStore.Models.Novelty>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model IEnumerable<SimpleStore.Models.Novelty>
 
 @{
     ViewBag.Title = "Новости";
 }
 
-<h3>Новости</h3>
+<h3>@Localizer["Title"]</h3>
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
 {
     <a class="btn btn-sm btn-outline-primary" asp-action="Create">Создать новость</a>
 }
 
-<table class="table table-hover col-md-5">
+<table class="table table-hover col-md-6">
     @foreach (var item in Model)
     {
         <tr>

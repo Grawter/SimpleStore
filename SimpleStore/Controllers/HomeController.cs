@@ -10,6 +10,8 @@ using Microsoft.EntityFrameworkCore;
 using SimpleStore.ViewModels.Supporting_tools;
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 
 namespace SimpleStore.Controllers
 {
@@ -26,6 +28,18 @@ namespace SimpleStore.Controllers
             _signInManager = signInManager;
         }
 
+        [HttpPost]
+        public IActionResult SetLanguage(string culture, string FullPath)
+        {
+            Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName, 
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1) }
+            );
+
+            return LocalRedirect(FullPath);
+        }
+
         public async Task<IActionResult> Index()
         {
             List<Novelty> News = db.News.ToList();
@@ -37,7 +51,7 @@ namespace SimpleStore.Controllers
             return View(await _userManager.Users.ToListAsync());
         }
 
-        public IActionResult About() => View();
+        public IActionResult AboutUs() => View();
 
         public IActionResult Contacts() => View();
 

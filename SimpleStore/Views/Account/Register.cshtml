@@ -1,10 +1,12 @@
-﻿@model SimpleStore.ViewModels.Authentication.RegisterViewModel
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model SimpleStore.ViewModels.Authentication.RegisterViewModel
 
 @{
     ViewBag.Title = "Регистрация";
 }
 
-<h3>Регистрация нового пользователя</h3>
+<h3>@Localizer["Title"]</h3>
 
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
@@ -25,7 +27,7 @@
     </div>
     <div>
         <label asp-for="DateBirth"></label><br />
-        <input type="date" asp-for="DateBirth" />
+        <input type="date" asp-for="DateBirth" value="0001-01-01" />
         <span asp-validation-for="DateBirth"></span>
     </div>
     <div>
@@ -44,8 +46,8 @@
         <span asp-validation-for="PasswordConfirm"></span>
     </div>
     <div>
-        <input class="btn btn-outline-dark edit-btn" type="submit" value="Регистрация" />
-        <a class="btn btn-outline-secondary edit-btn" asp-controller="Home" asp-action="Index">Назад</a>
+        <input class="btn btn-outline-dark edit-btn" type="submit" value="@Localizer["Registration"]" />
+        <a class="btn btn-outline-secondary edit-btn" asp-controller="Home" asp-action="Index">@Localizer["Back"]</a>
     </div>
 </form>
 

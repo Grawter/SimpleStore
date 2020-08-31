@@ -45,6 +45,11 @@
     background-color: #96989a;
 }
 
+.lang {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
 .atten {
     position:relative;
     top:130px;
@@ -52,43 +57,44 @@
 
 .news {
     font-size: 1.25rem;
-    color:red;
-    position:relative;
-    left: 80px;
-    top: 130px;
-    margin-bottom:20px;
+    color: red;
+    position: absolute;
+    margin-left: 80px;
+    margin-top: 125px;
+    margin-bottom: 20px;
 }
 
 .myorders {
     position: sticky;
     left: 1315px;
-    margin-top:-160px;
+    margin-top: -150px;
     margin-right: 90px;
 }
 
 .settings {
     position: sticky;
+    top:0px;
     left: 1428px;
-    margin-top: -160px;
+    margin-top: -150px;
 }
 
 .orders {
     position: sticky;
     left: 1287px;
     margin-right: 157px;
-    margin-top:-135px;
+    margin-top:-122px;
 }
 
 .moder {
     position: sticky;
     left: 1386px;
-    margin-top: -135px;
+    margin-top: -122px;
 }
 
 .admin {
     position: sticky;
     left: 1388px;
-    margin-top:-110px;
+    margin-top:-93px;
 }
 
 a.btn.btn-lg.btn-outline-dark {
@@ -125,21 +131,22 @@ a.btn.btn-lg.btn-outline-dark {
 
 .set-data {
     position: absolute;
+    top:105px;
 }
 
 .set-email {
     position: absolute;
-    top: 110px;
+    top: 145px;
 }
 
 .set-pass {
     position: absolute;
-    top: 147px;
+    top: 184px;
 }
 
 .set-back {
     position: absolute;
-    top: 183px;
+    top: 222px;
 }
 
 /*shop*/

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -10,7 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 foot" >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 foot">
             <div class="container">
                 <a class="navbar-brand text-light" style="word-wrap:normal" asp-area="" asp-controller="Home" asp-action="Index">SimpleStore</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -20,33 +22,36 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="About">О нас</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="AboutUs">@Localizer["О нас"]</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Contacts">Контакты</a>
-                        </li>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Contacts">@Localizer["Контакты"]</a>
+</li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">Новости</a>
-                        </li>
+                            <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">@Localizer["Новости"]</a>
+</li>
                     </ul>
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <p class="heil header-color">Добро пожаловать,<b> @User.Identity.Name</b> </p>
+                    <p class="heil header-color">@Localizer["Добро пожаловать"],<b> @User.Identity.Name</b> </p>
 
                     <form method="post" asp-controller="Account" asp-action="Logout">
-                        <input class="btn btn-sm btn-outline-light logout" type="submit" value="Выход" />
+                        <input class="btn btn-sm btn-outline-light logout" type="submit" value="@Localizer["Выход"]" />
                     </form>
                 }
                 else
                 {
-                    <a class="btn btn-sm btn-outline-light login" asp-controller="Account" asp-action="Login">Вход</a>
-                    <a class="btn btn-sm  btn-outline-light register" asp-controller="Account" asp-action="Register">Регистрация</a>
+                    <a class="btn btn-sm btn-outline-light login" asp-controller="Account" asp-action="Login">@Localizer["Вход"]</a>
+                    <a class="btn btn-sm  btn-outline-light register" asp-controller="Account" asp-action="Register">@Localizer["Регистрация"]</a>
                 }
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container body-content">
+        <div>
+            @await Html.PartialAsync("_SelectLanguagePartial")
+        </div>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

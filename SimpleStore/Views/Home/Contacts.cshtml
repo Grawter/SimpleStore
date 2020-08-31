@@ -1,8 +1,13 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
     ViewBag.Title = "Контакты";
 }
 
-<h3>Контакты</h3>
+<h3>@Localizer["Title"]</h3>
 
-<p class="karm2">Наши контактные телефоны:... <br/>Мы находимся по адресу:...</p>
+<p>@Localizer["Phone"]</p>
+<p>@Localizer["Address"]</p>
+
 <img style='width:400px; height:300px;' src="~/img/Map.jpg" />

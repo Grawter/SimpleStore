@@ -86,7 +86,7 @@ namespace SimpleStore.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
+                    ModelState.AddModelError("", "Неправильный логин и (или) пароль/Incorrect username and (or) password");
                 }
             }
             return View(model);

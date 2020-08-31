@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace SimpleStore
 {
@@ -26,7 +28,22 @@ namespace SimpleStore
             services.AddIdentity<User, IdentityRole>(options => options.Password.RequireNonAlphanumeric = false) // Identity
                 .AddEntityFrameworkStores<ApplicationContext>();
 
-            services.AddControllersWithViews();
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddControllersWithViews().AddDataAnnotationsLocalization().AddViewLocalization();
+
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("ru")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("ru");
+                options.SupportedCultures = supportedCultures;
+                options.SupportedUICultures = supportedCultures;
+            });
         }
 
 
@@ -42,6 +59,7 @@ namespace SimpleStore
                 
             }
             app.UseHttpsRedirection();
+            app.UseRequestLocalization();
             app.UseStaticFiles();
 
             app.UseRouting(); // Подключение EndpointRoutingMiddleware
