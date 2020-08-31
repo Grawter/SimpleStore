@@ -13,7 +13,7 @@ using SimpleStore.ViewModels.Authorization;
 
 namespace SimpleStore.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -80,7 +80,7 @@ namespace SimpleStore.Controllers
         public IActionResult CreateUser() => View("~/Views/Admin/User/CreateUser.cshtml");
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(AdmCreateUserViewModel model)
+        public async Task<IActionResult> CreateUser([FromForm] AdmCreateUserViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -124,7 +124,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(AdmEditUserViewModel model, bool ThisAdmAcc)
+        public async Task<IActionResult> EditUser([FromForm] AdmEditUserViewModel model, bool ThisAdmAcc)
         {
             if (ModelState.IsValid)
             {
@@ -179,7 +179,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(AdmChangePassViewModel model)
+        public async Task<IActionResult> ChangePassword([FromForm] AdmChangePassViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -226,7 +226,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DeleteUser(string id)
+        public async Task<ActionResult> DeleteUser([FromForm] string id)
         {
             User user = await _userManager.FindByIdAsync(id);
             if (user != null)
@@ -243,7 +243,7 @@ namespace SimpleStore.Controllers
         public IActionResult CreateRole() => View("~/Views/Admin/Role/CreateRole.cshtml");
 
         [HttpPost]
-        public async Task<IActionResult> CreateRole(string name)
+        public async Task<IActionResult> CreateRole([FromForm] string name)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -287,7 +287,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditRole(string userId, List<string> roles)
+        public async Task<IActionResult> EditRole([FromForm] string userId, List<string> roles)
         {
             // получаем пользователя
             User user = await _userManager.FindByIdAsync(userId);
@@ -333,7 +333,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteRole(string id)
+        public async Task<IActionResult> DeleteRole([FromForm] string id)
         {
             IdentityRole role = await _roleManager.FindByIdAsync(id);
             if (role != null)

@@ -87,7 +87,7 @@ namespace SimpleStore.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create([FromForm] Product product)
         {
             if (product.File != null)
             {
@@ -121,7 +121,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Product product)
+        public async Task<IActionResult> Edit([FromForm] Product product)
         {
             if (product.File != null)
             {
@@ -153,7 +153,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete([FromForm] int? id)
         {
             if (id != null)
             {

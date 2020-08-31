@@ -64,7 +64,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditData(UserEditDataViewModel model)
+        public async Task<IActionResult> EditData([FromForm] UserEditDataViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangeEmail(UserChangeEmailViewModel model)
+        public async Task<IActionResult> ChangeEmail([FromForm] UserChangeEmailViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -154,7 +154,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ChangePassword(UserChangePassViewModel model)
+        public async Task<IActionResult> ChangePassword([FromForm] UserChangePassViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -182,6 +182,7 @@ namespace SimpleStore.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public async Task<IActionResult> MyOrders(string UserId, int page = 1)
         {
             IQueryable<Order> orders = db.Orders.Where(p => p.UserId == UserId);

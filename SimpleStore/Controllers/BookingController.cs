@@ -134,7 +134,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Order order)
+        public async Task<IActionResult> Edit([FromForm] Order order)
         {
             if (order != null)
             {

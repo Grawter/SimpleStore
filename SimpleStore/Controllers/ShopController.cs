@@ -118,7 +118,7 @@ namespace SimpleStore.Controllers
 
         [Authorize(Roles = "Admin, Moderator, User")]
         [HttpPost]
-        public async Task<IActionResult> Buy(int? ProductId, string UserId, int Count)
+        public async Task<IActionResult> Buy([FromForm] int? ProductId, string UserId, int Count)
         {
             if (ProductId != null && UserId != null)
             {

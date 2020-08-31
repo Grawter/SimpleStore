@@ -26,7 +26,7 @@ namespace SimpleStore.Controllers
         public IActionResult Create() => View();
 
         [HttpPost]
-        public async Task<IActionResult> Create(Novelty news)
+        public async Task<IActionResult> Create([FromForm] Novelty news)
         {
             db.News.Add(news);
             await db.SaveChangesAsync();
@@ -46,7 +46,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Novelty news)
+        public async Task<IActionResult> Edit([FromForm] Novelty news)
         {
             db.News.Update(news);
             await db.SaveChangesAsync();
@@ -66,7 +66,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete([FromForm] int? id)
         {
             if (id != null)
             {

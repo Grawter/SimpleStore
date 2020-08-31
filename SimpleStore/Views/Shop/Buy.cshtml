@@ -33,7 +33,10 @@
         Название: @Model.Name <br /> Количество: @ViewBag.Count шт <br />Итоговая цена: @total_price руб <br />
     </p>
 
-    <form method="post" asp-action="Buy" asp-route-ProductId="@Model.Id" asp-route-UserId="@ViewBag.UserId" asp-route-Count="@ViewBag.Count">
+    <form method="post" asp-action="Buy">
+        <input type="hidden" name="ProductId" value="@Model.Id">
+        <input type="hidden" name="UserId" value="@ViewBag.UserId">
+        <input type="hidden" name="Count" value="@ViewBag.Count">
         <input type="submit" value="Подтвердить" class="btn btn-success product-btn" />
         <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary product-btn">Назад</a>
     </form>

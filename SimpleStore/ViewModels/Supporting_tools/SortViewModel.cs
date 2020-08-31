@@ -45,7 +45,6 @@
 
         // Для админки и заказа
         public SortState NamesSort { get; private set; } // значение для сортировки по имени
-        public SortState SurnameSort { get; private set; } // значение для сортировки по фамилии
         public SortState EmailSort { get; private set; } // значение для сортировки по эл. адресу
         public SortState PhoneSort { get; private set; } // значение для сортировки по телефону
 
@@ -68,7 +67,6 @@
 
             // Для админки и заказа
             NamesSort = sortOrder == SortState.NamesAsc ? SortState.NamesDesc : SortState.NamesAsc;
-            SurnameSort = sortOrder == SortState.SurnameAsc ? SortState.SurnameDesc : SortState.SurnameAsc;
             EmailSort = sortOrder == SortState.EmailAsc ? SortState.EmailDesc : SortState.EmailAsc;
             PhoneSort = sortOrder == SortState.PhoneAsc ? SortState.PhoneDesc : SortState.PhoneAsc;
 
