@@ -1,4 +1,6 @@
-﻿@using SimpleStore.ViewModels.Supporting_tools
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@using SimpleStore.ViewModels.Supporting_tools
 @addTagHelper *, SimpleStore
 @model IndexViewModel
 
@@ -12,31 +14,31 @@
         <thead class="thead-light">
             <tr>
                 <th>
-                    Номер заказа
+                   @Localizer["Номер заказа"]
                 </th>
                 <th>
-                    Название
+                    @Localizer["Название"]
                 </th>
                 <th>
-                    Кол-во
+                    @Localizer["Кол-во"]
                 </th>
                 <th>
-                    Цена
+                    @Localizer["Цена"]
                 </th>
                 <th>
-                    Email
+                    @Localizer["Email"]
                 </th>
                 <th>
-                    Телефон
+                    @Localizer["Телефон"]
                 </th>
                 <th>
-                    ФИО
+                    @Localizer["ФИО"]
                 </th>
                 <th>
-                    Адрес
+                    @Localizer["Адрес"]
                 </th>
                 <th>
-                    Статус
+                    @Localizer["Статус"]
                 </th>
             </tr>
         </thead>
@@ -52,7 +54,28 @@
                 <td>@item.UserPhone</td>
                 <td>@item.UserFullName</td>
                 <td>@item.UserAddress</td>
-                <td><b>@item.Status</b></td>
+                <td>
+                    <b>
+                        @switch (item.Status)
+                        {
+                            case "На рассмотрении":
+                                @Localizer["На рассмотрении"];
+                                break;
+                            case "В сборке":
+                                @Localizer["В сборке"];
+                                break;
+                            case "Отправлено":
+                                @Localizer["Отправлено"];
+                                break;
+                            case "Исполнено":
+                                @Localizer["Исполнено"];
+                                break;
+                            case "Отказано":
+                                @Localizer["Отказано"];
+                                break;
+                        }
+                    </b>
+                </td>
             </tr>
         }
     </table>

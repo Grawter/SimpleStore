@@ -38,7 +38,7 @@ namespace SimpleStore.ViewModels.Authentication
         public string Email { get; set; } 
 
 
-        [Required(ErrorMessage = "Не указан пароль")]
+        [Required(ErrorMessage = "PasswordlRequired")]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{1,20}$", ErrorMessage = "CorrectPassword")]
         [DataType(DataType.Password)]
         [Display(Name = "Пароль")]
