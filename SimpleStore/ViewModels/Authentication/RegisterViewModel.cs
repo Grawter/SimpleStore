@@ -24,7 +24,7 @@ namespace SimpleStore.ViewModels.Authentication
         public string PhoneNumber { get; set; }
 
 
-        [Required(ErrorMessage = "DataRequired")]
+        [Required(ErrorMessage = "DateBirthRequired")]
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
         public DateTime DateBirth { get; set; }

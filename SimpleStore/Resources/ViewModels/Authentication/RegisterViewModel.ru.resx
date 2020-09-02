@@ -135,7 +135,7 @@
   <data name="CorrectPhone" xml:space="preserve">
     <value>Некорректный телефон</value>
   </data>
-  <data name="DataRequired" xml:space="preserve">
+  <data name="DateBirthRequired" xml:space="preserve">
     <value>Не указана дата рождения</value>
   </data>
   <data name="Email" xml:space="preserve">

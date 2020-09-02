@@ -9,10 +9,10 @@ namespace SimpleStore.ViewModels.User
 
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Не указан Email")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина эл. адреса должна быть от 3 до 50 символов")]
-        [EmailAddress(ErrorMessage = "Некорректный Email")]
-        [Remote(action: "CheckEmail", controller: "Account", ErrorMessage = "Email уже используется")]
+        [Required(ErrorMessage = "EmailRequired")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "EmailLength")]
+        [EmailAddress(ErrorMessage = "EmailCorrect")]
+        [Remote(action: "CheckEmail", controller: "Account", ErrorMessage = "CheckEmail")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }

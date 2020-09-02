@@ -8,24 +8,24 @@ namespace SimpleStore.ViewModels.User
         public string Id { get; set; }
 
 
-        [Required(ErrorMessage = "Не указано ФИО")]
-        [StringLength(80, ErrorMessage = "Длина ФИО должна быть от 1 до 50 символов")]
+        [Required(ErrorMessage = "FullNameRequired")]
+        [StringLength(80, ErrorMessage = "FullNameLength")]
         [Display(Name = "ФИО")]
         public string FullName { get; set; }
 
 
-        [Required(ErrorMessage = "Не указан адрес")]
-        [StringLength(150, MinimumLength = 10, ErrorMessage = "Длина адреса должна быть от 10 до 150 символов")]
+        [Required(ErrorMessage = "AddressRequired")]
+        [StringLength(150, MinimumLength = 10, ErrorMessage = "AddressLength")]
         [Display(Name = "Адрес")]
         public string Address { get; set; }
 
 
-        [Required(ErrorMessage = "Не указан телефон")]
+        [Required(ErrorMessage = "PhoneNumberRequired")]
         [Phone(ErrorMessage = "Некорректный телефон")]
         [Display(Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
 
-
+        [Required(ErrorMessage = "DateBirthRequired")]
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
         public DateTime DateBirth { get; set; }

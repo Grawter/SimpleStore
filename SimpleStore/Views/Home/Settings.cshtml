@@ -1,15 +1,19 @@
-﻿@model IEnumerable<SimpleStore.Models.User>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model IEnumerable<SimpleStore.Models.User>
 
 @{
     ViewBag.Title = "Settings Page";
 }
 
+<h3>@Localizer["Title"]</h3>
+
 @if (User.Identity.IsAuthenticated)
 {
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
 
-    <a class="btn btn-sm btn-outline-secondary set-back" asp-action="Index" asp-route-id="@aUser.Id">Назад</a>
-    <a class="btn btn-sm btn-outline-dark set-data" asp-action="EditData" asp-route-id="@aUser.Id">Изменить данные пользователя</a>
-    <a class="btn btn-sm btn-outline-dark set-email" asp-action="ChangeEmail" asp-route-id="@aUser.Id">Изменить электронный адрес</a>
-    <a class="btn btn-sm btn-outline-dark set-pass" asp-action="ChangePassword" asp-route-id="@aUser.Id">Изменить пароль</a>
+    <a class="btn btn-sm btn-outline-dark set-data" asp-action="EditData" asp-route-id="@aUser.Id">@Localizer["Изменить данные пользователя"]</a>
+    <a class="btn btn-sm btn-outline-dark set-email" asp-action="ChangeEmail" asp-route-id="@aUser.Id">@Localizer["Изменить электронный адрес"]</a>
+    <a class="btn btn-sm btn-outline-dark set-pass" asp-action="ChangePassword" asp-route-id="@aUser.Id">@Localizer["Изменить пароль"]</a>
+    <a class="btn btn-sm btn-outline-secondary set-back" asp-action="Index" asp-route-id="@aUser.Id">@Localizer["Назад"]</a>
 }
