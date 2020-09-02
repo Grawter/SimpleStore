@@ -21,6 +21,7 @@ namespace SimpleStore.Controllers
         public IActionResult Register() => View();
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromForm] RegisterViewModel model)
         {
             if (ModelState.IsValid)

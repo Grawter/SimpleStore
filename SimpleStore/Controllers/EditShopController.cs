@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Supporting_tools;
 
@@ -13,6 +13,7 @@ namespace SimpleStore.Controllers
     public class EditShopController : Controller
     {
         private readonly ApplicationContext db;
+
         public EditShopController(ApplicationContext context)
         {
             db = context;
@@ -68,7 +69,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
-            int pageSize = 5;
+            int pageSize = 20;
             var count = await Products.CountAsync();
             var items = await Products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -104,7 +105,6 @@ namespace SimpleStore.Controllers
             db.Products.Add(product);
             await db.SaveChangesAsync();
 
-
             return RedirectToAction("ShowProducts", new { type = product.Type });
         }
 
@@ -117,7 +117,7 @@ namespace SimpleStore.Controllers
                 if (product != null)
                     return View(product);
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
         [HttpPost]
@@ -137,6 +137,7 @@ namespace SimpleStore.Controllers
 
             db.Products.Update(product);
             await db.SaveChangesAsync();
+
             return RedirectToAction("ShowProducts", new { type = product.Type });
         }
 
@@ -149,7 +150,7 @@ namespace SimpleStore.Controllers
                 Product product = await db.Products.FirstOrDefaultAsync(p => p.Id == id);
                 return View(product);
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
         [HttpPost]
@@ -165,7 +166,7 @@ namespace SimpleStore.Controllers
                     return RedirectToAction("ShowProducts", new { type = product.Type });
                 }
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
     }

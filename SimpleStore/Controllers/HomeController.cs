@@ -1,16 +1,16 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.User;
-using Microsoft.EntityFrameworkCore;
 using SimpleStore.ViewModels.Supporting_tools;
-using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Http;
 
 namespace SimpleStore.Controllers
 {
@@ -55,7 +55,7 @@ namespace SimpleStore.Controllers
         public IActionResult Contacts() => View();
 
         [HttpGet]
-        public IActionResult Settings() => View(_userManager.Users.ToList());
+        public async Task<IActionResult> Settings() => View(await _userManager.Users.ToListAsync());
 
         [HttpGet]
         public async Task<IActionResult> EditData(string id)
@@ -63,7 +63,7 @@ namespace SimpleStore.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не найдено");
             }
             UserEditDataViewModel model = new UserEditDataViewModel
             {
@@ -103,6 +103,10 @@ namespace SimpleStore.Controllers
                         }
                     }
                 }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Пользователь не найден");
+                }
             }
             return View(model);
         }
@@ -113,7 +117,7 @@ namespace SimpleStore.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не найдено");
             }
             UserChangeEmailViewModel model = new UserChangeEmailViewModel { Id = user.Id, FullName = user.FullName, Email = user.Email };
             return View(model);
@@ -160,7 +164,7 @@ namespace SimpleStore.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не найдено");
             }
             UserChangePassViewModel model = new UserChangePassViewModel { Id = user.Id, Email = user.Email };
             return View(model);
@@ -202,7 +206,7 @@ namespace SimpleStore.Controllers
             orders = orders.OrderByDescending(s => s.Id);
 
             // пагинация
-            int pageSize = 7;
+            int pageSize = 20;
             var count = await orders.CountAsync();
             var items = await orders.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 

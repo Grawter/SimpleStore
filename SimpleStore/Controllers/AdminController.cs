@@ -1,19 +1,19 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 using SimpleStore.Models;
+using SimpleStore.ViewModels.Authorization;
 using SimpleStore.ViewModels.Admin;
 using SimpleStore.ViewModels.Supporting_tools;
-using Microsoft.EntityFrameworkCore;
-using System;
-using Microsoft.AspNetCore.Authorization;
-using System.Collections.Generic;
-using SimpleStore.ViewModels.Authorization;
 
 namespace SimpleStore.Controllers
 {
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -61,7 +61,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
-            int pageSize = 7;
+            int pageSize = 20;
             var count = await users.CountAsync();
             var items = await users.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -111,7 +111,7 @@ namespace SimpleStore.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не найдено");
             }
             AdmEditUserViewModel model = new AdmEditUserViewModel { Id = user.Id, FullName = user.FullName, 
                 Address = user.Address, PhoneNumber = user.PhoneNumber, DateBirth = DateTime.Parse(user.DateBirth),
@@ -172,7 +172,7 @@ namespace SimpleStore.Controllers
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("Не найдено");
             }
             AdmChangePassViewModel model = new AdmChangePassViewModel { Id = user.Id, Email = user.Email };
             return View("~/Views/Admin/User/ChangePassword.cshtml", model);
@@ -222,7 +222,7 @@ namespace SimpleStore.Controllers
                 User user = await _userManager.FindByIdAsync(id);
                 return View("~/Views/Admin/User/DeleteUser.cshtml", user);
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
         [HttpPost]
@@ -260,7 +260,7 @@ namespace SimpleStore.Controllers
                     }
                 }
             }
-            return View("~/Views/Admin/Role/CreateRole.cshtml",name);
+            return View("~/Views/Admin/Role/CreateRole.cshtml", name);
         }
 
         [HttpGet]
@@ -283,7 +283,7 @@ namespace SimpleStore.Controllers
                 return View("~/Views/Admin/Role/EditRole.cshtml", model);
             }
 
-            return NotFound($"Пользователь не найден/неверный id");
+            return NotFound("Не найдено");
         }
 
         [HttpPost]
@@ -317,7 +317,7 @@ namespace SimpleStore.Controllers
                 return RedirectToAction("Index");
             }
 
-            return NotFound("Пользователь не найден");
+            return NotFound("Не найдено");
         }
 
         [HttpGet]
@@ -329,7 +329,7 @@ namespace SimpleStore.Controllers
                 IdentityRole role = await _roleManager.FindByIdAsync(id);
                 return View("~/Views/Admin/Role/DeleteRole.cshtml", role);
             }
-            return NotFound($"Неверный id");
+            return NotFound("Не найдено");
         }
 
         [HttpPost]

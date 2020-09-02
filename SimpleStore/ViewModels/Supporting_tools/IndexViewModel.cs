@@ -1,5 +1,5 @@
-﻿using SimpleStore.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using SimpleStore.Models;
 
 namespace SimpleStore.ViewModels.Supporting_tools
 {

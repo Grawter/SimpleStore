@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Supporting_tools;
 
@@ -14,6 +14,7 @@ namespace SimpleStore.Controllers
     {
         private readonly ApplicationContext db;
         private readonly UserManager<User> _userManager;
+
         public BookingController(ApplicationContext context, UserManager<User> userManager)
         {
             db = context;
@@ -106,7 +107,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
-            int pageSize = 7;
+            int pageSize = 40;
             var count = await orders.CountAsync();
             var items = await orders.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -130,7 +131,7 @@ namespace SimpleStore.Controllers
             {
                 return View(order);
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
         [HttpPost]
@@ -142,7 +143,7 @@ namespace SimpleStore.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
     }

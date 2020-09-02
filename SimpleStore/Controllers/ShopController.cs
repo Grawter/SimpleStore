@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Supporting_tools;
 
@@ -14,6 +14,7 @@ namespace SimpleStore.Controllers
     {
         private readonly ApplicationContext db;
         private readonly UserManager<User> _userManager;
+
         public ShopController(ApplicationContext context, UserManager<User> userManager)
         {
             db = context;
@@ -22,7 +23,7 @@ namespace SimpleStore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Novelty> News = db.News.ToList();
+            List<Novelty> News = await db.News.ToListAsync();
             if (News != null)
             {
                 var LastNews = News.LastOrDefault();
@@ -80,7 +81,7 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
-            int pageSize = 5;
+            int pageSize = 20;
             var count = await Products.CountAsync();
             var items = await Products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
@@ -113,7 +114,7 @@ namespace SimpleStore.Controllers
                     return View(product);
                 }
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
         [Authorize(Roles = "Admin, Moderator, User")]
@@ -145,7 +146,7 @@ namespace SimpleStore.Controllers
                     return RedirectToAction("Product", new { type = product.Type });
                 }
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
     }

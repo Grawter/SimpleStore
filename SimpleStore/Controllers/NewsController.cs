@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using SimpleStore.Models;
 
 namespace SimpleStore.Controllers
@@ -9,6 +9,7 @@ namespace SimpleStore.Controllers
     public class NewsController : Controller
     {
         private readonly ApplicationContext db;
+
         public NewsController(ApplicationContext context)
         {
             db = context;
@@ -18,8 +19,13 @@ namespace SimpleStore.Controllers
 
         public async Task<IActionResult> Show(int? id)
         {
-            var News = await db.News.FirstOrDefaultAsync(N => N.Id == id);
-            return View(News);
+            if (id != null)
+            {
+                var News = await db.News.FirstOrDefaultAsync(N => N.Id == id);
+                return View(News);
+            }
+            else
+                return NotFound("Не найдено");
         }
 
         [HttpGet]
@@ -28,9 +34,16 @@ namespace SimpleStore.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] Novelty news)
         {
-            db.News.Add(news);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.News.Add(news);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return NotFound("Ошибка при добавлении");
+            }
         }
 
         [HttpGet]
@@ -42,7 +55,7 @@ namespace SimpleStore.Controllers
                 if (news != null)
                     return View(news);
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
         [HttpPost]
@@ -62,7 +75,7 @@ namespace SimpleStore.Controllers
                 Novelty news = await db.News.FirstOrDefaultAsync(N => N.Id == id);
                 return View(news);
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
 
         [HttpPost]
@@ -78,7 +91,8 @@ namespace SimpleStore.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            return NotFound();
+            return NotFound("Не найдено");
         }
+
     }
 }

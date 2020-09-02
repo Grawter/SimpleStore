@@ -11,15 +11,13 @@ namespace SimpleStore.Models
         [Required(ErrorMessage = "Не указан заголовок")]
         [StringLength(70, ErrorMessage = "Длина заголовка должна быть не больше 70 символов")]
         [Display(Name = "Заголовок")]
-        public string Title { get; set; } // заголов
+        public string Title { get; set; } // заголовок
 
 
         [Required(ErrorMessage = "Не указан текст")]
         [StringLength(200, ErrorMessage = "Длина заголовка должна быть не больше 200 символов")]
         [Display(Name = "Текст")]
-
-
-        public string Message { get; set; } // Содержание
+        public string Message { get; set; } // содержание
         
 
         [DataType(DataType.Date)]
