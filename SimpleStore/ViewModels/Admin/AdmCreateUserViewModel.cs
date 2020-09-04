@@ -21,6 +21,8 @@ namespace SimpleStore.ViewModels.Admin
         [Display(Name = "Номер телефона")]
         public string PhoneNumber { get; set; }
 
+
+        [Required(ErrorMessage = "Не указан год рождения")]
         [DataType(DataType.Date)]
         [Display(Name = "Дата рождения")]
         public DateTime DateBirth { get; set; }

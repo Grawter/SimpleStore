@@ -71,7 +71,7 @@ namespace SimpleStore.Controllers
                 FullName = user.FullName,
                 Address = user.Address,
                 PhoneNumber = user.PhoneNumber,
-                DateBirth = DateTime.Parse(user.DateBirth)
+                DateBirth = DateTime.Parse(user.DateBirth) // парсим из String в DataTime
             };
             return View(model);
         }

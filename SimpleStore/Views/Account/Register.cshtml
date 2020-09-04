@@ -10,6 +10,7 @@
 
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="FullPath" value="@Model.FullPath">
     <div>
         <label asp-for="FullName"></label><br />
         <input class="col-3" asp-for="FullName" />

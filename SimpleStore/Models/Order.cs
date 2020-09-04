@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc;
 
 namespace SimpleStore.Models
 {
@@ -16,7 +15,6 @@ namespace SimpleStore.Models
         [Required(ErrorMessage = "Не указан Email")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина эл. адреса должна быть от 3 до 50 символов")]
         [EmailAddress(ErrorMessage = "Некорректный Email")]
-        [Remote(action: "CheckEmail", controller: "Account", ErrorMessage = "Email уже используется")]
         [Display(Name = "Email")]
         public string UserEmail { get; set; } // email заказчика
 

@@ -7,6 +7,7 @@
 <h3>Редактирование новости @Model.Title</h3>
 
 <form asp-action="Edit" asp-controller="News">
+    <div asp-validation-summary="ModelOnly"></div>
     <div>
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="Date" value="@DateTime.Now" />

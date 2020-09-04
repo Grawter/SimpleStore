@@ -8,8 +8,8 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<form method="post" asp-controller="Account" asp-action="Login"
-      asp-route-returnUrl="@Model.ReturnUrl">
+<form method="post" asp-controller="Account" asp-action="Login">
+      <input type="hidden" asp-for="FullPath" value="@Model.FullPath" />
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label asp-for="Email"></label><br />

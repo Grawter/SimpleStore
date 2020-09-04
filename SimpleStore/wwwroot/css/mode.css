@@ -8,15 +8,40 @@
     background-color: #212529;
 }
 
-.page-item.active .page-link { /*page*/
-    color: #0c0c0c;
-    background-color: #ffffff;
+/*pagination*/
+
+/*Предыдушая и следующая страницы*/
+.pagination > li > a { 
+    color: black;
+}
+
+/*Предыдушая и следующая страницы при наводке курсора на них*/
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover { 
+    color: black;
     border-color: #212529;
 }
 
+/*Текущая (активнуа) страница*/
+.pagination > .active > a {
+    color: white !Important;
+    background-color: #212529 !Important;
+    border-color: #212529 !Important;
+}
+
+/*Текущая (активная) страница при наводке курсора на неё*/
+/*.pagination > .active > a:hover { 
+    background-color: #5A4181 !Important;
+    color:red !Important;
+}*/
+
+/*Разметка*/
+
 .heil {
-    margin-bottom:-1px;
-    margin-right:10px;
+    margin-bottom: -1px;
+    margin-right: 10px;
     left: 550px;
     top: 7px;
     color: #f8f9fa;
@@ -97,7 +122,7 @@
     margin-top:-93px;
 }
 
-a.btn.btn-lg.btn-outline-dark {
+a.btn.btn-lg.btn-outline-dark { /*Кнопки витрины товаров*/
     border-color: #f8f9fa;
     border-radius: 1.5rem;
 }
@@ -187,21 +212,15 @@ a.btn.btn-lg.btn-outline-dark {
 /*buy*/
 
 .product-foto {
-    position: absolute;
-    left:300px;
+    position: relative;
+    margin-left:-100px;
+    margin-bottom:20px;
 }
 
 .product {
-    position: absolute;
-    top:550px;
-}
-
-.product-btn {
     position: relative;
-    top: 520px;
+    margin-bottom: 20px;
 }
-
-/*index*/
 
 .inp {
     margin-left:5px;

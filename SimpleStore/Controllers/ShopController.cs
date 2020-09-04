@@ -35,9 +35,9 @@ namespace SimpleStore.Controllers
         [HttpGet]
         public async Task<IActionResult> Product(string type, string name, string aviability, int page = 1, SortState sortOrder = SortState.NameAsc)
         {
-            ViewBag.type = type;
-            ViewBag.Users = _userManager.Users.ToList();
-            
+            ViewBag.type = type; // передача типа товара в представление
+            ViewBag.Users = _userManager.Users.ToList(); // передача списка пользователей в представление
+
             //фильтрация
             IQueryable<Product> Products = db.Products.Where(p => p.Type == type);
             
@@ -81,8 +81,8 @@ namespace SimpleStore.Controllers
             }
 
             // пагинация
-            int pageSize = 20;
-            var count = await Products.CountAsync();
+            int pageSize = 20; // кол-во отображаемых объектов на одной странице
+            var count = await Products.CountAsync(); // общее кол-во объектов
             var items = await Products.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
 
             // формируем модель представления
@@ -147,6 +147,12 @@ namespace SimpleStore.Controllers
                 }
             }
             return NotFound("Не найдено");
+        }
+
+        public IActionResult UnknownUser(string FullPath = null)
+        {
+            ViewBag.FullPath = FullPath;
+            return View();
         }
 
     }

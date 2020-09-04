@@ -6,19 +6,17 @@
 
 <h3>Редактирование заказа №@Model.Id</h3>
 
-<form method="post" asp-action="Edit">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <input type="hidden" asp-for="Id" />
-        <input type="hidden" asp-for="ProductId" />
-        <input type="hidden" asp-for="UserId" />
-        <input type="hidden" asp-for="ProductName" />
-        <input type="hidden" asp-for="ProductCount" />
-        <input type="hidden" asp-for="ProductPrice" />
-    </div>
+<form method="post" asp-controller="Booking" asp-action="Edit">
+    <div asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ProductId" />
+    <input type="hidden" asp-for="UserId" />
+    <input type="hidden" asp-for="ProductName" />
+    <input type="hidden" asp-for="ProductCount" />
+    <input type="hidden" asp-for="ProductPrice" />
     <div>
         <label asp-for="UserEmail"></label><br />
-        <input class=" col-3" asp-for="UserEmail" />
+        <input class="col-3" asp-for="UserEmail" />
         <span asp-validation-for="UserEmail"></span>
     </div>
     <div>
@@ -28,7 +26,7 @@
     </div>
     <div>
         <label asp-for="UserFullName"></label><br />
-        <input class=" col-3" asp-for="UserFullName" />
+        <input class="col-3" asp-for="UserFullName" />
         <span asp-validation-for="UserFullName"></span>
     </div>
     <div>
@@ -45,10 +43,14 @@
             <option value="Исполнено">Исполнено</option>
             <option value="Отказано">Отказано</option>
         </select>
-        <span asp-validation-for="Status"></span>
     </div>
-    <div class="form-group">
+    <div>
         <input class="btn btn-success edit-btn" type="submit" value="Сохранить" />
         <a class="btn btn-primary edit-btn" asp-action="Index">Назад</a>
     </div>
 </form>
+
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

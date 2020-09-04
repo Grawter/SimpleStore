@@ -7,6 +7,7 @@
 <h3>Добавление новости</h3>
 
 <form asp-action="Create" asp-controller="News">
+  <div asp-validation-summary="ModelOnly"></div>
     <div>
         <input type="hidden" asp-for="Date" value="@DateTime.Now" />
     </div>

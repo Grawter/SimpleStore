@@ -93,7 +93,7 @@ namespace SimpleStore.Controllers
             if (product.File != null)
             {
                 byte[] imageData = null;
-                // считываем переданный файл в массив байтов
+                // считывание переданного файла в массив байтов
                 using (var binaryReader = new BinaryReader(product.File.OpenReadStream()))
                 {
                     imageData = binaryReader.ReadBytes((int)product.File.Length);
@@ -126,7 +126,7 @@ namespace SimpleStore.Controllers
             if (product.File != null)
             {
                 byte[] imageData = null;
-                // считываем переданный файл в массив байтов
+                // считывание переданного файла в массив байтов
                 using (var binaryReader = new BinaryReader(product.File.OpenReadStream()))
                 {
                     imageData = binaryReader.ReadBytes((int)product.File.Length);

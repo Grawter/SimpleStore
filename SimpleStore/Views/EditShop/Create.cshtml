@@ -7,6 +7,7 @@
 <h3>Добавление товара</h3>
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly"></div>
     <input name="Id" type="hidden" />
     <div class="form-group">
         <label asp-for="Type"></label><br />
@@ -61,3 +62,8 @@
         <a class="btn btn-primary" asp-action="Index">Назад</a>
     </div>
 </form>
+
+@section scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

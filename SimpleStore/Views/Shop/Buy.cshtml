@@ -1,4 +1,6 @@
-﻿@model SimpleStore.Models.Product
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model SimpleStore.Models.Product
 
 @{
     ViewBag.Title = "Подтверждение покупки товара";
@@ -8,14 +10,14 @@
 {
 
     double total_price = ViewBag.Count * Model.Price;
-    
-    if(ViewBag.preorder == "true")
+
+    if (ViewBag.preorder == "true")
     {
-        <h3> Подтвердить предзаказ?</h3>
+        <h3> @Localizer["Подтвердить предзаказ?"]</h3>
     }
     else
-    { 
-       <h3> Подтвердить заказ?</h3>
+    {
+        <h3> @Localizer["Подтвердить заказ?"]</h3>
     }
 
     <p class="product-foto">
@@ -24,25 +26,25 @@
         {
             <img style='height: 400px; width: 400px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(Model.Image))" /> <br />
         }
-         else
+        else
         {
             <img style='height: 400px; width: 400px;' src="~/img/Question.jpg" /> <br />
         }
     </p>
     <p class="product">
-        Название: @Model.Name <br /> Количество: @ViewBag.Count шт <br />Итоговая цена: @total_price руб <br />
+        @Localizer["Название:"] <b>@Model.Name</b> <br /> @Localizer["Количество:"] <b>@ViewBag.Count</b> <br />@Localizer["Итоговая цена:"] <b>@total_price ₽</b> <br />
     </p>
 
     <form method="post" asp-action="Buy">
         <input type="hidden" name="ProductId" value="@Model.Id">
         <input type="hidden" name="UserId" value="@ViewBag.UserId">
         <input type="hidden" name="Count" value="@ViewBag.Count">
-        <input type="submit" value="Подтвердить" class="btn btn-success product-btn" />
-        <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary product-btn">Назад</a>
-    </form>
+        <input type="submit" value="@Localizer["Подтвердить"]" class="btn btn-success" />
+        <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">@Localizer["Назад"]</a>
+</form>
 }
 else
 {
-    <h3>Количество товара в заказе не может быть меньше 1. Пожалуйста, проверьте правильность заказа. </h3>
-    <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">Вернуться</a>
+    <h3>@Localizer["InvalidCount"] </h3>
+    <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">@Localizer["Вернуться"]</a>
 }

@@ -26,10 +26,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Contacts">@Localizer["Контакты"]</a>
-</li>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Index">@Localizer["Новости"]</a>
-</li>
+                        </li>
                     </ul>
                 </div>
                 @if (User.Identity.IsAuthenticated)
@@ -42,8 +42,10 @@
                 }
                 else
                 {
-                    <a class="btn btn-sm btn-outline-light login" asp-controller="Account" asp-action="Login">@Localizer["Вход"]</a>
-                    <a class="btn btn-sm  btn-outline-light register" asp-controller="Account" asp-action="Register">@Localizer["Регистрация"]</a>
+                    <a class="btn btn-sm btn-outline-light login" asp-controller="Account" asp-action="Login"
+                       asp-route-FullPath="@Context.Request.Path@Context.Request.QueryString">@Localizer["Вход"]</a>
+                    <a class="btn btn-sm  btn-outline-light register" asp-controller="Account" asp-action="Register"
+                       asp-route-FullPath="@Context.Request.Path@Context.Request.QueryString">@Localizer["Регистрация"]</a>
                 }
             </div>
         </nav>

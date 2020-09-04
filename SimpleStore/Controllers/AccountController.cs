@@ -10,33 +10,58 @@ namespace SimpleStore.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
-        public IActionResult Register() => View();
+        public IActionResult Register(string FullPath = null)
+        {
+            return View( new RegisterViewModel { FullPath = FullPath } );
+        }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] // противодействия подделке межсайтовых запросов
         public async Task<IActionResult> Register([FromForm] RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid) // Если введённые данные валидны
             {
                 User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName,
                     Address = model.Address, PhoneNumber = model.PhoneNumber, DateBirth = model.DateBirth.ToShortDateString() };
-                // добавляем пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(user, model.Password); // добавление пользователя через пароль
+
+                var adm = await _roleManager.FindByNameAsync("Admin");
+                var mod = await _roleManager.FindByNameAsync("Moderator");
+                var usr = await _roleManager.FindByNameAsync("User");
+
+                if (adm == null)
+                    await _roleManager.CreateAsync(new IdentityRole("Admin"));
+
+                if (mod == null)
+                    await _roleManager.CreateAsync(new IdentityRole("Moderator"));
+
+                if (usr == null)
+                    await _roleManager.CreateAsync(new IdentityRole("User"));
+
                 await _userManager.AddToRoleAsync(user, "User");
 
                 if (result.Succeeded)
                 {
-                    // установка куки
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    await _signInManager.SignInAsync(user, false); // установка куки авторизации
+                    // проверка, принадлежит ли URL приложению
+                    if (!string.IsNullOrEmpty(model.FullPath) && Url.IsLocalUrl(model.FullPath))
+                    {
+                        return Redirect(model.FullPath);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
@@ -49,7 +74,7 @@ namespace SimpleStore.Controllers
             return View(model);
         }
         
-        [AcceptVerbs("Get", "Post")]
+        [AcceptVerbs("Get", "Post")] // для указания нескольких обрабатываемых типов запросов
         public async Task<IActionResult> CheckEmail(string Email)
         {
             var res = await _userManager.FindByEmailAsync(Email);
@@ -61,9 +86,9 @@ namespace SimpleStore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string FullPath = null)
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            return View(new LoginViewModel { FullPath = FullPath });
         }
 
         [HttpPost]
@@ -76,9 +101,9 @@ namespace SimpleStore.Controllers
                 if (result.Succeeded)
                 {
                     // проверка, принадлежит ли URL приложению
-                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    if (!string.IsNullOrEmpty(model.FullPath) && Url.IsLocalUrl(model.FullPath))
                     {
-                        return Redirect(model.ReturnUrl);
+                        return Redirect(model.FullPath);
                     }
                     else
                     {
@@ -97,8 +122,7 @@ namespace SimpleStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
-            // удаляем аутентификационные куки
-            await _signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync(); // удаляем аутентификационные куки
             return RedirectToAction("Index", "Home");
         }
 

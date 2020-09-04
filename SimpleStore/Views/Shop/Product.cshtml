@@ -1,20 +1,22 @@
-﻿@using SimpleStore.ViewModels.Supporting_tools
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@using SimpleStore.ViewModels.Supporting_tools
 @addTagHelper *, SimpleStore
 @model IndexViewModel
 
 <form method="get" asp-action="Product">
     <div class="form-inline form-group">
         <input type="hidden" name="type" value="@ViewBag.type" />
-        <label class="control-label">Название:</label>
+        <label class="control-label">@Localizer["Название:"]</label>
         <input name="name" class="form-control form-control-sm inp" />
-        <label class="control-label">Наличие:</label>
+        <label class="control-label">@Localizer["Наличие:"]</label>
         <select name="aviability" class="sel">
-            <option value="Все">Все</option>
-            <option value="В наличии">В наличии</option>
-            <option value="Скоро будет в продаже">Скоро будет в продаже</option>
-            <option value="Нет в наличии">Нет в наличии</option>
-        </select>
-        <input type="submit" value="Найти" class="btn btn-sm btn-outline-dark" />
+            <option value="Все">@Localizer["Все"]</option>
+            <option value="В наличии">@Localizer["В наличии"]</option>
+            <option value="Скоро будет в продаже">@Localizer["Скоро будет в продаже"]</option>
+            <option value="Нет в наличии">@Localizer["Нет в наличии"]</option>
+            </select>
+        <input type="submit" value="@Localizer["Найти"]" class="btn btn-sm btn-outline-dark" />
     </div>
 </form>
 
@@ -23,118 +25,127 @@
 {
     ViewBag.Title = ViewBag.type + "s";
 
-<table class="table table-hover">
-    <thead class="thead-light">
-        <tr>
-            <th>
-                <a asp-action="Product"
-                   asp-route-type="@ViewBag.type"
-                   asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> Название ⇕</a>
-            </th>
-
-            @if (ViewBag.type == "Phone")
-            {
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
                 <th>
                     <a asp-action="Product"
                        asp-route-type="@ViewBag.type"
                        asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                        asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Компания ⇕</a>
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> @Localizer["Название ⇕"]</a>
                 </th>
-            }
 
-            @if (ViewBag.type == "Powerbank")
-            {
+                @if (ViewBag.type == "Phone")
+                {
+                    <th>
+                        <a asp-action="Product"
+                           asp-route-type="@ViewBag.type"
+                           asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
+                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Компания ⇕"]</a>
+                    </th>
+                }
+
+                @if (ViewBag.type == "Powerbank")
+                {
+                    <th>
+                        <a asp-action="Product"
+                           asp-route-type="@ViewBag.type"
+                           asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
+                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Ёмкость заряда ⇕"]</a>
+                    </th>
+                }
+
                 <th>
                     <a asp-action="Product"
                        asp-route-type="@ViewBag.type"
                        asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                        asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Ёмкость заряда ⇕</a>
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Цена ⇕"]</a>
                 </th>
-            }
-
-            <th>
-                <a asp-action="Product"
-                   asp-route-type="@ViewBag.type"
-                   asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)">Цена ⇕</a>
-            </th>
-            <th>Описание</th>
-            <th>Наличие</th>
+                <th>@Localizer["Описание"]</th>
+                <th>@Localizer["Наличие"]</th>
             <th></th>
-            <th></th>
-        </tr>
-    </thead>
+                <th></th>
+            </tr>
+        </thead>
 
-    @foreach (var item in Model.Products)
-    {
-        <tr>
-            <td>@item.Name</td>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>@item.Name</td>
 
-            @if (ViewBag.type == "Phone")
-            {
-                <td>@item.Company</td>
-            }
-
-            @if (ViewBag.type == "Powerbank")
-            {
-                <td>@item.Capacity</td>
-            }
-
-            <td>@item.Price Руб</td>
-            <td>@item.Description</td>
-            <td>@item.Availability</td>
-            <td>
-                @if (item.Image != null)
+                @if (ViewBag.type == "Phone")
                 {
-                    <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
+                    <td>@item.Company</td>
                 }
-                else
-                {
-                    <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
-                }
-            </td>
-            <td>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    IEnumerable<User> aUsers = ViewBag.Users;
-                    var aUser = aUsers.FirstOrDefault(M => M.UserName == User.Identity.Name);
 
-                    <form method="get" asp-action="Buy">
-                        <div class="form-inline form-group">
-                            @if (item.Availability == "В наличии" || item.Availability == "Скоро будет в продаже")
-                            {
-                                <label class="control-label">Кол-во:</label>
-                                <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2 inp" />
-                                <input type="hidden" name="ProductId" value="@item.Id">
-                                <input type="hidden" name="UserId" value="@aUser.Id">
-                                if (item.Availability == "Скоро будет в продаже")
+                @if (ViewBag.type == "Powerbank")
+                {
+                    <td>@item.Capacity</td>
+                }
+
+                <td>@item.Price ₽</td>
+                <td>@item.Description</td>
+                <td>@item.Availability</td>
+                <td>
+                    @if (item.Image != null)
+                    {
+                        <img style='width:100px; height:100px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(item.Image))" />
+                    }
+                    else
+                    {
+                        <img style='width:100px; height:100px;' src="~/img/Question.jpg" />
+                    }
+                </td>
+                <td>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        IEnumerable<User> aUsers = ViewBag.Users;
+                        var aUser = aUsers.FirstOrDefault(M => M.UserName == User.Identity.Name);
+
+                        <form method="get" asp-action="Buy">
+                            <div class="form-inline form-group">
+                                @if (item.Availability == "В наличии" || item.Availability == "Скоро будет в продаже")
                                 {
-                                    <input type="hidden" name="preorder" value="true">
-                                    <input type="submit" value="Предзаказ" class="btn btn-sm btn-outline-success" />
+                                    <label class="control-label">Кол-во:</label>
+                                    <input type="number" name="ProductCount" class="form-control form-control-sm col-xl-2 inp" />
+                                    <input type="hidden" name="ProductId" value="@item.Id">
+                                    <input type="hidden" name="UserId" value="@aUser.Id">
+                                    if (item.Availability == "Скоро будет в продаже")
+                                    {
+                                        <input type="hidden" name="preorder" value="true">
+                                        <input type="submit" value="@Localizer["Предзаказ"]" class="btn btn-sm btn-outline-success" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="@Localizer["Купить"]" class="btn btn-sm btn-outline-success" />
+                                    }
                                 }
-                                else
-                                {
-                                    <input type="submit" value="Купить" class="btn btn-sm btn-outline-success" />
-                                }
-                            }
-                            else if (item.Availability == "Нет в наличии")
-                            { }
-                        </div>
-                    </form>
-                }
-                else
-                {
-                    <a class="btn btn-sm btn-outline-success" asp-action="Register" asp-controller="Account">Купить</a>
-                }
-            </td>
-        </tr>
-    }
-</table>
+                                else if (item.Availability == "Нет в наличии")
+                                { }
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        @if (item.Availability == "В наличии")
+                        {
+                            <a class="btn btn-sm btn-outline-success" asp-action="UnknownUser"
+                               asp-route-FullPath="@Context.Request.Path@Context.Request.QueryString">@Localizer["Купить"]</a>
+                        }
+                        else if (item.Availability == "Скоро будет в продаже")
+                        {
+                            <a class="btn btn-sm btn-outline-success" asp-action="UnknownUser"
+                               asp-route-FullPath="@Context.Request.Path@Context.Request.QueryString">@Localizer["Предзаказ"]</a>
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </table>
 }
 
 <page-link page-model="Model.PageViewModel" page-action="Product"

@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    ViewBag.Title = "Аутентификация";
+}
+
+<h3>@Localizer["Вы не аутентифицированы"]</h3>
+
+<p>
+    @Localizer["Для оформления покупки"]
+    <a asp-controller="Account" asp-action="Register" asp-route-FullPath="@ViewBag.FullPath"><b>@Localizer["зарегистрируйтесь"]</b></a>
+    @Localizer["или"]
+    <a asp-controller="Account" asp-action="Login" asp-route-FullPath="@ViewBag.FullPath"><b>@Localizer["войдите"]</b></a>
+    @Localizer["в свой  личный кабинет"]
+<p>

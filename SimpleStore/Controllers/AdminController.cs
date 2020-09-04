@@ -13,7 +13,7 @@ using SimpleStore.ViewModels.Supporting_tools;
 
 namespace SimpleStore.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")] // ограничения к доступу
     public class AdminController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -29,7 +29,7 @@ namespace SimpleStore.Controllers
 
         public async Task<IActionResult> Index(string email, int page = 1, SortState sortOrder = SortState.NamesAsc)
         {
-            IQueryable<User> users = _userManager.Users;
+            IQueryable<User> users = _userManager.Users; // передача всех пользователей
 
             // Фильтрация
             if (!string.IsNullOrEmpty(email))
@@ -77,7 +77,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateUser() => View("~/Views/Admin/User/CreateUser.cshtml");
+        public IActionResult CreateUser() => View("~/Views/Admin/User/CreateUser.cshtml"); // указано полный маршрут, т.к. в папке представлений есть две области: Роли и Пользователь
 
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromForm] AdmCreateUserViewModel model)
@@ -117,7 +117,7 @@ namespace SimpleStore.Controllers
                 Address = user.Address, PhoneNumber = user.PhoneNumber, DateBirth = DateTime.Parse(user.DateBirth),
                 Email = user.Email };
             
-            if (user.Email == User.Identity.Name)
+            if (user.Email == User.Identity.Name) // Если попытка изменения собственных данных
                 ViewBag.ThisAdmAcc = true;
 
             return View("~/Views/Admin/User/EditUser.cshtml", model);
@@ -186,15 +186,17 @@ namespace SimpleStore.Controllers
                 User user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
+                    // создание валидатора пароля
                     var _passwordValidator = HttpContext.RequestServices.GetService(typeof(IPasswordValidator<User>)) as IPasswordValidator<User>;
+                    // создание хэшера пароля
                     var _passwordHasher = HttpContext.RequestServices.GetService(typeof(IPasswordHasher<User>)) as IPasswordHasher<User>;
 
-                    IdentityResult result =
-                        await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
+                    IdentityResult result = await _passwordValidator.ValidateAsync(_userManager, user, model.NewPassword);
+                    
                     if (result.Succeeded)
                     {
-                        user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword);
-                        await _userManager.UpdateAsync(user);
+                        user.PasswordHash = _passwordHasher.HashPassword(user, model.NewPassword); // хэшируем пароль
+                        await _userManager.UpdateAsync(user); // обновляем данные пользователя
                         return RedirectToAction("Index");
                     }
                     else
@@ -238,12 +240,12 @@ namespace SimpleStore.Controllers
 
         ///////////// Section Role
 
-        public IActionResult Roles() => View("~/Views/Admin/Role/Roles.cshtml", _roleManager.Roles.ToList());
+        public async Task<IActionResult> Roles() => View("~/Views/Admin/Role/Roles.cshtml", await _roleManager.Roles.ToListAsync());
 
         public IActionResult CreateRole() => View("~/Views/Admin/Role/CreateRole.cshtml");
 
         [HttpPost]
-        public async Task<IActionResult> CreateRole([FromForm] string name)
+        public async Task<IActionResult> CreateRole([FromForm] string name = null)
         {
             if (!string.IsNullOrEmpty(name))
             {
@@ -266,13 +268,11 @@ namespace SimpleStore.Controllers
         [HttpGet]
         public async Task<IActionResult> EditRole(string userId)
         {
-            // получаем пользователя
-            User user = await _userManager.FindByIdAsync(userId);
+            User user = await _userManager.FindByIdAsync(userId); // получение пользователя
             if (user != null)
             {
-                // получем список ролей пользователя
-                var userRoles = await _userManager.GetRolesAsync(user);
-                var allRoles = _roleManager.Roles.ToList();
+                var userRoles = await _userManager.GetRolesAsync(user); // получение списока ролей пользователя
+                var allRoles = _roleManager.Roles.ToList();  // получение всех ролей
                 ChangeRoleViewModel model = new ChangeRoleViewModel
                 {
                     UserId = user.Id,
@@ -289,17 +289,16 @@ namespace SimpleStore.Controllers
         [HttpPost]
         public async Task<IActionResult> EditRole([FromForm] string userId, List<string> roles)
         {
-            // получаем пользователя
             User user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                // получем список ролей пользователя
+                // получение списока ролей пользователя
                 var userRoles = await _userManager.GetRolesAsync(user);
-                // получаем все роли
+                // получение всех ролей
                 var allRoles = _roleManager.Roles.ToList();
-                // получаем список ролей, которые были добавлены
+                // получение списока ролей, которые были добавлены
                 var addedRoles = roles.Except(userRoles);
-                // получаем роли, которые были удалены
+                // получение ролей, которые были удалены
                 var removedRoles = userRoles.Except(roles);
 
                 await _userManager.AddToRolesAsync(user, addedRoles);
