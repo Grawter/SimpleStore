@@ -33,7 +33,7 @@
                        asp-route-type="@ViewBag.type"
                        asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                        asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> @Localizer["Название ⇕"]</a>
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)"> @Localizer["Название⇕"]</a>
                 </th>
 
                 @if (ViewBag.type == "Phone")
@@ -43,7 +43,7 @@
                            asp-route-type="@ViewBag.type"
                            asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                            asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Компания ⇕"]</a>
+                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Компания⇕"]</a>
                     </th>
                 }
 
@@ -54,7 +54,7 @@
                            asp-route-type="@ViewBag.type"
                            asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                            asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Ёмкость заряда ⇕"]</a>
+                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Ёмкость заряда⇕"]</a>
                     </th>
                 }
 
@@ -63,7 +63,7 @@
                        asp-route-type="@ViewBag.type"
                        asp-route-name="@(Model.FilterViewModel.SelectedNameOrEmail)"
                        asp-route-aviability="@(Model.FilterViewModel.SelectedAvailability)"
-                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Цена ⇕"]</a>
+                       asp-route-sortOrder="@(Model.SortViewModel.NameSort)">@Localizer["Цена⇕"]</a>
                 </th>
                 <th>@Localizer["Описание"]</th>
                 <th>@Localizer["Наличие"]</th>
@@ -87,7 +87,7 @@
                     <td>@item.Capacity</td>
                 }
 
-                <td>@item.Price ₽</td>
+                <td>@item.Price₽</td>
                 <td>@item.Description</td>
                 <td>@item.Availability</td>
                 <td>

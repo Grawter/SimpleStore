@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ёмкость заряда ⇕" xml:space="preserve">
-    <value>Charge capacity ⇕</value>
+  <data name="Ёмкость заряда⇕" xml:space="preserve">
+    <value>Charge capacity⇕</value>
   </data>
   <data name="В наличии" xml:space="preserve">
     <value>In stock</value>
@@ -126,17 +126,17 @@
   <data name="Все" xml:space="preserve">
     <value>All</value>
   </data>
-  <data name="Компания ⇕" xml:space="preserve">
-    <value>Company ⇕</value>
+  <data name="Компания⇕" xml:space="preserve">
+    <value>Company⇕</value>
   </data>
   <data name="Купить" xml:space="preserve">
     <value>Buy</value>
   </data>
-  <data name="Название ⇕" xml:space="preserve">
-    <value>Title ⇕</value>
-  </data>
   <data name="Название:" xml:space="preserve">
     <value>Title:</value>
+  </data>
+  <data name="Название⇕" xml:space="preserve">
+    <value>Title⇕</value>
   </data>
   <data name="Найти" xml:space="preserve">
     <value>To find</value>
@@ -159,7 +159,7 @@
   <data name="Скоро будет в продаже" xml:space="preserve">
     <value>Coming soon</value>
   </data>
-  <data name="Цена ⇕" xml:space="preserve">
-    <value>Price ⇕</value>
+  <data name="Цена⇕" xml:space="preserve">
+    <value>Price⇕</value>
   </data>
 </root>
