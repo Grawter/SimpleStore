@@ -1,4 +1,6 @@
-﻿@model SimpleStore.Models.Novelty
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model SimpleStore.Models.Novelty
 
 @{
     ViewBag.Title = "Чтение новости";
@@ -7,4 +9,4 @@
 <h3>@Model.Title</h3>
 <div>@Model.Message</div>
 
-<a class="btn btn-outline-secondary edit-btn" asp-action="Index">Назад</a>
+<a class="btn btn-outline-secondary edit-btn" asp-action="Index">@Localizer["Back"]</a>

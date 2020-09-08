@@ -117,49 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Ёмкость заряда⇕" xml:space="preserve">
-    <value>Ёмкость заряда&amp;nbsp;⇕</value>
-  </data>
-  <data name="В наличии" xml:space="preserve">
-    <value>В наличии</value>
-  </data>
-  <data name="Все" xml:space="preserve">
-    <value>Все</value>
-  </data>
-  <data name="Компания⇕" xml:space="preserve">
-    <value>Компания&amp;nbsp;⇕</value>
-  </data>
-  <data name="Купить" xml:space="preserve">
-    <value>Купить</value>
-  </data>
-  <data name="Название:" xml:space="preserve">
-    <value>Название:</value>
-  </data>
-  <data name="Название⇕" xml:space="preserve">
-    <value>Название&amp;nbsp;⇕</value>
-  </data>
-  <data name="Найти" xml:space="preserve">
-    <value>Найти</value>
-  </data>
-  <data name="Наличие" xml:space="preserve">
-    <value>Наличие</value>
-  </data>
-  <data name="Наличие:" xml:space="preserve">
-    <value>Наличие:</value>
-  </data>
-  <data name="Нет в наличии" xml:space="preserve">
-    <value>Нет в наличии</value>
-  </data>
-  <data name="Описание" xml:space="preserve">
-    <value>Описание</value>
-  </data>
-  <data name="Предзаказ" xml:space="preserve">
-    <value>Предзаказ</value>
-  </data>
-  <data name="Скоро будет в продаже" xml:space="preserve">
-    <value>Скоро будет в продаже</value>
-  </data>
-  <data name="Цена⇕" xml:space="preserve">
-    <value>Цена&amp;nbsp;⇕</value>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
   </data>
 </root>

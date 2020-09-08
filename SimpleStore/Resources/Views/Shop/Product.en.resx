@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Ёмкость заряда⇕" xml:space="preserve">
-    <value>Charge capacity⇕</value>
+    <value>Charge capacity&amp;nbsp;⇕</value>
   </data>
   <data name="В наличии" xml:space="preserve">
     <value>In stock</value>
@@ -127,7 +127,7 @@
     <value>All</value>
   </data>
   <data name="Компания⇕" xml:space="preserve">
-    <value>Company⇕</value>
+    <value>Company&amp;nbsp;⇕</value>
   </data>
   <data name="Купить" xml:space="preserve">
     <value>Buy</value>
@@ -136,7 +136,7 @@
     <value>Title:</value>
   </data>
   <data name="Название⇕" xml:space="preserve">
-    <value>Title⇕</value>
+    <value>Title&amp;nbsp;⇕</value>
   </data>
   <data name="Найти" xml:space="preserve">
     <value>To find</value>
@@ -160,6 +160,6 @@
     <value>Coming soon</value>
   </data>
   <data name="Цена⇕" xml:space="preserve">
-    <value>Price⇕</value>
+    <value>Price&amp;nbsp;⇕</value>
   </data>
 </root>
