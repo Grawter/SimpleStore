@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Authorization;
 using SimpleStore.ViewModels.Admin;
 using SimpleStore.ViewModels.Supporting_tools;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimpleStore.Controllers
 {
@@ -26,6 +26,8 @@ namespace SimpleStore.Controllers
             _signInManager = signInManager;
             _roleManager = roleManager;
         }
+
+        ///////////// Секция управления ролями
 
         public async Task<IActionResult> Index(string email, int page = 1, SortState sortOrder = SortState.NamesAsc)
         {
@@ -77,7 +79,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateUser() => View("~/Views/Admin/User/CreateUser.cshtml"); // указано полный маршрут, т.к. в папке представлений есть две области: Роли и Пользователь
+        public IActionResult CreateUser() => View("~/Views/Admin/User/CreateUser.cshtml"); // указан полный маршрут, т.к. в папке представлений есть две области: Роли и Пользователь
 
         [HttpPost]
         public async Task<IActionResult> CreateUser([FromForm] AdmCreateUserViewModel model)
@@ -238,7 +240,7 @@ namespace SimpleStore.Controllers
             return RedirectToAction("Index");
         }
 
-        ///////////// Section Role
+        ///////////// Секция управления ролями
 
         public async Task<IActionResult> Roles() => View("~/Views/Admin/Role/Roles.cshtml", await _roleManager.Roles.ToListAsync());
 

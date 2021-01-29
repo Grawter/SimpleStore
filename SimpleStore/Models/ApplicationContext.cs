@@ -10,6 +10,7 @@ namespace SimpleStore.Models
         public DbSet<Novelty> News { get; set; } // db новостей
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 

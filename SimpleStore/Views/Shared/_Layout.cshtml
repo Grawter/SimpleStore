@@ -2,14 +2,16 @@
 @inject IViewLocalizer Localizer
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SimpleStore</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/mode.css" />
+    <link rel="stylesheet" href="~/css/style.css" />
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 foot">
@@ -32,6 +34,11 @@
                         </li>
                     </ul>
                 </div>
+
+                <div> @* Локализация *@
+                    @await Html.PartialAsync("_SelectLanguagePartial")
+                </div>
+
                 @if (User.Identity.IsAuthenticated)
                 {
                     <p class="heil header-color">@Localizer["Добро пожаловать"],<b> @User.Identity.Name</b> </p>
@@ -50,10 +57,8 @@
             </div>
         </nav>
     </header>
-    <div class="container body-content">
-        <div>
-            @await Html.PartialAsync("_SelectLanguagePartial")
-        </div>
+
+    <div class="container body-content">    
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -61,9 +66,10 @@
 
     <footer class="border-top footer text-light">
         <div class="container">
-            &copy; 2020 - <b>SimpleStore</b> - <a href="https://github.com/Grawter/SimpleStore" target="_blank">Grawter</a>
+            &copy; 2020-2021 - <b>SimpleStore</b> - <a href="https://github.com/Grawter/SimpleStore" target="_blank">Grawter</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

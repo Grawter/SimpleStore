@@ -35,17 +35,13 @@ namespace SimpleStore.Controllers
                     Address = model.Address, PhoneNumber = model.PhoneNumber, DateBirth = model.DateBirth.ToShortDateString() };
                 var result = await _userManager.CreateAsync(user, model.Password); // добавление пользователя через пароль
 
-                var adm = await _roleManager.FindByNameAsync("Admin");
-                var mod = await _roleManager.FindByNameAsync("Moderator");
-                var usr = await _roleManager.FindByNameAsync("User");
-
-                if (adm == null)
+                if (await _roleManager.FindByNameAsync("Admin") == null)
                     await _roleManager.CreateAsync(new IdentityRole("Admin"));
 
-                if (mod == null)
+                if (await _roleManager.FindByNameAsync("Moderator") == null)
                     await _roleManager.CreateAsync(new IdentityRole("Moderator"));
 
-                if (usr == null)
+                if (await _roleManager.FindByNameAsync("User") == null)
                     await _roleManager.CreateAsync(new IdentityRole("User"));
 
                 await _userManager.AddToRoleAsync(user, "User");

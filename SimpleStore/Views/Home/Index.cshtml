@@ -19,12 +19,16 @@
     ViewBag.Title = "Личный кабинет";
 
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
-    <div>
-        <a class="btn btn-sm btn-outline-dark myorders " asp-action="MyOrders" asp-route-UserId="@aUser.Id">@Localizer["Мои покупки"]</a>
-        <a class="btn btn-sm btn-outline-dark settings " asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">@Localizer["Настройки"]</a>
-    </div>
+    
+    if (aUser != null) // защита от достаточно критичной ошибки, на случай, если база данных обнулится, а аутификационные куки и пользователя останутся
+    {
+        <div>
+            <a class="btn btn-sm btn-outline-dark myorders " asp-action="MyOrders" asp-route-UserId="@aUser.Id">@Localizer["Мои покупки"]</a>
+            <a class="btn btn-sm btn-outline-dark settings " asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">@Localizer["Настройки"]</a>
+        </div>
+    }
 
-    @if (User.IsInRole("Moderator"))
+    if (User.IsInRole("Moderator"))
     {
         <div>
             <a class="btn btn-sm btn-outline-primary orders" asp-controller="Booking" asp-action="Index">Заказы</a>
