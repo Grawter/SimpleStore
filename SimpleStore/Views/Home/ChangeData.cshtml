@@ -6,38 +6,44 @@
     ViewBag.Title = "Редактирование пользователя";
 }
 
-<h3>@Localizer["Title"]</h3>
+<div>
+    <h3>@Localizer["Title"]</h3>
+</div>
 
 <form asp-action="EditData" asp-controller="Home">
     <div asp-validation-summary="ModelOnly"></div>
     <div class="form-group">
         <input type="hidden" asp-for="Id" />
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="FullName"></label><br />
-        <input asp-for="FullName" class=" col-3" />
+        <input class="form-control" asp-for="FullName" />
         <span asp-validation-for="FullName"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="Address"></label><br />
-        <textarea class="textar" asp-for="Address"></textarea>
+        <textarea class="form-control" asp-for="Address"></textarea>
         <span asp-validation-for="Address"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="PhoneNumber"></label><br />
-        <input asp-for="PhoneNumber" />
+        <input class="form-control" asp-for="PhoneNumber" />
         <span asp-validation-for="PhoneNumber"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="DateBirth"></label><br />
-        <input type="date" asp-for="DateBirth" />
+        <input class="form-control" type="date" asp-for="DateBirth" />
         <span asp-validation-for="DateBirth"></span>
     </div>
-    <div class="form-group">
-        <input class="btn btn-outline-dark edit-btn" type="submit" value="@Localizer["Save"]" />
-        <a class="btn btn-outline-secondary edit-btn" asp-action="Settings">@Localizer["Back"]</a>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <input class="btn btn-outline-dark form-control" type="submit" value="@Localizer["Save"]" />
+        </div>
+        <div class="form-group col-md-2">
+            <a class="btn btn-outline-secondary form-control" asp-action="Settings">@Localizer["Back"]</a>
+        </div>
     </div>
-
+    
 </form>
 
 @section scripts{

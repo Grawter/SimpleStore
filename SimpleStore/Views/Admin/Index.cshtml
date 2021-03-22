@@ -6,55 +6,66 @@
     ViewBag.Title = "Админ-панель";
 }
 
-<form method="get">
-    <div class="form-inline form-group">
-        <label class="control-label">Email:</label>
-        <input name="email" class="form-control form-control-sm inp" />
-        <input class="btn btn-sm btn-outline-dark" type="submit" value="Найти" />
-        <a class="btn btn-sm btn-outline-primary btt" asp-action="CreateUser" asp-controller="Admin">Добавить пользователя</a>
-        <a class="btn btn-sm btn-outline-dark" asp-action="Roles">Управление ролями</a>
+<div class="center_find_form_adm">
+    <form method="get">
+        <div class="form-inline form-group">
+            <label class="control-label">Email:&nbsp;</label>
+            <input name="email" class="form-control form-control-sm space_el" />
+            <input class="btn btn-sm btn-outline-dark form-control form-control-sm space_el" type="submit" value="Найти" />
+            <a class="btn btn-sm btn-outline-primary form-control form-control-sm space_el" asp-action="CreateUser" asp-controller="Admin">Добавить пользователя</a>
+            <a class="btn btn-sm btn-outline-dark form-control form-control-sm" asp-action="Roles">Управление ролями</a>
+        </div>
+    </form>
+</div>
+
+<div class="center_table">
+    <div>
+        <table class="table table-bordered table-hover table-wrap">
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-controller="Admin"
+                           asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Email&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Номер&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">ФИО&nbsp;⇕</a>
+                    </th>
+                    <th>Настройки</th>
+                </tr>
+            </thead>
+
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Email</td>
+                    <td class="word_br">@user.PhoneNumber</td>
+                    <td class="word_br">@user.FullName</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-info space_btn" asp-action="EditUser" asp-route-id="@user.Id">Изменить</a>
+                        <a class="btn btn-sm btn-outline-primary space_btn" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
+                        <a class="btn btn-sm btn-outline-warning space_btn" asp-action="EditRole" asp-route-userid="@user.Id">Права доступа</a>
+                        <a class="btn btn-sm btn-outline-danger space_btn" asp-action="DeleteUser" asp-route-id="@user.Id">Удалить</a>
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
-</form>
-
-<table class="table table-bordered table-hover">
-    <thead class="thead-light">
-        <tr>
-            <th>
-                <a asp-action="Index" asp-controller="Admin"
-                   asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Email ⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">Номер ⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)">ФИО ⇕</a>
-            </th>
-            <th>Настройки</th>
-        </tr>
-    </thead>
-
-    @foreach (var user in Model.Users)
-    {
-        <tr>
-            <td>@user.Email</td>
-            <td>@user.PhoneNumber</td>
-            <td>@user.FullName</td>
-            <td>
-                <a class="btn btn-sm btn-outline-info" asp-action="EditUser" asp-route-id="@user.Id">Изменить</a>
-                <a class="btn btn-sm btn-outline-primary" asp-action="ChangePassword" asp-route-id="@user.Id">Сменить пароль</a>
-                <a class="btn btn-sm btn-outline-warning" asp-action="EditRole" asp-route-userid="@user.Id">Права доступа</a>
-                <a class="btn btn-sm btn-outline-danger" asp-action="DeleteUser" asp-route-id="@user.Id">Удалить</a>
-            </td>
-        </tr>
-    }
-</table>
+    
+</div>
 
 <page-link page-model="Model.PageViewModel" page-action="Index"
            page-url-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
            page-url-sortOrder="@(Model.SortViewModel.Current)">
 </page-link>
+
+<div>
+    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Назад</a>
+</div>

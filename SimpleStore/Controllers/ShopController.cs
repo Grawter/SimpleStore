@@ -143,7 +143,7 @@ namespace SimpleStore.Controllers
 
                     db.Orders.Add(order);
                     await db.SaveChangesAsync();
-                    return RedirectToAction("Product", new { type = product.Type });
+                    return RedirectToAction("MyOrders", "Home", new { UserId = UserId });
                 }
             }
             return NotFound("Не найдено");

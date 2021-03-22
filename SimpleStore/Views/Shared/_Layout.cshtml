@@ -14,7 +14,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 foot">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand text-light" style="word-wrap:normal" asp-area="" asp-controller="Home" asp-action="Index">SimpleStore</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -41,7 +41,7 @@
 
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <p class="heil header-color">@Localizer["Добро пожаловать"],<b> @User.Identity.Name</b> </p>
+                    <p class="gretting_text space_head_el">@Localizer["Добро пожаловать"], <b>@User.Identity.Name</b></p>
 
                     <form method="post" asp-controller="Account" asp-action="Logout">
                         <input class="btn btn-sm btn-outline-light logout" type="submit" value="@Localizer["Выход"]" />
@@ -49,7 +49,7 @@
                 }
                 else
                 {
-                    <a class="btn btn-sm btn-outline-light login" asp-controller="Account" asp-action="Login"
+                    <a class="btn btn-sm btn-outline-light login space_head_el" asp-controller="Account" asp-action="Login"
                        asp-route-FullPath="@Context.Request.Path@Context.Request.QueryString">@Localizer["Вход"]</a>
                     <a class="btn btn-sm  btn-outline-light register" asp-controller="Account" asp-action="Register"
                        asp-route-FullPath="@Context.Request.Path@Context.Request.QueryString">@Localizer["Регистрация"]</a>
@@ -58,7 +58,7 @@
         </nav>
     </header>
 
-    <div class="container body-content">    
+    <div class="container body-content">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

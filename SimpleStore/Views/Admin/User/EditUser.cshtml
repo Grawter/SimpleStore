@@ -7,37 +7,41 @@
 <h3>Редактирование данных пользователя @Model.Email</h3>
 
 <form method="post" asp-action="EditUser" asp-route-ThisAdmAcc="@ViewBag.ThisAdmAcc">
-    <div asp-validation-summary="ModelOnly"></div>
-    <div class="form-group">
-        <input type="hidden" asp-for="Id" />
+    <div asp-validation-summary="ModelOnly">
+
     </div>
-    <div>
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group col-md-5">
         <label asp-for="FullName"></label><br />
-        <input class="col-3" asp-for="FullName" />
+        <input class="form-control" asp-for="FullName" />
         <span asp-validation-for="FullName"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="Address"></label><br />
-        <textarea class="textar" asp-for="Address"></textarea>
+        <textarea class="form-control" asp-for="Address"></textarea>
         <span asp-validation-for="Address"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="PhoneNumber"></label><br />
-        <input asp-for="PhoneNumber" />
+        <input class="form-control" asp-for="PhoneNumber" />
         <span asp-validation-for="PhoneNumber"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="DateBirth"></label><br />
-        <input type="date" asp-for="DateBirth" />
+        <input class="form-control" type="date" asp-for="DateBirth" />
         <span asp-validation-for="DateBirth"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="Email"></label><br />
-        <input class="col-3" asp-for="Email" />
+        <input class="form-control" asp-for="Email" />
         <span asp-validation-for="Email"></span>
     </div>
-    <div class="form-group">
-        <input class="btn btn-success edit-btn" type="submit" value="Сохранить" />
-        <a class="btn btn-primary edit-btn" asp-action="Index">Назад</a>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <input class="btn btn-success form-control" type="submit" value="Сохранить" />
+        </div>
+        <div class="form-group col-md-2">
+            <a class="btn btn-primary form-control" asp-action="Index">Назад</a>
+        </div>
     </div>
 </form>

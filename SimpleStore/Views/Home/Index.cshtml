@@ -7,66 +7,76 @@
     ViewBag.Title = "Гостевая страница";
 }
 
-<h3 class="atten">@Localizer["Title"] </h3>
-
-@if (ViewBag.LastNews != null && CultureInfo.CurrentCulture.Name == "ru")
-{
-    <a class="news" asp-controller="News" asp-action="Show" asp-route-id="@ViewBag.LastNews.Id"><i><u>@ViewBag.LastNews.Message</u></i></a>
-}
-
 @if (User.Identity.IsAuthenticated)
 {
     ViewBag.Title = "Личный кабинет";
 
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
-    
-    if (aUser != null) // защита от достаточно критичной ошибки, на случай, если база данных обнулится, а аутификационные куки и пользователя останутся
-    {
-        <div>
-            <a class="btn btn-sm btn-outline-dark myorders " asp-action="MyOrders" asp-route-UserId="@aUser.Id">@Localizer["Мои покупки"]</a>
-            <a class="btn btn-sm btn-outline-dark settings " asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">@Localizer["Настройки"]</a>
-        </div>
-    }
 
-    if (User.IsInRole("Moderator"))
+    if (aUser != null) // защита от достаточно критичной ошибки, на случай, если база данных обнулится, а аутификационные куки у пользователя останутся
     {
-        <div>
-            <a class="btn btn-sm btn-outline-primary orders" asp-controller="Booking" asp-action="Index">Заказы</a>
-            <a class="btn btn-sm btn-outline-primary moder" asp-controller="EditShop" asp-action="Index">Модерация магазина</a>
+        <div class="user_panel">
+            <a class="btn btn-sm btn-outline-dark" asp-action="MyOrders" asp-route-UserId="@aUser.Id">@Localizer["Мои покупки"]</a>
+            <a class="btn btn-sm btn-outline-dark" asp-controller="Home" asp-action="Settings" asp-route-id="@aUser.Id">@Localizer["Настройки"]</a><br>
         </div>
-        if (User.IsInRole("Admin"))
+
+        @if (User.IsInRole("Moderator") || User.IsInRole("Admin"))
         {
-            <div>
-                <a class="btn btn-sm btn-outline-danger admin" asp-controller="Admin" asp-action="Index">Администрирование </a>
+            <div class="moder_panel">
+                <a class="btn btn-sm btn-outline-primary" asp-controller="Booking" asp-action="Index">Заказы</a>
+                <a class="btn btn-sm btn-outline-primary" asp-controller="EditShop" asp-action="Index">Модерация магазина</a><br>
             </div>
+           
+            @if (User.IsInRole("Admin"))
+            {
+                <div class="admin_panel">
+                        <a class="btn btn-sm btn-outline-danger" asp-controller="Admin" asp-action="Index">Администрирование </a>
+                 </div> 
+            }
+            
         }
     }
 }
 
-<div>
-    <a class="btn btn-lg btn-outline-dark S-Phone" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
-        <img style='width:180px; height:180px;' src="~/img/Phone.jpg" /><br />
-        @Localizer["Телефоны"]
-    </a>
+<div class="main_text_home">
+    <h3>@Localizer["Title"]</h3>
 </div>
 
-<div>
-    <a class="btn btn-lg btn-outline-dark S-Headphone" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
-        <img style='width:180px; height:180px;' src="~/img/Headphone.jpg" /><br />
-        @Localizer["Наушники"]
-    </a>
-</div>
+@if (ViewBag.LastNews != null && CultureInfo.CurrentCulture.Name == "ru")
+{
+    <div class="news_block">
+        <a class="news" asp-controller="News" asp-action="Show" asp-route-id="@ViewBag.LastNews.Id"><i><u>@ViewBag.LastNews.Title</u></i></a>
+    </div>
+}
 
-<div>
-    <a class="btn btn-lg btn-outline-dark S-Case" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
-        <img style='width:180px; height:180px;' src="~/img/Case.jpg" /><br />
-        @Localizer["Чехлы для телефонов"]
-    </a>
-</div>
+<div class="menu_block">
 
-<div>
-    <a class="btn btn-lg btn-outline-dark S-Powerbank" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
-        <img style='width:180px; height:180px;' src="~/img/Powerbank.jpg" /><br />
-        @Localizer["Powerbanks"]
-    </a>
+    <div class="shop-element">
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Phone">
+            <img style='width:180px; height:180px;' src="~/img/Phone.jpg" /><br />
+            @Localizer["Телефоны"]
+        </a>
+    </div>
+
+    <div class="shop-element">
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Case">
+            <img style='width:180px; height:180px;' src="~/img/Case.jpg" /><br />
+            @Localizer["Чехлы для телефонов"]
+        </a>
+    </div>
+
+    <div class="shop-element">
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Headphone">
+            <img style='width:180px; height:180px;' src="~/img/Headphone.jpg" /><br />
+            @Localizer["Наушники"]
+        </a>
+    </div>
+
+    <div class="shop-element">
+        <a class="btn btn-lg btn-outline-dark" asp-controller="Shop" asp-action="Product" asp-route-type="Powerbank">
+            <img style='width:180px; height:180px;' src="~/img/Powerbank.jpg" /><br />
+            @Localizer["Powerbanks"]
+        </a>
+    </div>
+
 </div>

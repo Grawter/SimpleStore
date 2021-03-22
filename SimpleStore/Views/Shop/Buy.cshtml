@@ -8,40 +8,50 @@
 
 @if (ViewBag.Count > 0)
 {
-
     double total_price = ViewBag.Count * Model.Price;
 
-    if (ViewBag.preorder == "true")
-    {
-        <h3> @Localizer["Подтвердить предзаказ?"]</h3>
-    }
-    else
-    {
-        <h3> @Localizer["Подтвердить заказ?"]</h3>
-    }
-
-    <p class="product-foto">
-        <br />
-        @if (Model.Image != null)
+<div>
+    <div class="confirm_buy">
+        @if (ViewBag.preorder == "true")
         {
-            <img style='height: 400px; width: 400px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(Model.Image))" /> <br />
+            <h3> @Localizer["Подтвердить предзаказ?"]</h3>
         }
         else
         {
-            <img style='height: 400px; width: 400px;' src="~/img/Question.jpg" /> <br />
+            <h3> @Localizer["Подтвердить заказ?"]</h3>
         }
-    </p>
-    <p class="product">
-        @Localizer["Название:"] <b>@Model.Name</b> <br /> @Localizer["Количество:"] <b>@ViewBag.Count</b> <br />@Localizer["Итоговая цена:"] <b>@total_price ₽</b> <br />
-    </p>
+
+        @if (Model.Image != null)
+        {
+            <img style='height: 300px; width: 300px;' src="data:image/jpeg;base64, @(Convert.ToBase64String(Model.Image))" />
+        }
+        else
+        {
+            <img style='height: 300px; width: 300px;' src="~/img/Question.jpg" />
+        }
+
+        <p>
+            @Localizer["Название:"] <b>@Model.Name</b> <br />
+            @Localizer["Количество:"] <b>@ViewBag.Count</b> <br />
+            @Localizer["Итоговая цена:"] <b>@total_price ₽</b>
+        </p>
+    </div>
 
     <form method="post" asp-action="Buy">
         <input type="hidden" name="ProductId" value="@Model.Id">
         <input type="hidden" name="UserId" value="@ViewBag.UserId">
         <input type="hidden" name="Count" value="@ViewBag.Count">
-        <input type="submit" value="@Localizer["Подтвердить"]" class="btn btn-success" />
-        <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary">@Localizer["Назад"]</a>
-</form>
+
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <input type="submit" value="@Localizer["Подтвердить"]" class="btn btn-success form-control" />
+            </div>
+            <div class="form-group col-md-2">
+                <a asp-action="Product" asp-route-type="@Model.Type" class="btn btn-secondary form-control">@Localizer["Назад"]</a>
+            </div>
+        </div>
+    </form>
+</div>
 }
 else
 {

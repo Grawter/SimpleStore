@@ -17,7 +17,7 @@
 
 <form method="post" asp-controller="Home" asp-action="SetLanguage" 
       asp-route-FullPath="@Context.Request.Path@Context.Request.QueryString" 
-      class="form-horizontal lang"> @*Передача путь и запроса для сохранения данных полного запроса при смене языка *@
+      class="form-horizontal lang space_head_el"> @*Передача пути и запроса для сохранения данных полного запроса при смене языка *@
     
     Language: 
     <select name="culture" onchange="this.form.submit();"

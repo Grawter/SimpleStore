@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -41,10 +40,9 @@ namespace SimpleStore.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Novelty> News = db.News.ToList();
-            if (News != null)
+            Novelty LastNews = db.News.ToList().LastOrDefault();
+            if (LastNews != null)
             {
-                var LastNews = News.LastOrDefault();
                 ViewBag.LastNews = LastNews;
             }
             return View(await _userManager.Users.ToListAsync());
@@ -58,7 +56,7 @@ namespace SimpleStore.Controllers
         public async Task<IActionResult> Settings() => View(await _userManager.Users.ToListAsync());
 
         [HttpGet]
-        public async Task<IActionResult> EditData(string id)
+        public async Task<IActionResult> ChangeData(string id)
         {
             User user = await _userManager.FindByIdAsync(id);
             if (user == null)
@@ -77,7 +75,7 @@ namespace SimpleStore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditData([FromForm] UserEditDataViewModel model)
+        public async Task<IActionResult> ChangeData([FromForm] UserEditDataViewModel model)
         {
             if (ModelState.IsValid)
             {

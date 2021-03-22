@@ -6,14 +6,18 @@
     ViewBag.Title = "Settings Page";
 }
 
-<h3>@Localizer["Title"]</h3>
+<div class="settings_head">
+    <h3>@Localizer["Title"]</h3>
+</div>
 
 @if (User.Identity.IsAuthenticated)
 {
     var aUser = Model.FirstOrDefault(M => M.UserName == User.Identity.Name);
 
-    <a class="btn btn-sm btn-outline-dark set-data" asp-action="EditData" asp-route-id="@aUser.Id">@Localizer["Изменить данные пользователя"]</a>
-    <a class="btn btn-sm btn-outline-dark set-email" asp-action="ChangeEmail" asp-route-id="@aUser.Id">@Localizer["Изменить электронный адрес"]</a>
-    <a class="btn btn-sm btn-outline-dark set-pass" asp-action="ChangePassword" asp-route-id="@aUser.Id">@Localizer["Изменить пароль"]</a>
-    <a class="btn btn-sm btn-outline-secondary set-back" asp-action="Index" asp-route-id="@aUser.Id">@Localizer["Назад"]</a>
+    <div class="settings">
+        <a class="btn btn-sm btn-outline-dark space_set" asp-action="ChangeData" asp-route-id="@aUser.Id">@Localizer["Изменить данные пользователя"]</a><br>
+        <a class="btn btn-sm btn-outline-dark space_set" asp-action="ChangeEmail" asp-route-id="@aUser.Id">@Localizer["Изменить электронный адрес"]</a><br>
+        <a class="btn btn-sm btn-outline-dark space_set" asp-action="ChangePassword" asp-route-id="@aUser.Id">@Localizer["Изменить пароль"]</a><br>
+        <a class="btn btn-sm btn-outline-secondary space_set" asp-action="Index" asp-route-id="@aUser.Id">@Localizer["Назад"]</a>
+    </div>
 }

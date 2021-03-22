@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@using System.Globalization;
 @using SimpleStore.ViewModels.Supporting_tools
 @addTagHelper *, SimpleStore
 @model IndexViewModel
@@ -10,75 +11,114 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    <table class="table table-hover">
-        <thead class="thead-light">
-            <tr>
-                <th>
-                   @Localizer["Номер заказа"]
-                </th>
-                <th>
-                    @Localizer["Название"]
-                </th>
-                <th>
-                    @Localizer["Кол-во"]
-                </th>
-                <th>
-                    @Localizer["Цена"]
-                </th>
-                <th>
-                    @Localizer["Email"]
-                </th>
-                <th>
-                    @Localizer["Телефон"]
-                </th>
-                <th>
-                    @Localizer["ФИО"]
-                </th>
-                <th>
-                    @Localizer["Адрес"]
-                </th>
-                <th>
-                    @Localizer["Статус"]
-                </th>
-            </tr>
-        </thead>
-
-        @foreach (var item in Model.Orders)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.ProductName</td>
-                <td>@item.ProductCount</td>
-                <td>@item.ProductPrice₽</td>
-                <td>@item.UserEmail</td>
-                <td>@item.UserPhone</td>
-                <td>@item.UserFullName</td>
-                <td>@item.UserAddress</td>
-                <td>
-                    <b>
-                        @switch (item.Status)
+    <div class="center_table">
+        <div class="to_grid">
+            <table class="table table-hover table-wrap div_tab_center">
+                <thead class="thead-light">
+                    <tr>
+                        @if (CultureInfo.CurrentCulture.Name == "ru")
                         {
-                            case "На рассмотрении":
-                                @Localizer["На рассмотрении"];
-                                break;
-                            case "В сборке":
-                                @Localizer["В сборке"];
-                                break;
-                            case "Отправлено":
-                                @Localizer["Отправлено"];
-                                break;
-                            case "Исполнено":
-                                @Localizer["Исполнено"];
-                                break;
-                            case "Отказано":
-                                @Localizer["Отказано"];
-                                break;
+                            <th>
+                                @Localizer["Номер заказа"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Название"]
+                            </th>
+                            <th>
+                                @Localizer["Кол-во"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Цена"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Email"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Телефон"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["ФИО"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Адрес"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Статус"]
+                            </th>
                         }
-                    </b>
-                </td>
-            </tr>
-        }
-    </table>
+                        else
+                        {
+                            <th>
+                                @Localizer["Номер заказа"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Название"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Кол-во"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Цена"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Email"]
+                            </th>
+                            <th>
+                                @Localizer["Телефон"]
+                            </th>
+                            <th>
+                                @Localizer["ФИО"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Адрес"]
+                            </th>
+                            <th class="th_up">
+                                @Localizer["Статус"]
+                            </th>
+                        }
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.Orders)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td class="word_br">@item.ProductName</td>
+                            <td class="word_br">@item.ProductCount</td>
+                            <td>@item.ProductPrice₽</td>
+                            <td class="word_br">@item.UserEmail</td>
+                            <td>@item.UserPhone</td>
+                            <td>@item.UserFullName</td>
+                            <td class="word_br">@item.UserAddress</td>
+                            <td>
+                                <b>
+                                    @switch (item.Status)
+                                    {
+                                        case "На рассмотрении":
+                                            @Localizer["На рассмотрении"];
+                                            break;
+                                        case "В сборке":
+                                            @Localizer["В сборке"];
+                                            break;
+                                        case "Отправлено":
+                                            @Localizer["Отправлено"];
+                                            break;
+                                        case "Исполнено":
+                                            @Localizer["Исполнено"];
+                                            break;
+                                        case "Отказано":
+                                            @Localizer["Отказано"];
+                                            break;
+                                    }
+                                </b>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     @if (Model.Orders.Count() > 0)
     {
@@ -86,4 +126,9 @@
                    page-url-UserId="@Model.Orders.FirstOrDefault().UserId">
         </page-link>
     }
+
+    <div>
+        <a class="btn btn-outline-secondary" asp-action="Index">@Localizer["Назад"]</a>
+    </div>
+
 }

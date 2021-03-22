@@ -6,20 +6,26 @@
 {
     ViewBag.Title = "Изменение электронного адреса";
 
-    <h3>@Localizer["Title"] @Model.FullName</h3>
+    <div>
+        <h3>@Localizer["Title"] @Model.FullName</h3>
+    </div>
 
     <form asp-action="ChangeEmail" asp-controller="Home">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input type="hidden" asp-for="Id" />
         <input type="hidden" asp-for="FullName" />
-        <div class="form-group">
-            <label asp-for="Email" class="control-label"></label>
-            <input asp-for="Email" class="form-control col-xl-3" />
+        <div class="form-group col-md-5">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
             <span asp-validation-for="Email"></span>
         </div>
-        <div class="form-group">
-            <input class="btn btn-outline-dark" type="submit" value="@Localizer["Save"]" />
-            <a class="btn btn-outline-secondary" asp-action="Settings">@Localizer["Back"]</a>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <input class="btn btn-outline-dark form-control" type="submit" value="@Localizer["Save"]" />
+            </div>
+            <div class="form-group col-md-2">
+                <a class="btn btn-outline-secondary form-control" asp-action="Settings">@Localizer["Back"]</a>
+            </div>
         </div>
     </form>
 }

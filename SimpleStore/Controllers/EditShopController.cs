@@ -26,7 +26,7 @@ namespace SimpleStore.Controllers
         {
             ViewBag.type = type;
 
-            //фильтрация
+            // фильтрация
             IQueryable<Product> Products = db.Products.Where(p => p.Type == type);
 
             if (!string.IsNullOrEmpty(name))
@@ -42,6 +42,12 @@ namespace SimpleStore.Controllers
             // сортировка
             switch (sortOrder)
             {
+                case SortState.IdProductAsc:
+                    Products = Products.OrderBy(s => s.Id);
+                    break;
+                case SortState.IdProductDesc:
+                    Products = Products.OrderByDescending(s => s.Id);
+                    break;
                 case SortState.NameDesc:
                     Products = Products.OrderByDescending(s => s.Name);
                     break;

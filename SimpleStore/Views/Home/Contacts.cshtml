@@ -5,9 +5,16 @@
     ViewBag.Title = "Контакты";
 }
 
-<h3>@Localizer["Title"]</h3>
+<div>
+    <h3>@Localizer["Title"]</h3>
+</div>
 
-<p>@Localizer["Phone"]</p>
-<p>@Localizer["Address"]</p>
+<div>
+    <p>@Localizer["Phone"]</p>
+    <p>@Localizer["Address"]</p>
+</div>
 
-<img style='width:400px; height:300px;' src="~/img/Map.jpg" />
+<div class="disp_map">
+    <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A440c364a58d56e1be5d96dd0d1fd953fa20ecec196992b38d488e3a8dd0e0a0d&amp;source=constructor"
+            width="617" height="412" frameborder="0"></iframe>
+</div>

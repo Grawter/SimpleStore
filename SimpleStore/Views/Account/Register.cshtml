@@ -11,45 +11,49 @@
 <form method="post" asp-controller="Account" asp-action="Register">
     <div asp-validation-summary="ModelOnly"></div>
     <input type="hidden" asp-for="FullPath" value="@Model.FullPath">
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="FullName"></label><br />
-        <input class="col-3" asp-for="FullName" />
+        <input class="form-control" asp-for="FullName" />
         <span asp-validation-for="FullName"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="Address"></label><br />
-        <textarea class="textar" asp-for="Address"></textarea>
+        <textarea class="form-control" asp-for="Address"></textarea>
         <span asp-validation-for="Address"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="PhoneNumber"></label><br />
-        <input asp-for="PhoneNumber" />
+        <input class="form-control" asp-for="PhoneNumber" />
         <span asp-validation-for="PhoneNumber"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="DateBirth"></label><br />
-        <input type="date" asp-for="DateBirth" value="0001-01-01" />
+        <input class="form-control" type="date" asp-for="DateBirth" value="0001-01-01" />
         <span asp-validation-for="DateBirth"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="Email"></label><br />
-        <input class="col-3" asp-for="Email" />
+        <input class="form-control" asp-for="Email" />
         <span asp-validation-for="Email"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="Password"></label><br />
-        <input class="col-3" asp-for="Password" />
+        <input class="form-control" asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="PasswordConfirm"></label><br />
-        <input class="col-3" asp-for="PasswordConfirm" />
+        <input class="form-control" asp-for="PasswordConfirm" />
         <span asp-validation-for="PasswordConfirm"></span>
     </div>
-    <div>
-        <input class="btn btn-outline-dark edit-btn" type="submit" value="@Localizer["Registration"]" />
-        <a class="btn btn-outline-secondary edit-btn" asp-controller="Home" asp-action="Index">@Localizer["Back"]</a>
-    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <input class="btn btn-outline-dark form-control" type="submit" value="@Localizer["Registration"]" />
+        </div>
+        <div class="form-group col-md-2">
+            <a class="btn btn-outline-secondary form-control" asp-controller="Home" asp-action="Index">@Localizer["Back"]</a>
+        </div>
+    </div>  
 </form>
 
 @section scripts{

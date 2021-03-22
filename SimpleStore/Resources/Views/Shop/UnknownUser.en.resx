@@ -120,6 +120,9 @@
   <data name="в свой  личный кабинет" xml:space="preserve">
     <value>to your personal account</value>
   </data>
+  <data name="Вернуться" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="войдите" xml:space="preserve">
     <value>sign in</value>
   </data>

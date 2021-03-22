@@ -9,24 +9,28 @@
 <h3>@Localizer["Title"]</h3>
 
 <form method="post" asp-controller="Account" asp-action="Login">
-      <input type="hidden" asp-for="FullPath" value="@Model.FullPath" />
+    <input type="hidden" asp-for="FullPath" value="@Model.FullPath" />
     <div asp-validation-summary="ModelOnly"></div>
-    <div>
+    <div class="form-group col-md-3">
         <label asp-for="Email"></label><br />
-        <input asp-for="Email" />
+        <input class="form-control" asp-for="Email" />
         <span asp-validation-for="Email"></span>
     </div>
-    <div>
+    <div class="form-group col-md-3">
         <label asp-for="Password"></label><br />
-        <input asp-for="Password" />
+        <input class="form-control" asp-for="Password" />
         <span asp-validation-for="Password"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="RememberMe"></label>
         <input asp-for="RememberMe" />
     </div>
-    <div>
-        <input class="btn btn-outline-dark" type="submit" value="@Localizer["Login"]" />
-        <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">@Localizer["Back"]</a>
-    </div>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <input class="btn btn-outline-dark form-control" type="submit" value="@Localizer["Login"]" />
+        </div>
+        <div class="form-group col-md-2">
+            <a class="btn btn-outline-secondary form-control" asp-controller="Home" asp-action="Index">@Localizer["Back"]</a>
+        </div>     
+    </div>   
 </form>

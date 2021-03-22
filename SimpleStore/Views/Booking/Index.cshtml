@@ -6,121 +6,127 @@
     ViewBag.Title = "Заказы";
 }
 
-<form method="get" asp-action="Index">
-    <div class="form-inline form-group">
-        <label class="control-label">ID заказа:</label>
-        <input name="id" class="form-control form-control-sm inp" />
-        <label class="control-label">Email:</label>
-        <input name="email" class="form-control form-control-sm inp" />
-        <label class="control-label">Статус:</label>
-        <select name="status" class="sel">
-            <option value="Все">Все</option>
-            <option value="На рассмотрении">На рассмотрении</option>
-            <option value="В сборке">В сборке</option>
-            <option value="Отправлено">Отправлено</option>
-            <option value="Исполнено">Исполнено</option>
-            <option value="Отказано">Отказано</option>
-        </select>
-        <input type="submit" value="Найти" class="btn btn-sm btn-outline-dark" />
+<div class="center_find_form_booking">
+    <form method="get" asp-action="Index">
+        <div class="form-inline form-group"> 
+                <label class="control-label">ID заказа:&nbsp;</label>
+                <input name="id" class="form-control form-control-sm space_el">
+                <label class="control-label">Email:&nbsp;</label>
+                <input name="email" class="form-control form-control-sm col-md-3 space_el" />
+                <label class="control-label">Статус:&nbsp;</label>
+                <select name="status" class="space_el">
+                    <option value="Все">Все</option>
+                    <option value="На рассмотрении">На рассмотрении</option>
+                    <option value="В сборке">В сборке</option>
+                    <option value="Отправлено">Отправлено</option>
+                    <option value="Исполнено">Исполнено</option>
+                    <option value="Отказано">Отказано</option>
+                </select>
+                <input type="submit" value="Найти" class="btn btn-sm btn-outline-dark form-control" />
+        </div>
+    </form>
+</div>
+
+<div class="center_table">
+    <div class="to_grid">
+        <table class="table table-hover table-wrap div_tab_center">
+            <thead class="thead-light">
+                <tr>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.IdSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">ID&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.IdProductSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">ID&nbsp;товара&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Название&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.CountSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Количество&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.PriceSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Цена&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Email&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Телефон&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">ФИО&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.AddressSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Адрес&nbsp;⇕</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index"
+                           asp-route-sortOrder="@(Model.SortViewModel.StatusSort)"
+                           asp-route-id="@(Model.FilterViewModel.SelectedId)"
+                           asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
+                           asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Статус&nbsp;⇕</a>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            @foreach (var item in Model.Orders)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td class="word_br">@item.ProductId</td>
+                    <td class="word_br">@item.ProductName</td>
+                    <td class="word_br">@item.ProductCount</td>
+                    <td>@item.ProductPrice₽</td>
+                    <td class="word_br">@item.UserEmail</td>
+                    <td>@item.UserPhone</td>
+                    <td class="word_br">@item.UserFullName</td>
+                    <td class="word_br">@item.UserAddress</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
+                    </td>
+                </tr>
+            }
+        </table>
     </div>
-</form>
-
-<table class="table table-hover">
-    <thead class="thead-light">
-        <tr>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.IdSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">ID&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.IdProductSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">ID&nbsp;товара&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.NameSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Название&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.CountSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Количество&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.PriceSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Цена&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.EmailSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Email&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.PhoneSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Телефон&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.NamesSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">ФИО&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.AddressSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Адрес&nbsp;⇕</a>
-            </th>
-            <th>
-                <a asp-action="Index"
-                   asp-route-sortOrder="@(Model.SortViewModel.StatusSort)"
-                   asp-route-id="@(Model.FilterViewModel.SelectedId)"
-                   asp-route-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
-                   asp-route-status="@(Model.FilterViewModel.SelectedStatus)">Статус&nbsp;⇕</a>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-
-        @foreach (var item in Model.Orders)
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.ProductId</td>
-                <td>@item.ProductName</td>
-                <td>@item.ProductCount</td>
-                <td>@item.ProductPrice₽</td>
-                <td>@item.UserEmail</td>
-                <td>@item.UserPhone</td>
-                <td>@item.UserFullName</td>
-                <td>@item.UserAddress</td>
-                <td>@item.Status</td>
-                <td>
-                    <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@item.Id">Изменить</a>
-                </td>
-            </tr>
-        }
-</table>
+</div>
 
 <page-link page-model="Model.PageViewModel" page-action="Index"
            page-url-sortOrder="@(Model.SortViewModel.Current)"
@@ -128,3 +134,7 @@
            page-url-email="@(Model.FilterViewModel.SelectedNameOrEmail)"
            page-url-status="@(Model.FilterViewModel.SelectedStatus)">
 </page-link>
+
+<div>
+    <a class="btn btn-outline-secondary" asp-controller="Home" asp-action="Index">Назад</a>
+</div>

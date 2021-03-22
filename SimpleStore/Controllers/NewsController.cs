@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using SimpleStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SimpleStore.Controllers
 {
@@ -28,9 +29,11 @@ namespace SimpleStore.Controllers
                 return NotFound("Не найдено");
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet]
         public IActionResult Create() => View();
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] Novelty news)
         {
@@ -46,6 +49,7 @@ namespace SimpleStore.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
@@ -58,6 +62,7 @@ namespace SimpleStore.Controllers
             return NotFound("Не найдено");
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         public async Task<IActionResult> Edit([FromForm] Novelty news)
         {
@@ -66,6 +71,7 @@ namespace SimpleStore.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet]
         [ActionName("Delete")]
         public async Task<ActionResult> ConfirmDelete(int? id)
@@ -78,6 +84,7 @@ namespace SimpleStore.Controllers
             return NotFound("Не найдено");
         }
 
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpPost]
         public async Task<ActionResult> Delete([FromForm] int? id)
         {

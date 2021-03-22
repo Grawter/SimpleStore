@@ -14,27 +14,27 @@
     <input type="hidden" asp-for="ProductName" />
     <input type="hidden" asp-for="ProductCount" />
     <input type="hidden" asp-for="ProductPrice" />
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="UserEmail"></label><br />
-        <input class="col-3" asp-for="UserEmail" />
+        <input class="form-control" asp-for="UserEmail" />
         <span asp-validation-for="UserEmail"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="UserPhone"></label><br />
-        <input asp-for="UserPhone" />
+        <input class="form-control" asp-for="UserPhone" />
         <span asp-validation-for="UserPhone"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="UserFullName"></label><br />
-        <input class="col-3" asp-for="UserFullName" />
+        <input class="form-control" asp-for="UserFullName" />
         <span asp-validation-for="UserFullName"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="UserAddress"></label><br />
-        <textarea class="textar" asp-for="UserAddress"></textarea>
+        <textarea class="form-control" asp-for="UserAddress"></textarea>
         <span asp-validation-for="UserAddress"></span>
     </div>
-    <div>
+    <div class="form-group col-md-5">
         <label asp-for="Status"></label><br />
         <select asp-for="Status">
             <option value="На рассмотрении">На рассмотрении</option>
@@ -44,9 +44,13 @@
             <option value="Отказано">Отказано</option>
         </select>
     </div>
-    <div>
-        <input class="btn btn-success edit-btn" type="submit" value="Сохранить" />
-        <a class="btn btn-primary edit-btn" asp-action="Index">Назад</a>
+    <div class="form-row">
+        <div class="form-group col-md-2">
+            <input class="btn btn-success form-control" type="submit" value="Сохранить" />
+        </div>
+        <div class="form-group col-md-2">
+            <a class="btn btn-primary form-control" asp-action="Index">Назад</a>
+        </div>
     </div>
 </form>
 

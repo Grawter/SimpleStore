@@ -6,32 +6,37 @@
     ViewBag.Title = "Новости";
 }
 
-<h3>@Localizer["Title"]</h3>
+<h3 class="main_text_news">@Localizer["Title"]</h3>
 
 @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
 {
-    <a class="btn btn-sm btn-outline-primary" asp-action="Create">Создать новость</a>
+    <div class="form-group">
+        <a class="btn btn-sm btn-outline-primary form-control" asp-action="Create">Создать новость</a>
+    </div>
+    
 }
 
-<table class="table table-hover col-md-6">
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <a asp-action="Show" asp-route-id="@item.Id"><b><u>@item.Title</u></b></a>
-            </td>
-            <td>
-                @item.Date.ToString("f")
-            </td>
-            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
+<div class="center_table">
+    <div class="to_grid">
+        <table class="table table-hover table-wrap ">
+            @foreach (var item in Model)
             {
-                <td>
-                    <a class="btn btn-sm btn-outline-info" asp-action="Edit" asp-route-id="@item.Id"> Редактировать</a>
-                </td>
-                <td>
-                    <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
-                </td>
+                <tr>
+                    <td class="word_br">
+                        <a asp-action="Show" asp-route-id="@item.Id"><b><u>@item.Title</u></b></a>
+                    </td>
+                    <td>
+                        @item.Date.ToString("f")
+                    </td>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin") || User.Identity.IsAuthenticated && User.IsInRole("Moderator"))
+                    {
+                        <td>
+                            <a class="btn btn-sm btn-outline-info space_btn" asp-action="Edit" asp-route-id="@item.Id"> Редактировать</a>
+                            <a class="btn btn-sm btn-outline-danger space_btn" asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                        </td>
+                    }
+                </tr>
             }
-        </tr>
-    }
-</table>
+        </table>
+    </div>
+</div>

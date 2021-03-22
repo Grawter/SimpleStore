@@ -50,7 +50,7 @@
 
         // Только для заказа
         public SortState IdSort { get; private set; } // значение для сортировки по номеру заказа
-        public SortState IdProductSort { get; private set; } // значение для сортировки по номеру продукта
+        public SortState IdProductSort { get; private set; } // значение для сортировки по номеру продукта (Так же исп. для модерации магазина)
         public SortState CountSort { get; private set; } // значение для сортировки по количеству
         public SortState AddressSort { get; private set; } // значение для сортировки по адресу
         public SortState StatusSort { get; private set; } // значение для сортировки по статусу

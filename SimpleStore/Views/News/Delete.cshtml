@@ -4,12 +4,12 @@
     ViewBag.Title = "Удаление новости";
 }
 
-<h3>Подтвердите удаление новости @Model.Title</h3>
+<h3>Подтвердите удаление новости "@Model.Title"</h3>
 
 <form asp-action="Delete" asp-controller="News">
     <div class="form-group">
         <input type="hidden" name="id" value="@Model.Id">
-        <input class="btn btn-danger edit-btn" type="submit" value="Удалить" />
-        <a class="btn btn-primary edit-btn" asp-action="Index">Назад</a>
+        <input class="btn btn-sm btn-danger" type="submit" value="Удалить" />
+        <a class="btn btn-sm btn-primary" asp-action="Index">Назад</a>
     </div>
 </form>
