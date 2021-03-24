@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks;
 using SimpleStore.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -46,8 +48,7 @@ namespace SimpleStore
             });
         }
 
-
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
@@ -56,7 +57,7 @@ namespace SimpleStore
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                
+
             }
             app.UseHttpsRedirection();
             app.UseRequestLocalization();
@@ -75,6 +76,75 @@ namespace SimpleStore
 
                 endpoints.MapFallbackToController("Index", "Home"); // если запрос не соответствует ни одному маршруту
             });
+
+            Initialization(serviceProvider); // Стартовая инициализация ролей и админа
+        }
+
+        private void Initialization(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            Task<IdentityResult> roleResult;
+
+            string email = "admin@mail.ru";
+
+            try
+            {
+                /* Проверяем наличие используемых ролей (Пользователь, Модератор, Админ)
+                Если таких нет, то создаём их */
+
+                Task<bool> hasUserRole = roleManager.RoleExistsAsync("User");
+                hasUserRole.Wait(); // ждём завершения выполнения
+
+                if (!hasUserRole.Result)
+                {
+                    roleResult = roleManager.CreateAsync(new IdentityRole("User"));
+                    roleResult.Wait();
+                }
+
+                Task<bool> hasModeratorRole = roleManager.RoleExistsAsync("Moderator");
+                hasModeratorRole.Wait();
+
+                if (!hasModeratorRole.Result)
+                {
+                    roleResult = roleManager.CreateAsync(new IdentityRole("Moderator"));
+                    roleResult.Wait();
+                }
+
+                Task<bool> hasAdminRole = roleManager.RoleExistsAsync("Admin");
+                hasAdminRole.Wait();
+
+                if (!hasAdminRole.Result)
+                {
+                    roleResult = roleManager.CreateAsync(new IdentityRole("Admin"));
+                    roleResult.Wait();
+                }
+
+                // Проверяем есть ли пользователь администратор, если нет то создаём его        
+
+                Task<User> testUser = userManager.FindByEmailAsync(email);
+                testUser.Wait();
+
+                if (testUser.Result == null)
+                {
+                    User administrator = new User { Email = email, UserName = email };
+
+                    Task<IdentityResult> newUser = userManager.CreateAsync(administrator, "123456Qwerty!");
+                    newUser.Wait();
+
+                    if (newUser.Result.Succeeded)
+                    {
+                        Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(administrator, "Admin");
+                        newUserRole.Wait();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model SimpleStore.Models.Order
+﻿@model SimpleStore.ViewModels.Booking.OrderViewModel
 
 @{
     ViewBag.Title = "Редактирование заказа";
@@ -9,11 +9,6 @@
 <form method="post" asp-controller="Booking" asp-action="Edit">
     <div asp-validation-summary="ModelOnly"></div>
     <input type="hidden" asp-for="Id" />
-    <input type="hidden" asp-for="ProductId" />
-    <input type="hidden" asp-for="UserId" />
-    <input type="hidden" asp-for="ProductName" />
-    <input type="hidden" asp-for="ProductCount" />
-    <input type="hidden" asp-for="ProductPrice" />
     <div class="form-group col-md-5">
         <label asp-for="UserEmail"></label><br />
         <input class="form-control" asp-for="UserEmail" />

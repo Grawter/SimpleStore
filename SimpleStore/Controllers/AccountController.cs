@@ -10,13 +10,11 @@ namespace SimpleStore.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -34,15 +32,6 @@ namespace SimpleStore.Controllers
                 User user = new User { Email = model.Email, UserName = model.Email, FullName = model.FullName,
                     Address = model.Address, PhoneNumber = model.PhoneNumber, DateBirth = model.DateBirth.ToShortDateString() };
                 var result = await _userManager.CreateAsync(user, model.Password); // добавление пользователя через пароль
-
-                if (await _roleManager.FindByNameAsync("Admin") == null)
-                    await _roleManager.CreateAsync(new IdentityRole("Admin"));
-
-                if (await _roleManager.FindByNameAsync("Moderator") == null)
-                    await _roleManager.CreateAsync(new IdentityRole("Moderator"));
-
-                if (await _roleManager.FindByNameAsync("User") == null)
-                    await _roleManager.CreateAsync(new IdentityRole("User"));
 
                 await _userManager.AddToRoleAsync(user, "User");
 

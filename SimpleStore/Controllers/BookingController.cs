@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using SimpleStore.Models;
 using SimpleStore.ViewModels.Supporting_tools;
+using SimpleStore.ViewModels.Booking;
 
 namespace SimpleStore.Controllers
 {
@@ -129,21 +130,45 @@ namespace SimpleStore.Controllers
 
             if (order != null)
             {
-                return View(order);
+                OrderViewModel orderViewModel = new OrderViewModel
+                {
+                    Id = order.Id,
+                    UserEmail = order.UserEmail,
+                    UserPhone = order.UserPhone,
+                    UserFullName = order.UserFullName,
+                    UserAddress = order.UserFullName,
+                    Status = order.Status
+                };
+
+                return View(orderViewModel);
             }
             return NotFound("Не найдено");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromForm] Order order)
+        public async Task<IActionResult> Edit([FromForm] OrderViewModel model)
         {
-            if (order != null)
+            if (ModelState.IsValid)
             {
-                db.Orders.Update(order);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                Order order = await db.Orders.FirstOrDefaultAsync(p => p.Id == model.Id);
+                if (order != null)
+                {
+                    order.UserEmail = model.UserEmail;
+                    order.UserPhone = model.UserPhone;
+                    order.UserFullName = model.UserFullName;
+                    order.UserAddress = model.UserAddress;
+                    order.Status = model.Status;
+
+                    db.Orders.Update(order);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return NotFound("Не найдено");
+                }
             }
-            return NotFound("Не найдено");
+            return View(model);
         }
 
     }
