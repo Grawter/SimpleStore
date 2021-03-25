@@ -128,7 +128,13 @@ namespace SimpleStore
 
                 if (testUser.Result == null)
                 {
-                    User administrator = new User { Email = email, UserName = email };
+                    User administrator = new User {
+                        Email = email,
+                        UserName = email,
+                        Address = "",
+                        PhoneNumber = "",
+                        DateBirth = DateTime.Now.ToString()
+                    };
 
                     Task<IdentityResult> newUser = userManager.CreateAsync(administrator, "123456Qwerty!");
                     newUser.Wait();
